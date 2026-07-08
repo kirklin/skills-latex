@@ -1,0 +1,136 @@
+% =============================================================================
+%  figures-tikz-alt.tex  --  OPTIONAL, dependency-free alternative figures
+%
+%  paper.tex uses the paper's real bundled PNGs (Figures/ModalNet-*.png) for the
+%  architecture and attention diagrams. If you would rather ship a self-contained
+%  document with NO external image files, the two TikZ pictures below reproduce
+%  Figure 1 and Figure 2 by hand — nothing but LaTeX required.
+%
+%  HOW TO USE
+%  1. Add to your preamble the packages, colours and styles in the block below.
+%  2. Replace the \begin{figure}...\includegraphics... blocks in paper.tex with
+%     the two figure environments further down (or \input this file where wanted).
+% =============================================================================
+
+% ---------------------------------------------------------------------------
+%  PREAMBLE — copy these lines into paper.tex's preamble to use the TikZ figures
+% ---------------------------------------------------------------------------
+% \usepackage{tikz}
+% \usetikzlibrary{positioning,arrows.meta,calc,fit,backgrounds,shapes.geometric}
+% \definecolor{cAddNorm}{RGB}{249,229,160}   % Add & Norm — gold
+% \definecolor{cAttn}{RGB}{206,187,221}      % attention  — violet
+% \definecolor{cFF}{RGB}{173,204,235}        % feed-forward — blue
+% \definecolor{cEmbed}{RGB}{243,197,196}     % embeddings — pink
+% \definecolor{cSoft}{RGB}{197,224,180}      % softmax    — green
+% \tikzset{
+%   blk/.style={rectangle,rounded corners=2pt,draw=black!70,thick,
+%               minimum height=7mm,minimum width=24mm,align=center,font=\scriptsize},
+%   addnorm/.style={blk,fill=cAddNorm}, attn/.style={blk,fill=cAttn},
+%   ff/.style={blk,fill=cFF}, embed/.style={blk,fill=cEmbed},
+%   lin/.style={blk,fill=cFF}, soft/.style={blk,fill=cSoft},
+%   oplus/.style={circle,draw=black!70,thick,inner sep=1pt,minimum size=4.5mm,font=\footnotesize},
+%   flow/.style={-{Latex[length=2mm]},thick,black!70},
+%   res/.style={-{Latex[length=2mm]},thick,black!70,rounded corners=4pt},
+% }
+
+% ---------------------------------------------------------------------------
+%  FIGURE 1 — The Transformer architecture (hand-built in TikZ)
+% ---------------------------------------------------------------------------
+\begin{figure}[t]
+\centering
+\begin{tikzpicture}
+  % ---------- ENCODER (left, x = 0) ----------
+  \node[font=\scriptsize] (ein) at (0,-0.5) {Inputs};
+  \node[embed] (eemb) at (0,0.5) {Input\\Embedding};
+  \node[oplus] (epos) at (0,1.7) {$+$};
+  \node[attn]  (emha) at (0,3.2) {Multi-Head\\Attention};
+  \node[addnorm](ean1) at (0,4.3) {Add \& Norm};
+  \node[ff]    (eff)  at (0,5.6) {Feed\\Forward};
+  \node[addnorm](ean2) at (0,6.7) {Add \& Norm};
+  \node[left=5mm of epos,align=center] (eposlab) {\scriptsize Positional\\\scriptsize Encoding};
+  \draw[flow] (ein) -- (eemb);   \draw[flow] (eemb) -- (epos);
+  \draw[flow] (epos) -- (emha);  \draw[flow] (emha) -- (ean1);
+  \draw[flow] (ean1) -- (eff);   \draw[flow] (eff) -- (ean2);
+  \draw[flow] (eposlab) -- (epos);
+  \draw[res] ($(epos)!0.5!(emha)$) ++(0,0.05) -- ++(-1.55,0) |- (ean1.west);
+  \draw[res] ($(ean1)!0.5!(eff)$)  ++(0,0.05) -- ++(-1.55,0) |- (ean2.west);
+  \begin{scope}[on background layer]
+    \node[draw=black!35,rounded corners=3pt,dashed,fit=(emha)(ean2),inner sep=3mm] (encbox) {};
+  \end{scope}
+  \node[left=1mm of encbox.west,font=\footnotesize] {$N\times$};
+  % ---------- DECODER (right, x = 5.4) ----------
+  \node[align=center,font=\scriptsize] (dout) at (5.4,-0.7) {Outputs\\(shifted right)};
+  \node[embed] (demb) at (5.4,0.5) {Output\\Embedding};
+  \node[oplus] (dpos) at (5.4,1.7) {$+$};
+  \node[attn]  (dmmha)at (5.4,3.2) {Masked\\Multi-Head\\Attention};
+  \node[addnorm](dan1) at (5.4,4.3) {Add \& Norm};
+  \node[attn]  (dmha) at (5.4,5.5) {Multi-Head\\Attention};
+  \node[addnorm](dan2) at (5.4,6.6) {Add \& Norm};
+  \node[ff]    (dff)  at (5.4,7.8) {Feed\\Forward};
+  \node[addnorm](dan3) at (5.4,8.9) {Add \& Norm};
+  \node[lin]   (dlin) at (5.4,10.1){Linear};
+  \node[soft]  (dsm)  at (5.4,11.1){Softmax};
+  \node[align=center,font=\scriptsize] (dprob) at (5.4,12.1) {Output\\Probabilities};
+  \node[right=5mm of dpos,align=center] (dposlab){\scriptsize Positional\\\scriptsize Encoding};
+  \draw[flow] (dout) -- (demb);  \draw[flow] (demb) -- (dpos);
+  \draw[flow] (dpos) -- (dmmha); \draw[flow] (dmmha) -- (dan1);
+  \draw[flow] (dan1) -- (dmha);  \draw[flow] (dmha) -- (dan2);
+  \draw[flow] (dan2) -- (dff);   \draw[flow] (dff) -- (dan3);
+  \draw[flow] (dan3) -- (dlin);  \draw[flow] (dlin) -- (dsm);
+  \draw[flow] (dsm) -- (dprob);  \draw[flow] (dposlab) -- (dpos);
+  \draw[res] ($(dpos)!0.5!(dmmha)$) ++(0,0.05) -- ++(1.6,0) |- (dan1.east);
+  \draw[res] ($(dan1)!0.5!(dmha)$)  ++(0,0.05) -- ++(1.6,0) |- (dan2.east);
+  \draw[res] ($(dan2)!0.5!(dff)$)   ++(0,0.05) -- ++(1.6,0) |- (dan3.east);
+  \begin{scope}[on background layer]
+    \node[draw=black!35,rounded corners=3pt,dashed,fit=(dmmha)(dan3),inner sep=3mm] (decbox){};
+  \end{scope}
+  \node[right=1mm of decbox.east,font=\footnotesize]{$N\times$};
+  \draw[res] (ean2.north) -- ++(0,0.35) -| ($(dmha.west)+(-0.9,0.15)$) -- (dmha.west);
+  \draw[res] (ean2.north) ++(0.12,0) -- ++(0,0.55) -| ($(dmha.west)+(-0.6,-0.15)$) -- ($(dmha.west)+(0,-0.15)$);
+\end{tikzpicture}
+\caption{The Transformer --- model architecture (hand-drawn TikZ version).}
+\label{fig:architecture-tikz}
+\end{figure}
+
+% ---------------------------------------------------------------------------
+%  FIGURE 2 — Scaled Dot-Product & Multi-Head Attention (hand-built in TikZ)
+%  Requires \usepackage{subcaption}
+% ---------------------------------------------------------------------------
+\begin{figure}[t]
+\centering
+\begin{subcaptionblock}{0.42\textwidth}
+\centering
+\begin{tikzpicture}[node distance=4mm]
+  \node[blk,fill=cFF,minimum width=16mm] (mm2) at (0,4.5) {MatMul};
+  \node[soft,minimum width=16mm] (sm)  at (0,3.5) {SoftMax};
+  \node[blk,fill=cEmbed,minimum width=16mm,densely dashed] (mask) at (0,2.5) {Mask (opt.)};
+  \node[addnorm,minimum width=16mm] (sc) at (0,1.5) {Scale};
+  \node[blk,fill=cFF,minimum width=16mm] (mm1) at (0,0.5) {MatMul};
+  \node (q) at (-0.7,-0.6) {\scriptsize Q}; \node (k) at (0.0,-0.6) {\scriptsize K}; \node (v) at (1.6,-0.6) {\scriptsize V};
+  \draw[flow] (q) |- ($(mm1.south)+(-0.3,0)$);  \draw[flow] (k) |- ($(mm1.south)+(0.3,0)$);
+  \draw[flow] (mm1) -- (sc);  \draw[flow] (sc) -- (mask);  \draw[flow] (mask) -- (sm);
+  \draw[flow] (sm) -- ($(mm2.south)+(-0.3,0)$);
+  \draw[flow] (v) -- (v|-mm2.south) -- ($(mm2.south)+(0.3,0)$);  \draw[flow] (mm2) -- ++(0,0.8);
+\end{tikzpicture}
+\caption{Scaled Dot-Product Attention.}
+\end{subcaptionblock}
+\hfill
+\begin{subcaptionblock}{0.52\textwidth}
+\centering
+\begin{tikzpicture}[node distance=4mm]
+  \node[lin,minimum width=16mm] (lout) at (0,5.0) {Linear};
+  \node[blk,fill=cAddNorm,minimum width=16mm] (cc) at (0,4.0) {Concat};
+  \node[attn,minimum width=30mm,minimum height=9mm] (sdpa) at (0,2.7) {Scaled Dot-Product\\Attention};
+  \node[lin,minimum width=8mm] (l1) at (-1.1,1.3) {Linear}; \node[lin,minimum width=8mm] (l2) at (0.0,1.3) {Linear}; \node[lin,minimum width=8mm] (l3) at (1.1,1.3) {Linear};
+  \node (v) at (-1.1,0.2) {\scriptsize V}; \node (k) at (0.0,0.2) {\scriptsize K}; \node (q) at (1.1,0.2) {\scriptsize Q};
+  \draw[flow] (v) -- (l1); \draw[flow] (k) -- (l2); \draw[flow] (q) -- (l3);
+  \draw[flow] (l1) -- (l1|-sdpa.south); \draw[flow] (l2) -- (l2|-sdpa.south); \draw[flow] (l3) -- (l3|-sdpa.south);
+  \draw[flow] (sdpa) -- (cc); \draw[flow] (cc) -- (lout); \draw[flow] (lout) -- ++(0,0.8);
+  \node[right=1mm of sdpa.east,font=\scriptsize] {$h$};
+\end{tikzpicture}
+\caption{Multi-Head Attention.}
+\end{subcaptionblock}
+\caption{(left) Scaled Dot-Product Attention. (right) Multi-Head Attention
+consists of several attention layers running in parallel (hand-drawn TikZ version).}
+\label{fig:attention-tikz}
+\end{figure}

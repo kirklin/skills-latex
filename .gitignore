@@ -1,0 +1,25 @@
+# macOS
+.DS_Store
+
+# IDE / editor
+.idea/
+.vscode/
+
+# LaTeX build artifacts (never commit — regenerate with scripts/compile.sh)
+*.aux
+*.log
+*.bbl
+*.blg
+*.out
+*.toc
+*.lof
+*.lot
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+*.nav
+*.snm
+*.vrb
+
+# Note: examples/**/*.pdf and examples/**/*.png are committed on purpose (previews),
+# as are templates/**/*.png|*.pdf (figure assets). Only the aux files above are ignored.
