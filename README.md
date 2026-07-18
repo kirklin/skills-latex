@@ -34,6 +34,10 @@ Requires TeX Live (`pdflatex`/`xelatex`, `latexmk`) and `poppler-utils`
   红线、版记、镜像页码, all hard spec dimensions pixel-verified; auto-detects
   方正小标宋/仿宋_GB2312 with graceful fallbacks. Five build files cover every
   layout in the standard: 文件式 (`main.tex`), 联合行文, 信函, 命令（令）, 纪要.
+- **resume** — one-page Chinese professional resume in the classic
+  structure（姓名区+证件照位、公司/职位/时间一行三列、「1、2、」编号要点、
+  黑体强调、年.月 等宽数字对齐）; 宋黑搭配, all-black, single file, no
+  external class. Sample recreates Elon Musk's public career.
 
 Adding your own → [`references/adding-templates.md`](references/adding-templates.md).
 

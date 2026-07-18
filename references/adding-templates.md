@@ -25,10 +25,13 @@ templates/<name>/
    generic stand-ins, never anything that looks (or is) real: 「示例公司」/
    「示例企业」/ "Example Corp" for organizations, generic units like 「××部」/
    「人力资源部」/「架构组」 for authors, `example.com` for e-mail domains, and
-   obviously fake phone numbers. No real people or companies, no personal data,
-   and no made-up brand names that read as real. (Faithful recreations of
-   published documents — see "Prefer authentic sources" below — keep their
-   original real content.)
+   obviously fake phone numbers. No made-up brand names that read as real, and
+   never the repo owner's personal data. Two sanctioned exceptions, both in the
+   spirit of "Prefer authentic sources" below: (a) faithful recreations of
+   published documents keep their original real content (`neurips-paper`);
+   (b) a sample may showcase a well-known public figure using only publicly
+   documented facts (`resume`'s Musk sample) — contact details stay
+   placeholders and the page carries a visible "template sample" note.
 5. **Documented.** `README.md` gives the file map and names exactly what a user
    swaps to make it their own.
 6. **Previewed.** Commit rendered PNGs (and the sample PDF) under

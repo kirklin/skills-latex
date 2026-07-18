@@ -100,5 +100,37 @@ template here, then follow the main workflow in [../SKILL.md](../SKILL.md).
 
 ---
 
+## resume
+
+- **Produces:** a one-page professional Chinese resume in the layout Chinese
+  tech recruiters see every day — centered name header (姓名 / letterspaced
+  English name / one contact line with vertical-bar separators), bold section
+  heads over hairlines, and the signature **three-column entry row** (company
+  left, role centered, 年.月 dates right, all bold black), 「1、2、」numbered
+  achievement points with key metrics inline-bolded, compact one-line venture
+  rows, three-column education rows, and a framed 2.5×3.5cm ID-photo slot in the top-right corner. Song/Hei pairing (宋体 body, 黑体 for heads/companies/emphasis via \hl — the professional Chinese convention where "bold" is a Song→Hei font switch). All black — no gray, no color, no icons.
+  The LaTeX craft lives in the details: OpenType monospaced figures align the
+  date column digit-for-digit, microtype optical margins, xeCJK CJK-Latin
+  spacing and punctuation compression, letterspaced English name,
+  no-hyphenation + \emergencystretch. CJK sans (PingFang/雅黑/Fandol via ctex
+  fontsets) paired with Source Sans Pro.
+- **When to use:** 简历 / resume requests. Chinese-first; the layout macros and
+  fonts work unchanged for an English resume (just replace the text).
+- **Sample content:** Elon Musk's publicly documented career (SpaceX, Tesla,
+  xAI, X, Neuralink, Boring Co., OpenAI, PayPal, Zip2) — a public-figure
+  showcase per rule 4(b) in adding-templates.md; contact details are
+  placeholders and a footer note marks it as a template sample.
+- **Build:**
+  ```bash
+  bash scripts/compile.sh templates/resume/main.tex --preview \
+       --preview-dir examples/resume
+  ```
+- **Adapt it:** see `templates/resume/README.md` — three layout macros
+  (`\rsection`/`\entry`/`\entryline`), photo note, density knobs; delete
+  the footer sample note before real use.
+- **Preview:** rendered page in `examples/resume/`.
+
+---
+
 <!-- Add new templates below in the same shape: Produces / When to use / Build /
      Variants / Adapt it / Preview. Keep one H2 per template. -->

@@ -1,0 +1,157 @@
+% !TEX program = xelatex
+% =============================================================================
+% resume · 中文一页专业简历（经典专业版式；示例：埃隆·马斯克，公开履历事实）
+%
+% 版式（中文招聘市场最常见的专业板式，全黑无灰）：
+%       · 头部：左侧居中姓名区（姓名 / 英文名 / 定位语 / 联系方式），
+%         右上角 2.5cm×3.5cm 证件照框位；
+%       · 节标题黑体放大 + 细黑通栏线（头部与正文之间不再加线）；
+%       · 条目一行三列：公司居左、职位居中、时间居右（年.月）；
+%       · 要点用中文编号「1、2、」，关键数据与关键词用黑体强调。
+% 字体（宋黑搭配，中文印刷排版的标准做法）：
+%       · 正文宋体（ctex 按操作系统自动选择），标题与强调用黑体——
+%         中文的"加粗"本质是字体切换（宋→黑），比伪粗更专业；
+%       · 西文与数字 Source Sans Pro（TeX Live 自带），与黑体观感呼应。
+% LaTeX 功力体现在细节：
+%       · 时间列 OpenType 等宽数字（Numbers=Monospaced），右缘逐位对齐；
+%       · microtype 光学边缘；xeCJK 中西文自动间距与全角标点挤压；
+%       · 英文名 LetterSpace 字距；全文禁断词 + \emergencystretch 零溢出。
+% 示例：以公众人物公开履历为样例内容（类比 neurips-paper 复刻公开论文），
+%       联系方式为占位符，页脚有样例声明。
+% 编译：bash scripts/compile.sh templates/resume/main.tex --preview
+% =============================================================================
+\documentclass[zihao=5, linespread=1.3]{ctexart}
+
+% --- 版面 --------------------------------------------------------------------
+\usepackage[a4paper, top=1.4cm, bottom=1.3cm, left=1.7cm, right=1.7cm]{geometry}
+\pagestyle{empty}
+\setlength{\parindent}{0pt}
+
+% --- 字体与微排版 ------------------------------------------------------------
+\usepackage[default]{sourcesanspro}   % 西文与数字：无衬线，与黑体呼应
+\usepackage{microtype}                % 光学边缘（XeTeX 下启用 protrusion）
+\usepackage{graphicx}                 % 证件照
+\usepackage{enumitem}
+\setlist[enumerate]{nosep, leftmargin=1.7em, itemsep=0.35ex, label=\arabic*、}
+\setlist[itemize]{nosep, leftmargin=1.2em, itemsep=0.35ex,
+                  label=\raisebox{0.18ex}{\small\textbullet}}
+\hyphenpenalty=10000 \exhyphenpenalty=10000
+\emergencystretch=8pt
+\usepackage[hidelinks]{hyperref}
+\hypersetup{pdftitle={埃隆·马斯克 — 简历（模板示例）}}
+
+% --- 版式宏 ------------------------------------------------------------------
+% 强调：中文排版惯例，正文宋体内用黑体（而非伪粗）标出关键词与数据
+\newcommand{\hl}[1]{{\heiti\bfseries #1}}
+% 时间样式：加粗、等宽数字（右缘逐位对齐）
+\newcommand{\datefmt}[1]{{\bfseries\addfontfeature{Numbers=Monospaced}#1}}
+% 节标题：黑体放大 + 细黑通栏线
+\newcommand{\rsection}[1]{%
+  \vspace{1.8ex}%
+  {\Large\heiti #1}\par
+  \nointerlineskip\vspace{0.6ex}%
+  \hrule height 0.6pt\par
+  \nointerlineskip\vspace{1.1ex}}
+% 主条目（一行三列）：\entry{公司/学校}{职位/专业}{时间}
+% 公司居左、职位居中、时间居右；三段零宽锚点互不挤压，居中列绝对居中
+\newcommand{\entry}[3]{%
+  \par\noindent
+  \makebox[0pt][l]{\heiti\bfseries\large #1}\hfill
+  \makebox[0pt][c]{\heiti #2}\hfill
+  \makebox[0pt][r]{\datefmt{#3}}\par
+  \vspace{0.45ex}}
+% 单行条目：\entryline{公司}{一句话职责或结果}{时间}
+\newcommand{\entryline}[3]{%
+  \par\noindent
+  {\heiti\bfseries #1}\ \ {#2}\hfill \datefmt{#3}\par\vspace{0.5ex}}
+
+\begin{document}
+
+% --- 头部：左侧姓名区，右上角证件照框位 --------------------------------------
+\noindent
+\begin{minipage}[c]{\dimexpr\textwidth-3.0cm\relax}
+  {\centering
+    {\zihao{2}\heiti\bfseries 埃隆·马斯克}\\[1.0ex]
+    {\small\addfontfeature{LetterSpace=16}ELON MUSK}\\[1.1ex]
+    企业家 · 工程师\\[0.55ex]
+    美国得克萨斯州奥斯汀\quad|\quad
+    \href{mailto:elon@example.com}{elon@example.com}\quad|\quad
+    \href{https://x.com/elonmusk}{x.com/elonmusk}\par}
+\end{minipage}\hfill
+\begin{minipage}[c]{2.7cm}
+  \raggedleft
+  \setlength{\fboxrule}{0.5pt}\setlength{\fboxsep}{0pt}%
+  % 证件照框位：换成真实照片时用下一行注释替换 \fbox{...} 整块
+  % \includegraphics[width=2.5cm, height=3.5cm]{photo.jpg}
+  \fbox{\parbox[c][3.5cm][c]{2.5cm}{\centering 证件照\\[0.3ex]
+        {\scriptsize 2.5cm × 3.5cm}}}
+\end{minipage}
+\par\vspace{0.6ex}
+
+% --- 个人简介 ----------------------------------------------------------------
+\rsection{个人简介}
+连续创业者，在支付、电动汽车、商业航天与人工智能领域先后创办多家定义行业的
+公司：带领 SpaceX 从十余人的初创团队成长为\hl{全球发射市场的主导者}，带领
+特斯拉从濒临破产走到\hl{全球市值最高的汽车公司}，长期以极限工程节奏交付
+「首创级」产品。
+
+% --- 工作经历 ----------------------------------------------------------------
+\rsection{工作经历}
+
+\entry{SpaceX}{创始人 · CEO 兼首席工程师}{2002.05 -- 至今}
+\begin{enumerate}
+  \item 研制 Falcon 1，成为\hl{全球首枚}由私营公司研制并成功入轨的液体燃料
+        火箭（2008）；随后将 Falcon 9 打造为\hl{全球发射次数最多}的运载火箭；
+  \item 开创火箭复用时代：\hl{2015 年}实现轨道级助推器首次动力回收着陆，
+        \hl{2017 年}实现首次复飞，发射成本降低\hl{一个数量级}；
+  \item \hl{首家}将宇航员送入国际空间站的私营公司（载人龙飞船，2020）；
+        运营\hl{全球最大}卫星星座 Starlink 与完全可复用的 Starship 计划。
+\end{enumerate}
+\vspace{0.5ex}
+
+\entry{特斯拉 Tesla, Inc.}{CEO 兼产品架构师}{2004.02 -- 至今}
+\begin{enumerate}
+  \item 2004 年领投 A 轮并出任董事长，\hl{2008 年}金融危机中接任 CEO，
+        带领公司走出破产边缘；
+  \item 相继推出 Roadster、Model S/X/3/Y 与 Cybertruck，成长为\hl{全球市值
+        最高}的汽车制造商；
+  \item 建成全球超级工厂（Gigafactory）制造网络与储能业务
+        （Powerwall/Megapack），主导 \hl{Autopilot/FSD} 自动驾驶项目。
+\end{enumerate}
+\vspace{0.5ex}
+
+\entry{xAI}{创始人}{2023.03 -- 至今}
+\begin{enumerate}
+  \item 前沿 AI 实验室，研发 \hl{Grok} 大模型系列；完成\hl{全球规模领先}的
+        私募融资。
+\end{enumerate}
+\vspace{0.5ex}
+
+\entryline{X 公司}{以 \hl{440 亿美元}收购 Twitter 并改组为 X。}{2022.10 -- 至今}
+\entryline{Neuralink}{联合创始人——脑机接口，\hl{2024 年首例}人体植入。}{2016.07 -- 至今}
+\entryline{The Boring Company}{创始人——建成拉斯维加斯会展中心环线。}{2016.12 -- 至今}
+\entryline{OpenAI}{联合创始人兼联席主席（非营利研究阶段）。}{2015.12 -- 2018.02}
+\entryline{X.com / PayPal}{创始人——合并后成为 PayPal，\hl{15 亿美元}售予 eBay。}{1999.03 -- 2002.10}
+\entryline{Zip2}{联合创始人——城市指南软件，\hl{3.07 亿美元}售予康柏。}{1995.11 -- 1999.02}
+
+% --- 教育背景 ----------------------------------------------------------------
+\rsection{教育背景}
+\entry{宾夕法尼亚大学}{物理学学士 · 经济学学士（沃顿商学院）}{1992 -- 1997}
+\vspace{0.5ex}
+\entry{斯坦福大学}{应用物理学博士项目}{1995.09}
+入学两天后退学，创办 Zip2。
+
+% --- 精选成就 ----------------------------------------------------------------
+\rsection{精选成就}
+\begin{itemize}
+  \item \hl{首枚}私营入轨火箭 · \hl{首家}载人对接国际空间站的私营公司 ·
+        \hl{首次}轨道级助推器回收与复飞；
+  \item 2021 年\hl{《时代》年度人物}；六家公司横跨支付、能源、交通、隧道、
+        神经科技与 AI。
+\end{itemize}
+
+\vspace{0.8ex}
+{\centering\scriptsize
+模板示例 —— 履历内容取自公开报道，联系方式为占位符。\par}
+
+\end{document}

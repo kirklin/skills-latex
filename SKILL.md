@@ -26,6 +26,8 @@ PDF with page previews. Paths below are relative to this skill's directory.
   落款) → `cn-doc`. **Default for Chinese documents.**
 - Writing a formal Party/government official document — 公文 / 红头文件 per
   GB/T 9704—2012 (红色机关标志、发文字号、红线、版记、页码一字线) → `cn-gongwen`.
+- Writing a one-page professional resume — 中文简历 (single-file layout macros,
+  works for English too) → `resume`.
 - Compiling any `.tex` to PDF and showing previews.
 - More document types will arrive as templates — always check `references/templates.md`
   before assuming a type isn't covered.
@@ -55,6 +57,7 @@ PDF with page previews. Paths below are relative to this skill's directory.
 | `neurips-paper` | Single-column NeurIPS/arXiv-style research paper (sample: *Attention Is All You Need*) | `templates/neurips-paper/paper.tex` |
 | `cn-doc` | Everyday Chinese document base — 中式公文排版 (通知/报告/总结/请示/函; sample: a complete training notice) | `templates/cn-doc/main.tex` |
 | `cn-gongwen` | GB/T 9704—2012 党政机关公文 — 红头、版头/主体/版记全要素, spec-verified; variants for 联合行文/信函/命令/纪要 (see its README) | `templates/cn-gongwen/main.tex` |
+| `resume` | One-page Chinese professional resume — classic Chinese professional layout (三列条目行/编号要点/黑体强调/证件照位), 宋黑搭配 all-black, 年.月 dates digit-aligned, single file (sample: Elon Musk's public career) | `templates/resume/main.tex` |
 
 Full details, variants, and "when to use each" → [references/templates.md](references/templates.md).
 
