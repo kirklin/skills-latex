@@ -132,5 +132,39 @@ template here, then follow the main workflow in [../SKILL.md](../SKILL.md).
 
 ---
 
+## cn-fagui
+
+- **Produces:** a statute-style Chinese legal document per
+  **GB/T 47229.1—2026《法律法规电子文件 第 1 部分：页面格式》** (general page
+  format, clause 5.2) — 2号小标宋 title starting two blank lines into the
+  first page (measured 57.4mm), 楷体 annotation block (题注) with its
+  double-indent geometry, optional 发文字号, a 楷体 table of contents
+  (编/章 indent 2 chars, 节 indent 4), and the statutory hierarchy
+  编/分编/章/节/条/款/项/目 — 编·分编·章 in 黑体 centered, 节 in 宋体
+  centered, 条 numbers auto-generated as Chinese numerals (第四百二十五条)
+  in 黑体 with 仿宋 clause text, unnumbered 款 paragraphs, （一） items and
+  1. sub-items. Page base (156×225mm text block, 3号仿宋 22-line grid,
+  em-dash page numbers 7mm below, mirrored twoside) shared with GB/T 9704.
+- **When to use:** the **official published text** of 法律、法规、规章、司法
+  解释 and statute-style 制度汇编 — a specialist publishing format for
+  legislative bodies and legal-affairs offices. NOT for everyday legal
+  writing (contracts, pleadings, opinions); for 行政规范性文件 (clause 5.3)
+  use `cn-gongwen`'s body conventions.
+- **Sample content:** genuine excerpts from《中华人民共和国民法典》(总则编
+  第一至三条; 物权编 第四百二十五至四百二十七条 with 分编/章/节/款/项) —
+  statutory texts are exempt from copyright per 著作权法 Art. 5, and the
+  standard's own annex examples use the same provisions.
+- **Build:**
+  ```bash
+  bash scripts/compile.sh templates/cn-fagui/main.tex --preview \
+       --preview-dir examples/cn-fagui
+  ```
+  Font auto-detection and fallbacks identical to `cn-gongwen`.
+- **Adapt it:** see `templates/cn-fagui/README.md` — clause-by-clause table,
+  structure macros (`\fabianX`/`\fazhangX`/`\fajieX`/`\fatiaoX`, counters
+  reset per the standard, `\setcounter` for excerpts), 题注/目录 blocks, and
+  documented boundaries (clause 5.3 and annex-A materials not built in).
+- **Preview:** rendered pages in `examples/cn-fagui/`.
+
 <!-- Add new templates below in the same shape: Produces / When to use / Build /
      Variants / Adapt it / Preview. Keep one H2 per template. -->

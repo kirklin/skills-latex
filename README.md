@@ -38,6 +38,10 @@ Requires TeX Live (`pdflatex`/`xelatex`, `latexmk`) and `poppler-utils`
   structure（姓名区+证件照位、公司/职位/时间一行三列、「1、2、」编号要点、
   黑体强调、年.月 等宽数字对齐）; 宋黑搭配, all-black, single file, no
   external class. Sample recreates Elon Musk's public career.
+- **cn-fagui** — 法律法规电子文件 per **GB/T 47229.1—2026**: 法规/司法解释
+  正式发布文本的条文式排版（2号小标宋标题、楷体题注与目录、编/分编/章/节/条
+  自动中文数字编号、款项目层级），页面底座与 GB/T 9704 同源。
+  Sample: 《民法典》真实条文节选。
 
 Adding your own → [`references/adding-templates.md`](references/adding-templates.md).
 

@@ -28,6 +28,11 @@ PDF with page previews. Paths below are relative to this skill's directory.
   GB/T 9704—2012 (红色机关标志、发文字号、红线、版记、页码一字线) → `cn-gongwen`.
 - Writing a one-page professional resume — 中文简历 (single-file layout macros,
   works for English too) → `resume`.
+- Typesetting the official published text of Chinese statutes — 法律 / 法规 /
+  规章 / 司法解释的正式发布文本 per GB/T 47229.1—2026 (编/章/节/条 statutory
+  hierarchy, Chinese-numeral auto-numbering) → `cn-fagui`. Niche: for
+  legislative/publishing scenarios only, NOT everyday legal writing
+  (contracts, briefs — those are ordinary documents).
 - Compiling any `.tex` to PDF and showing previews.
 - More document types will arrive as templates — always check `references/templates.md`
   before assuming a type isn't covered.
@@ -58,6 +63,7 @@ PDF with page previews. Paths below are relative to this skill's directory.
 | `cn-doc` | Everyday Chinese document base — 中式公文排版 (通知/报告/总结/请示/函; sample: a complete training notice) | `templates/cn-doc/main.tex` |
 | `cn-gongwen` | GB/T 9704—2012 党政机关公文 — 红头、版头/主体/版记全要素, spec-verified; variants for 联合行文/信函/命令/纪要 (see its README) | `templates/cn-gongwen/main.tex` |
 | `resume` | One-page Chinese professional resume — classic Chinese professional layout (三列条目行/编号要点/黑体强调/证件照位), 宋黑搭配 all-black, 年.月 dates digit-aligned, single file (sample: Elon Musk's public career) | `templates/resume/main.tex` |
+| `cn-fagui` | GB/T 47229.1—2026 法律法规电子文件 — 法规/司法解释正式文本 (标题/题注/目录/编·章·节·条 自动中文编号; sample: 民法典真实条文节选) | `templates/cn-fagui/main.tex` |
 
 Full details, variants, and "when to use each" → [references/templates.md](references/templates.md).
 

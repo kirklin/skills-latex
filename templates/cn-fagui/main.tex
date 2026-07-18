@@ -1,0 +1,171 @@
+% !TEX program = xelatex
+% =============================================================================
+% cn-fagui · 法律法规电子文件模板（GB/T 47229.1—2026《法律法规电子文件
+%          第 1 部分：页面格式》，通用页面格式 5.2）
+%
+% 适用：法律、法规、规章、司法解释文本的排版（条文式文件）。
+% 逐条落实标准的版式参数（引用处标注条号）：
+%   4.2    A4；上边距 37mm、左边距 28mm，版心 156mm×225mm；
+%          3 号仿宋，每页 22 行、每行 28 字撑满版心（linespread=1.81 推导同
+%          GB/T 9704，见 cn-gongwen）
+%   5.2.2  标题：2 号小标宋，首页空两行 3 号字位置起排，居中，多行行距 1cm
+%   5.2.3  题注：标题下空一行，3 号楷体，左右各空两个全角字符，首行再左空
+%          两个全角字符，首尾加圆括号，各项内容间空一个全角字符
+%   5.2.4  发文字号（司法解释等用）：题注下空一行居中，3 号仿宋，六角括号
+%   5.2.5  目录：与前一要素空一行，3 号楷体，显示到节；编/章左空二字、
+%          节左空四字；序号与标题间空一全角；两字标题中间空两个全角
+%   5.2.6  正文：段首空二字回行顶格；层级依次为编/分编/章/节/条/款/项/目——
+%          编、分编、章：第×编（章）中文数字，3 号黑体居中，上下各空一行；
+%          节：第×节，3 号宋体居中，每章下从一起排，上下各空一行；
+%          条：第×条，全文连续，中文数字，3 号黑体，左空二字，空一全角
+%          接条文内容（3 号仿宋），回行顶格；
+%          款：不编号的自然段；项：（一）（二）；目：1. （3 号半角数字）
+%   5.2.7  页码：4 号半角宋体数字两侧全角一字线，距版心下缘 7mm，
+%          单页码右空一字、双页码左空一字（twoside），从正文页起连续编排
+%
+% 编/章/节/条序号由计数器自动生成中文数字（\fatiao 全文连续、\fazhang 随编
+% 重置、\fajie 随章重置）；节选起排时用 \setcounter 对位（见正文示例）。
+% 示例内容为《中华人民共和国民法典》真实条文节选——法律条文依《著作权法》
+% 第五条不受著作权保护，标准附录示例亦采用民法典条文。
+% 字体：方正小标宋/仿宋_GB2312/楷体_GB2312 已安装则自动启用，否则回退到
+%       ctex 按操作系统选择的近似字体（同 cn-gongwen，见其 README「字体合规」）。
+% 编译：bash scripts/compile.sh templates/cn-fagui/main.tex --preview
+% =============================================================================
+\documentclass[linespread=1.81, twoside]{ctexart}
+
+% --- 4.2 页边与版心（与 GB/T 9704 一致）-------------------------------------
+\usepackage[a4paper, top=37mm, bottom=35mm, left=28mm, right=26mm,
+            footskip=10.5mm]{geometry}
+\setlength{\parindent}{2\ccwd}   % 5.2.6 段落首行左空两个全角字符
+\raggedbottom
+
+% --- 字体：正版字体自动检测，缺失则回退（同 cn-gongwen）---------------------
+\IfFontExistsTF{FZXiaoBiaoSong-B05S}{%
+  \setCJKfamilyfont{lwxbs}{FZXiaoBiaoSong-B05S}%
+  \newcommand{\xbsong}{\CJKfamily{lwxbs}}%
+}{%
+  \IfFontExistsTF{方正小标宋简体}{%
+    \setCJKfamilyfont{lwxbs}{方正小标宋简体}%
+    \newcommand{\xbsong}{\CJKfamily{lwxbs}}%
+  }{%
+    \newcommand{\xbsong}{\songti\bfseries}%
+  }%
+}
+\IfFontExistsTF{FangSong_GB2312}{%
+  \setCJKfamilyfont{lwfs}{FangSong_GB2312}%
+  \renewcommand{\fangsong}{\CJKfamily{lwfs}}%
+}{}
+\IfFontExistsTF{KaiTi_GB2312}{%
+  \setCJKfamilyfont{lwkt}{KaiTi_GB2312}%
+  \renewcommand{\kaishu}{\CJKfamily{lwkt}}%
+}{}
+\renewcommand{\familydefault}{\rmdefault}
+\AtBeginDocument{\zihao{3}\fangsong}   % 4.2 全文默认 3 号仿宋
+\xeCJKsetup{CJKecglue={}}              % 条文紧排：汉字与数字间不加空隙
+
+% --- 5.2.7 页码（同 GB/T 9704：一字线、单右双左、版心下 7mm）----------------
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\newcommand{\lawpagenum}{{\zihao{4}\songti —\hspace{4.2bp}\thepage\hspace{4.2bp}—}}
+\fancyfoot[RO]{\lawpagenum\hspace*{14bp}}
+\fancyfoot[LE]{\hspace*{14bp}\lawpagenum}
+\renewcommand{\headrulewidth}{0pt}
+
+\usepackage[hidelinks]{hyperref}
+\hypersetup{pdftitle={中华人民共和国民法典（节选）— cn-fagui 模板示例}}
+
+% --- 结构宏：编 / 分编 / 章 / 节 / 条（中文数字自动编号）---------------------
+\newcounter{fabian}
+\newcounter{fafenbian}[fabian]
+\newcounter{fazhang}[fabian]     % 章随编重置（编内依次排序，5.2.6 a）
+\newcounter{fajie}[fazhang]      % 节随章重置（每章下从一开始，5.2.6 b）
+\newcounter{fatiao}              % 条全文连续（5.2.6 c）
+% 两字标题中间空两个全角（如「总　　则」）：\liangzi{总}{则}
+\newcommand{\liangzi}[2]{#1\hspace{2\ccwd}#2}
+% 居中结构行：上下各空一行 3 号字位置（5.2.6 a、b）
+\newcommand{\lawheadline}[1]{%
+  \par\nointerlineskip\addvspace{\baselineskip}%
+  {\centering #1\par}%
+  \nointerlineskip\addvspace{\baselineskip}}
+\newcommand{\fabianX}[1]{\stepcounter{fabian}%
+  \lawheadline{\heiti 第\chinese{fabian}编\hspace{1\ccwd}#1}}
+\newcommand{\fafenbianX}[1]{\stepcounter{fafenbian}%
+  \lawheadline{\heiti 第\chinese{fafenbian}分编\hspace{1\ccwd}#1}}
+\newcommand{\fazhangX}[1]{\stepcounter{fazhang}%
+  \lawheadline{\heiti 第\chinese{fazhang}章\hspace{1\ccwd}#1}}
+\newcommand{\fajieX}[1]{\stepcounter{fajie}%
+  \lawheadline{\songti 第\chinese{fajie}节\hspace{1\ccwd}#1}}
+% 条：段首空二字（由 \parindent 承担），条序号 3 号黑体，空一全角接条文内容
+\newcommand{\fatiaoX}{\par\stepcounter{fatiao}%
+  {\heiti 第\chinese{fatiao}条}\hspace{1\ccwd}}
+
+\begin{document}
+
+% --- 5.2.2 标题：首页空两行 3 号字位置，2 号小标宋居中，多行行距 1cm ---------
+\vspace*{\dimexpr 2\baselineskip-11.7mm\relax}
+{\centering\zihao{2}\xbsong\baselineskip=1cm
+ 中华人民共和国民法典\par}
+% --- 5.2.3 题注：标题下空一行，3 号楷体，左右各空二字、首行再空二字，圆括号 --
+\par\nointerlineskip\vspace{\baselineskip}
+{\kaishu\leftskip=2\ccwd \rightskip=2\ccwd
+（2020年5月28日第十三届全国人民代表大会第三次会议通过）\par}
+% 司法解释等需要发文字号时（5.2.4：题注下空一行居中，3 号仿宋，六角括号），
+% 取消注释：
+% \par\nointerlineskip\vspace{\baselineskip}
+% {\centering 法释〔2026〕1号\par}
+
+% --- 5.2.5 目录（节选）：3 号楷体；编/章左空二字，节左空四字，显示到节 -------
+\par\nointerlineskip\vspace{\baselineskip}
+\begingroup\kaishu\setlength{\parindent}{0pt}
+{\centering 目\hspace{2\ccwd}录\par}
+\hspace*{2\ccwd}第一编\hspace{1\ccwd}\liangzi{总}{则}\par
+\hspace*{2\ccwd}第一章\hspace{1\ccwd}基本规定\par
+\hspace*{2\ccwd}第二章\hspace{1\ccwd}自然人\par
+\hspace*{4\ccwd}第一节\hspace{1\ccwd}民事权利能力和民事行为能力\par
+\endgroup
+
+% --- 5.2.6 正文 --------------------------------------------------------------
+\fabianX{\liangzi{总}{则}}
+\fazhangX{基本规定}
+
+\fatiaoX 为了保护民事主体的合法权益，调整民事关系，维护社会和经济秩序，
+适应中国特色社会主义发展要求，弘扬社会主义核心价值观，根据宪法，制定本法。
+
+\fatiaoX 民法调整平等主体的自然人、法人和非法人组织之间的人身关系和财产
+关系。
+
+\fatiaoX 民事主体的人身权利、财产权利以及其他合法权益受法律保护，任何
+组织或者个人不得侵犯。
+
+% —— 以下为跨编节选：用 \setcounter 将各级序号对位到节选起点 ——
+\setcounter{fabian}{1}\fabianX{\liangzi{物}{权}}
+\setcounter{fafenbian}{3}\fafenbianX{担保物权}
+\setcounter{fazhang}{17}\fazhangX{\liangzi{质}{权}}
+\fajieX{动产质权}
+
+\setcounter{fatiao}{424}
+\fatiaoX 为担保债务的履行，债务人或者第三人将其动产出质给债权人占有的，
+债务人不履行到期债务或者发生当事人约定的实现质权的情形，债权人有权就该
+动产优先受偿。
+
+前款规定的债务人或者第三人为出质人，债权人为质权人，交付的动产为质押
+财产。
+
+\fatiaoX 法律、行政法规禁止转让的动产不得出质。
+
+\fatiaoX 设立质权，当事人应当采用书面形式订立质押合同。
+
+质押合同一般包括下列条款：
+
+（一）被担保债权的种类和数额；
+
+（二）债务人履行债务的期限；
+
+（三）质押财产的名称、数量等情况；
+
+（四）担保的范围；
+
+（五）质押财产交付的时间、方式。
+
+\end{document}
