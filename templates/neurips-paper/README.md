@@ -2,6 +2,10 @@
 
 一套单栏、NeurIPS 风格的学术论文模板，以 **《Attention Is All You Need》**（Vaswani et al., NeurIPS 2017）为样张，逐像素还原一篇顶会论文该有的所有元素：带上下横线的标题、多作者等贡献脚注、Transformer 架构图、注意力机制图、缩放点积/多头注意力公式、三张 booktabs 表格、数字编号参考文献、以及附录里的注意力权重可视化。
 
+<p align="center">
+  <a href="../../examples/neurips-paper/paper.pdf"><img src="../../examples/neurips-paper/paper-page-01.png" width="520" alt="neurips-paper 成品预览"></a>
+</p>
+
 ## 两种构建方式
 
 | 文件 | 说明 | 依赖 |

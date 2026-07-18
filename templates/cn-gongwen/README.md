@@ -4,6 +4,17 @@
 主模板加四个特定格式变体，共用 `base.tex` 导言，覆盖标准全部 12 张式样图对应的
 版式与第 10 章特定格式。每个排版块都注有对应条号。
 
+<p align="center">
+  <a href="../../examples/cn-gongwen/main.pdf"><img src="../../examples/cn-gongwen/main-page-1.png" width="520" alt="cn-gongwen 成品预览"></a>
+</p>
+
+<p align="center">
+  <a href="../../examples/cn-gongwen/lianhe.pdf"><img src="../../examples/cn-gongwen/lianhe-page-1.png" width="160" alt="联合行文预览"></a>
+  <a href="../../examples/cn-gongwen/xinhan.pdf"><img src="../../examples/cn-gongwen/xinhan-page-1.png" width="160" alt="信函预览"></a>
+  <a href="../../examples/cn-gongwen/mingling.pdf"><img src="../../examples/cn-gongwen/mingling-page-1.png" width="160" alt="命令预览"></a>
+  <a href="../../examples/cn-gongwen/jiyao.pdf"><img src="../../examples/cn-gongwen/jiyao-page-1.png" width="160" alt="纪要预览"></a>
+</p>
+
 ## 变体与式样覆盖
 
 | 文件 | 格式 | 覆盖的标准内容 |

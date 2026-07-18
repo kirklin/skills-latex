@@ -8,6 +8,10 @@
 一致，与 `cn-gongwen` 同源；增量是法律文本特有的结构层级与字体规则。
 `main.tex` 中每个排版块都注有对应条号。
 
+<p align="center">
+  <a href="../../examples/cn-fagui/main.pdf"><img src="../../examples/cn-fagui/main-page-1.png" width="520" alt="cn-fagui 成品预览"></a>
+</p>
+
 ## 规范落实对照
 
 | 条号 | 规定 | 实现 |

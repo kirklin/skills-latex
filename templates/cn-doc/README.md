@@ -13,6 +13,10 @@
 示例内容是一份完整的虚构培训通知。通知、报告、总结、请示、函、制度、
 方案说明等场景都从这一份底座改出，见下文「按场景改」。
 
+<p align="center">
+  <a href="../../examples/cn-doc/main.pdf"><img src="../../examples/cn-doc/main-page-1.png" width="520" alt="cn-doc 成品预览"></a>
+</p>
+
 ## 文件结构
 
 | 文件 | 作用 |

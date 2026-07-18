@@ -4,6 +4,10 @@
 **公开履历事实**排成——与 `neurips-paper` 复刻已发表论文同理，成品即是完成度
 参照；联系方式为占位符，页脚印有样例声明。
 
+<p align="center">
+  <a href="../../examples/resume/main.pdf"><img src="../../examples/resume/main-page-1.png" width="520" alt="resume 成品预览"></a>
+</p>
+
 版式要点（经典中文专业版式 · 全黑 · 宋黑搭配）：
 
 - 头部：左侧姓名区（姓名 / 字距英文名 / 定位语 / 联系方式），右上角

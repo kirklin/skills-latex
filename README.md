@@ -43,6 +43,23 @@ Requires TeX Live (`pdflatex`/`xelatex`, `latexmk`) and `poppler-utils`
   自动中文数字编号、款项目层级），页面底座与 GB/T 9704 同源。
   Sample: 《民法典》真实条文节选。
 
+### Previews
+
+Click any page to open the sample PDF.
+
+<table>
+  <tr>
+    <td align="center"><a href="examples/neurips-paper/paper.pdf"><img src="examples/neurips-paper/paper-page-01.png" width="260" alt="neurips-paper preview"></a><br><sub><b>neurips-paper</b></sub></td>
+    <td align="center"><a href="examples/cn-doc/main.pdf"><img src="examples/cn-doc/main-page-1.png" width="260" alt="cn-doc preview"></a><br><sub><b>cn-doc</b></sub></td>
+    <td align="center"><a href="examples/cn-gongwen/main.pdf"><img src="examples/cn-gongwen/main-page-1.png" width="260" alt="cn-gongwen preview"></a><br><sub><b>cn-gongwen</b></sub></td>
+  </tr>
+  <tr>
+    <td align="center"><a href="examples/resume/main.pdf"><img src="examples/resume/main-page-1.png" width="260" alt="resume preview"></a><br><sub><b>resume</b></sub></td>
+    <td align="center"><a href="examples/cn-fagui/main.pdf"><img src="examples/cn-fagui/main-page-1.png" width="260" alt="cn-fagui preview"></a><br><sub><b>cn-fagui</b></sub></td>
+    <td align="center"><a href="examples/cn-gongwen/xinhan.pdf"><img src="examples/cn-gongwen/xinhan-page-1.png" width="260" alt="cn-gongwen xinhan preview"></a><br><sub><b>cn-gongwen · 信函</b></sub></td>
+  </tr>
+</table>
+
 Adding your own → [`references/adding-templates.md`](references/adding-templates.md).
 
 ## Install as an agent skill
