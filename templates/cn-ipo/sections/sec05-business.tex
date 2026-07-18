@@ -57,9 +57,26 @@
 \subsubsection{盈利模式}
 
 公司通过大模型解决方案的项目制交付、开放平台服务的按量计费以及智能应用的订
-阅授权获取收入与利润。解决方案类业务按照``合同签订—方案设计—模型适配与训
-练—系统集成—交付验收''的流程组织实施；开放平台服务按输入、输出Token用量
-计量计费或以资源包预付费；智能应用按会员订阅周期收费。
+阅授权获取收入与利润。开放平台服务按输入、输出Token用量计量计费或以资源包
+预付费；智能应用按会员订阅周期收费；解决方案类业务按项目制组织实施，总体流
+程如下：
+
+% 业务流程图（式样对照 2026 年申报稿的工艺/业务流程图：方框+箭头链）
+\begin{center}
+\begin{tikzpicture}[x=1mm, y=1mm,
+  flow/.style={draw=gsbar, semithick, fill=gsbarlight!35, minimum width=24mm,
+    minimum height=9mm, align=center, font=\zihao{5}},
+  arr/.style={-{Stealth[length=2.5mm]}, semithick, gsbar}]
+\node[flow] (s1) at (0,0)   {合同签订};
+\node[flow] (s2) at (30,0)  {方案设计};
+\node[flow] (s3) at (60,0)  {模型适配\\与训练};
+\node[flow] (s4) at (90,0)  {系统集成\\与部署};
+\node[flow] (s5) at (120,0) {交付验收\\与运维};
+\draw[arr] (s1) -- (s2); \draw[arr] (s2) -- (s3);
+\draw[arr] (s3) -- (s4); \draw[arr] (s4) -- (s5);
+\end{tikzpicture}
+\end{center}
+\gsfigcap{解决方案类业务实施流程}
 
 \subsubsection{研发模式}
 
@@ -156,7 +173,42 @@
 行业上游主要为智能计算芯片、服务器与智算中心、云计算服务及数据资源供应行业，
 其中高性能智能计算芯片的供应受国际贸易环境影响存在一定不确定性；下游覆盖金
 融、政务、制造、互联网等众多行业，下游行业的数字化预算投入与智能化改造需求
-直接影响本行业的市场空间。
+直接影响本行业的市场空间。行业产业链结构如下：
+
+% 产业链示意图（式样对照 2026 年申报稿：上/中/下游三层带状图）
+\begin{center}
+\begin{tikzpicture}[x=1mm, y=1mm,
+  band/.style={draw=gsbar, semithick, minimum height=11mm, align=center,
+    font=\zihao{5}},
+  tag/.style={fill=gsbar, text=white, minimum width=16mm, minimum height=11mm,
+    align=center, font=\heiti\zihao{5}},
+  item/.style={draw=gsbar, semithick, fill=white, minimum width=29mm,
+    minimum height=7mm, align=center, font=\zihao{-5}},
+  arr/.style={-{Stealth[length=2.5mm]}, semithick, gsbar}]
+% 上游
+\node[tag] (t1) at (0,32) {上游};
+\node[band, fill=gsbarlight!25, minimum width=126mm, anchor=west] (b1) at (9,32) {};
+\node[item] at (26,32) {智能计算芯片};
+\node[item] at (58,32) {服务器与智算中心};
+\node[item] at (90,32) {云计算服务};
+\node[item] at (122,32) {数据资源};
+% 中游
+\node[tag] (t2) at (0,16) {中游};
+\node[band, fill=gsbarlight!45, minimum width=126mm, anchor=west] (b2) at (9,16) {};
+\node[item, minimum width=45mm] at (34,16) {基础模型研发（发行人）};
+\node[item, minimum width=45mm] at (106,16) {开放平台与模型服务};
+% 下游
+\node[tag] (t3) at (0,0) {下游};
+\node[band, fill=gsbarlight!25, minimum width=126mm, anchor=west] (b3) at (9,0) {};
+\node[item] at (26,0) {金融};
+\node[item] at (58,0) {政务};
+\node[item] at (90,0) {制造};
+\node[item] at (122,0) {互联网及其他};
+\draw[arr] (72,26.2) -- (72,21.8);
+\draw[arr] (72,10.2) -- (72,5.8);
+\end{tikzpicture}
+\end{center}
+\gsfigcap{人工智能大模型行业产业链}
 
 \subsection{发行人的销售情况与主要客户}
 
@@ -233,6 +285,27 @@
 4 & 模型对齐与安全防护技术 & 基于RLHF的偏好对齐、内容安全过滤与幻觉抑制 & 自主研发 \\ \hline
 5 & 推理加速与模型压缩技术 & 量化、蒸馏与稀疏化，降低推理时延与单位算力成本 & 自主研发 \\ \hline
 6 & 智能体编排与工具调用技术 & 任务规划、多智能体协同及企业系统工具调用 & 自主研发 \\ \hline
+\end{longtable}
+\end{gstab}
+
+\subsubsection{研发组织架构}
+
+公司按``基础研究—平台工程—产品化''设置研发组织，主要研发部门及职责如下：
+
+\begin{gstab}
+\begin{longtable}{|C{10mm}|L{30mm}|L{92mm}|}
+\hline
+\thA{序号} & \thB{部门} & \thB{主要职责} \\ \hline
+\endfirsthead
+\hline
+\thA{序号} & \thB{部门} & \thB{主要职责} \\ \hline
+\endhead
+1 & 基础模型研发部 & 负责基础模型架构研究、大规模预训练与模型能力迭代 \\ \hline
+2 & 多模态研发部 & 负责图像、音频、视频等多模态理解与生成模型的研发 \\ \hline
+3 & 对齐与安全部 & 负责监督微调、基于人类反馈的强化学习及内容安全防护体系建设 \\ \hline
+4 & 智能体与应用平台部 & 负责智能体编排平台、开放平台及行业应用产品的研发 \\ \hline
+5 & 数据平台部 & 负责训练语料建设、数据清洗标注体系与数据合规管理 \\ \hline
+6 & 算力工程部 & 负责智算集群建设运维、分布式训练框架与推理加速优化 \\ \hline
 \end{longtable}
 \end{gstab}
 
