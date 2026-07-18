@@ -220,3 +220,59 @@ template here, then follow the main workflow in [../SKILL.md](../SKILL.md).
 
 <!-- Add new templates below in the same shape: Produces / When to use / Build /
      Variants / Adapt it / Preview. Keep one H2 per template. -->
+
+## cn-legal-opinion
+
+- **Produces:** a PRC law-firm securities legal opinion（法律意见书）and a
+  supplemental opinion（补充法律意见书·问询回复式）, framed on
+  《公开发行证券的公司信息披露的编报规则第 12 号》. The layout is a synthesis
+  of eight top firms' publicly disclosed filings, measured page by page
+  (对照记录 in the template README): symmetric cover with reference number
+  (汉坤式文号) and bilingual address block, two-line running header
+  (汉坤式), signature page with「（本页无正文……签章页）」boilerplate and
+  seal hooks (金杜/方达式), three-column bordered 释义 table, `一、（一）1、`
+  heading hierarchy, `3-3-1-N` fascicle page numbers or Llinks-style italic
+  matter number, bold-quoted 问询回复 environment (通力/中伦式), and a
+  letterhead letter-style variant with no cover (通力/君合式).
+- **When to use:** 法律意见书 / 补充法律意见书 / 律师函式正式法律文书 for
+  IPO、再融资、债券、并购 or any scenario needing law-firm opinion formatting.
+  The knobs (`之/的` title connector, 经办/承办律师 labels, fascicle vs matter
+  number) are documented in the template README.
+- **Build:** `templates/cn-legal-opinion/main.tex`（意见书全本）,
+  `templates/cn-legal-opinion/supplemental.tex`（补充意见书）and
+  `templates/cn-legal-opinion/demand-letter.tex`（律师函）, sharing
+  `opinion.sty`.
+- **Variants:** cover style (对称封面 vs 信函信头), plain pages (金杜素面) via
+  `\pagestyle{opplain}`, optional TOC (`\optoc`), optional issue-date line
+  (竞天式 `\opIssueLine`).
+- **Adapt it:** metadata `\renewcommand` block at the top of each `.tex`;
+  sample content uses the same fictional 示例科技 world as `cn-ipo` (six of
+  the canonical 23 opinion sections included; the full canon is listed in
+  `main.tex`'s header comment).
+- **Preview:** rendered pages in `examples/cn-legal-opinion/`.
+
+## cn-litigation
+
+- **Produces:** litigation and arbitration documents across three practice
+  areas: 民事起诉状 and 民事答辩状 in the current element-based, form-table,
+  checkbox style of the SPC/MOJ/ACLA model texts（法〔2025〕82 号，2025-07-14
+  起全面推行；含 2025 版三处变化——删送达地址/电子送达栏、加空白补充栏、
+  新增先行调解意愿栏）; 劳动人事争议仲裁申请书 following the Beijing
+  arbitration commission's official form; and a first-instance 刑事辩护词 in
+  the standard criminal-defense structure (受托段 → numbered defense points →
+  综上所述 → 此致 → 辩护人落款).
+- **When to use:** 起诉状 / 答辩状 / 劳动仲裁 / 辩护词 — 民事、劳动、刑事
+  的法院与仲裁委面向文书. For other 案由, keep the framework and swap the
+  element rows (all 67 model-text case types share the same skeleton).
+- **Build:** `templates/cn-litigation/complaint.tex`（起诉状）,
+  `answer.tex`（答辩状）, `labor-arbitration.tex`（仲裁申请书）,
+  `defense-statement.tex`（辩护词）, sharing `litigation.sty`.
+- **Variants:** the style file carries two layout bases — form-table documents
+  (`liform`/`lirow`/`\ckbox`/`\ckboxv`, court-style "— n —" page numbers) and prose
+  documents (`\liVocative`/`\section` points/`\liSubmitTo`/`\liSign`).
+- **Adapt it:** sample identities are placeholders (林××/王××/赵××,
+  示例市示例区人民法院); amounts are internally consistent (borrowing
+  200,000−20,000=180,000; labor award 8,200×3=24,600 and 2×3.5 months
+  =57,400). The related 律师函 lives in `cn-legal-opinion/demand-letter.tex`
+  and references the same fictional case.
+- **Preview:** rendered pages in `examples/cn-litigation/`.

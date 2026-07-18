@@ -39,6 +39,14 @@ PDF with page previews. Paths below are relative to this skill's directory.
   申报版式: 黑体节标题、全线框财务表、1-1-N 卷册页码, TikZ 股权结构图/时间轴/柱状图/流程图/产业链图;
   治理结构按新《公司法》) → `cn-ipo`. Also the base for similar disclosure
   documents (债券募集说明书、重组报告书 adapt from it).
+- Writing a law-firm legal opinion — 法律意见书 / 补充法律意见书 / 律师函
+  (律所证券法律文书 per 编报规则第 12 号; 版式综合八家头部律所公开文书实测:
+  文号封面、双行页眉、三列释义表、「一、（一）1、」层级、签章页、问询回复
+  体例、信函式信头变体与律师函) → `cn-legal-opinion`.
+- Writing litigation / arbitration documents — 民事起诉状 / 答辩状 (要素式
+  表格化勾选式, per 最高法法〔2025〕82 号示范文本), 劳动仲裁申请书 (北京官方
+  表格), 刑事辩护词 (刑辩通行体例) — covering 民事/劳动/刑事 practice →
+  `cn-litigation`.
 - Compiling any `.tex` to PDF and showing previews.
 - More document types will arrive as templates — always check `references/templates.md`
   before assuming a type isn't covered.
@@ -71,6 +79,8 @@ PDF with page previews. Paths below are relative to this skill's directory.
 | `resume` | One-page Chinese professional resume — classic Chinese professional layout (三列条目行/编号要点/黑体强调/证件照位), 宋黑搭配 all-black, 年.月 dates digit-aligned, single file (sample: Elon Musk's public career) | `templates/resume/main.tex` |
 | `cn-fagui` | GB/T 47229.1—2026 法律法规电子文件 — 法规/司法解释正式文本 (标题/题注/目录/编·章·节·条 自动中文编号; sample: 民法典真实条文节选) | `templates/cn-fagui/main.tex` |
 | `cn-ipo` | A股IPO招股说明书 per 证监会准则第57号 — 封面/声明/概况/十二节/签字页全要素, 对照准则原文与真实申报稿校验, 投行申报版式, 财务数据内部勾稽 (sample: 虚构AI大模型公司科创板申报稿, 67页) | `templates/cn-ipo/main.tex` |
+| `cn-legal-opinion` | 律所法律意见书 per 编报规则第12号 — 版式综合八家头部律所公开文书实测 (文号封面/双行页眉/释义表/签章页/卷册页码), 另含信函式补充法律意见书（问询回复体例）与律师函 | `templates/cn-legal-opinion/main.tex` |
+| `cn-litigation` | 诉讼与仲裁文书（民事/劳动/刑事）— 民事起诉状与答辩状 per 最高法法〔2025〕82号要素式示范文本（表格化勾选式）、劳动仲裁申请书（北京官方表格）、刑事辩护词（刑辩通行体例） | `templates/cn-litigation/complaint.tex` |
 
 Full details, variants, and "when to use each" → [references/templates.md](references/templates.md).
 
