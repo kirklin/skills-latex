@@ -181,10 +181,13 @@
 \newcommand{\thB}[1]{\multicolumn{1}{c|}{\bfseries #1}}
 \newcommand{\thAw}[2]{\multicolumn{1}{|C{#1}|}{\bfseries #2}}
 \newcommand{\thBw}[2]{\multicolumn{1}{C{#1}|}{\bfseries #2}}
-% 表内字号（五号）与跨页设置
-\newenvironment{gstab}{\par\zihao{5}\linespread{1.6}\selectfont
+% 表内字号（五号）与跨页设置。行距模型按真实申报稿实测拆分：格内换行为
+% 单倍行距（基线距 14.7pt），行与行的 20.3pt 行高由 arraystretch 撑出
+% ——对应 Word「单元格边距+单倍行距」的观感，多行单元格不再显得空
+\newenvironment{gstab}{\par\zihao{5}\linespread{1.17}\selectfont
+  \renewcommand{\arraystretch}{1.38}%
   \setlength{\LTleft}{0pt plus 1fill}\setlength{\LTright}{0pt plus 1fill}%
-  \setlength{\LTpre}{0.4\baselineskip}\setlength{\LTpost}{0.4\baselineskip}}{\par}
+  \setlength{\LTpre}{0.5\baselineskip}\setlength{\LTpost}{0.5\baselineskip}}{\par}
 % 「单位：万元」右置于表右上角
 \newcommand{\biaodw}[1]{\par\nopagebreak
   {\zihao{5}\hfill 单位：#1\par}\nopagebreak\vspace{-0.2\baselineskip}}
