@@ -1,0 +1,50 @@
+% =============================================================================
+% everyday.sty · 日常一页纸文书版式包（cn-everyday 模板族）
+%
+% 覆盖普通人最高频的五种日常文书：借条 / 收条 / 在职证明 / 收入证明 /
+% 授权委托书。共同版式：大字居中标题（黑体二号，二字标题加宽一字距）、
+% 正文宋体小四 1.5 倍距首行缩进、填写下划线、右下签署区（签名线＋证件号＋
+% 日期）、单位公章钩子；整页无页眉页脚（单页文书惯例）。
+% 被 iou.tex / receipt.tex / employment-certificate.tex /
+% income-certificate.tex / power-of-attorney.tex 调用。
+% =============================================================================
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{everyday}[2026/07/18 v1.0 everyday one-page documents]
+
+\RequirePackage[a4paper, top=32mm, bottom=30mm, left=27mm, right=27mm]{geometry}
+\RequirePackage{etoolbox}
+
+% --- 行距与段落：宋体小四、1.5 倍距、首行缩进两字 ----------------------------
+\linespread{1.7}
+\setlength{\parindent}{2\ccwd}
+\setlength{\parskip}{0.3\baselineskip}
+\emergencystretch=2.5em
+\raggedbottom
+\pagestyle{empty}   % 单页文书：无页眉页脚页码
+\IfFontExistsTF{Times New Roman}{\setmainfont{Times New Roman}}{}
+
+% --- 标题：黑体二号居中（「借　条」式二字标题请自行以 \hspace 加宽）----------
+\newcommand{\edTitle}[1]{%
+  \begin{center}{\heiti\zihao{2}#1}\end{center}\vspace{0.4\baselineskip}}
+
+% --- 填写下划线：线上排内容（留空即空白线）-----------------------------------
+\newcommand{\edblank}[2][6em]{\underline{\makebox[#1][c]{#2}}}
+
+% --- 签署区：右对齐的「标签＋线上内容」行（签名 / 证件号 / 日期通用）---------
+\newcommand{\edSign}[3][9em]{\par\vspace{0.5\baselineskip}%
+  {\noindent\hfill #2\underline{\makebox[#1][c]{#3}}\par}}
+% 右对齐纯文字行（落款单位名 / 日期等，不带线）
+\newcommand{\edLine}[1]{\par\vspace{0.4\baselineskip}%
+  {\noindent\hfill #1\par}}
+% 单位公章位：右对齐「（盖章）」注记＋自备 PNG 叠印钩子
+\newcommand{\edSeal}{\par\vspace{0.4\baselineskip}%
+  {\noindent\hfill （盖章）\par}
+  % 红章 PNG（替换文件名并取消注释，叠印于落款上方）：
+  % \par\vspace{-18mm}\noindent\hfill\includegraphics[width=38mm]{seal.png}\par
+}
+
+% --- 强调（中文加粗）---------------------------------------------------------
+\newcommand{\hl}[1]{{\bfseries #1}}
+
+\RequirePackage[hidelinks]{hyperref}
+\endinput
