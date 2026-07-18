@@ -103,7 +103,45 @@
 认知智能与生成智能演进。随着模型能力持续提升、推理成本下降及行业应用加速渗
 透，大模型在办公、金融、政务、制造、互联网等领域的商业化落地不断深化。据公
 开行业研究资料，我国人工智能核心产业规模已超过6,000亿元并保持快速增长，其
-中大模型及生成式人工智能细分市场增速显著高于行业平均水平。
+中大模型及生成式人工智能细分市场增速显著高于行业平均水平，市场规模情况如下：
+
+% 市场规模柱状图（式样对照 2026 年申报稿：浅蓝=历史确定值、深蓝=预测值、
+% 右上 CAGR 徽标、柱顶数值、E 为预测年份；数据为虚构示例）
+\begin{center}
+\begin{tikzpicture}[x=1mm, y=1mm]
+\sffamily
+% 标题与单位
+\node[anchor=west, font=\heiti\zihao{5}] at (0,52) {中国人工智能大模型市场规模};
+\node[anchor=west, font=\zihao{-5}] at (0,47) {单位：亿元};
+% CAGR 徽标
+\draw[gsbar, semithick] (95,46.5) rectangle (136,55.5);
+\fill[gsbar] (95,46.5) rectangle (106,55.5);
+\node[text=white, font=\zihao{-5}] at (100.5,51) {CAGR};
+\node[anchor=west, font=\zihao{-5}] at (108,53.2) {2025---2028E};
+\node[anchor=west, font=\heiti\zihao{-4}] at (108,49) {52.9\%};
+% 柱体（历史浅蓝 2021-2025，预测深蓝 2026E-2028E；高度=数值/50）
+\foreach \x/\v/\c in {0/12.5/gsbarlight, 17.5/38.6/gsbarlight, 35/147.2/gsbarlight,
+  52.5/316.5/gsbarlight, 70/588.4/gsbarlight, 87.5/972.6/gsbar,
+  105/1486.3/gsbar, 122.5/2105.8/gsbar}{
+  \fill[\c] (\x,0) rectangle ({\x+12},{\v/50});
+  \node[font=\zihao{-5}, anchor=south] at ({\x+6},{\v/50}) {\v};
+}
+% 年份轴
+\foreach \x/\y in {0/2021, 17.5/2022, 35/2023, 52.5/2024, 70/2025,
+  87.5/2026E, 105/2027E, 122.5/2028E}{
+  \node[font=\zihao{-5}, anchor=north] at ({\x+6},-0.5) {\y};
+}
+\draw[semithick] (-1,0) -- (136,0);
+% 图例
+\fill[gsbarlight] (98,-7) rectangle (101,-9.2);
+\node[anchor=west, font=\zihao{-5}] at (101.5,-8.1) {确定值};
+\fill[gsbar] (115,-7) rectangle (118,-9.2);
+\node[anchor=west, font=\zihao{-5}] at (118.5,-8.1) {预测值};
+% 数据来源
+\node[anchor=west, font=\zihao{-5}] at (0,-8.1) {数据来源：公开行业研究资料整理};
+\end{tikzpicture}
+\end{center}
+\gsfigcap{中国人工智能大模型市场规模（示例数据）}
 
 \subsubsection{行业竞争格局及发行人的行业地位}
 

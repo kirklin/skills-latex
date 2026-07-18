@@ -29,9 +29,13 @@
 \RequirePackage[table]{xcolor}   % 表格底色（募投进度甘特条 \cellcolor）
 \RequirePackage{tikz}
 \usetikzlibrary{positioning, arrows.meta}
-\definecolor{gsbar}{RGB}{47,117,181}   % 募投进度表甘特条填色（同申报稿蓝）
+\definecolor{gsbar}{RGB}{47,117,181}    % 图表主蓝（甘特条/预测值柱，同申报稿）
+\definecolor{gsbarlight}{RGB}{157,195,230} % 图表浅蓝（历史确定值柱）
 % 甘特条单元格：\gt 填色、留空即空白
 \newcommand{\gt}{\cellcolor{gsbar}}
+% 图注：图下居中「图：××」（同申报稿式样）
+\newcommand{\gsfigcap}[1]{\par\nopagebreak\vspace{0.15\baselineskip}%
+  {\centering 图：#1\par}\vspace{0.3\baselineskip}}
 
 % --- 行距与段落：小四宋体、Word 1.5 倍行距（基线距 23.3pt，2026 稿实测）、
 %     首行缩进两字、两端对齐 --------------------------------------------------
