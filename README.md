@@ -42,6 +42,13 @@ Requires TeX Live (`pdflatex`/`xelatex`, `latexmk`) and `poppler-utils`
 - **[resume](templates/resume/)** — 中文一页式求职简历。经典版式：右上角
   证件照位、公司／职位／时间一行三列、编号要点、全黑无彩。样例用马斯克的
   公开履历填充，换成自己的经历即可。
+- **[cn-letter](templates/cn-letter/)** — 中文正式书信骨架，「此致／敬礼」
+  版式已固定。样张是辞职信（含提前三十日通知的法定要素）和求职自荐信；
+  感谢信、推荐信换个标题和正文就行。
+- **[cn-everyday](templates/cn-everyday/)** — 日常一页纸文书五件：借条、
+  收条、在职证明、收入证明、授权委托书。要件齐全（大写金额、用途限定、
+  核实电话），照着换内容就能用；借条和收条与法律组的借贷案件是同一个
+  世界，可串成"借条→收条→催告→起诉"全流程示例。
 
 ### Government & statutory（公文 / 法规）
 
@@ -88,7 +95,12 @@ Click any page to open the sample PDF.
   <tr>
     <td align="center"><a href="examples/cn-doc/main.pdf"><img src="examples/cn-doc/main-page-1.png" width="260" alt="cn-doc preview"></a><br><sub><b>cn-doc</b></sub></td>
     <td align="center"><a href="examples/resume/main.pdf"><img src="examples/resume/main-page-1.png" width="260" alt="resume preview"></a><br><sub><b>resume</b></sub></td>
-    <td></td>
+    <td align="center"><a href="examples/cn-letter/resignation.pdf"><img src="examples/cn-letter/resignation-page-1.png" width="260" alt="cn-letter resignation preview"></a><br><sub><b>cn-letter · 辞职信</b></sub></td>
+  </tr>
+  <tr>
+    <td align="center"><a href="examples/cn-everyday/iou.pdf"><img src="examples/cn-everyday/iou-page-1.png" width="260" alt="cn-everyday iou preview"></a><br><sub><b>cn-everyday · 借条</b></sub></td>
+    <td align="center"><a href="examples/cn-everyday/employment-certificate.pdf"><img src="examples/cn-everyday/employment-certificate-page-1.png" width="260" alt="cn-everyday employment certificate preview"></a><br><sub><b>cn-everyday · 在职证明</b></sub></td>
+    <td align="center"><a href="examples/cn-everyday/power-of-attorney.pdf"><img src="examples/cn-everyday/power-of-attorney-page-1.png" width="260" alt="cn-everyday power of attorney preview"></a><br><sub><b>cn-everyday · 授权委托书</b></sub></td>
   </tr>
 </table>
 

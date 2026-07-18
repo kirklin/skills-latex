@@ -28,6 +28,10 @@ PDF with page previews. Paths below are relative to this skill's directory.
   GB/T 9704—2012 (红色机关标志、发文字号、红线、版记、页码一字线) → `cn-gongwen`.
 - Writing a one-page professional resume — 中文简历 (single-file layout macros,
   works for English too) → `resume`.
+- Writing a formal Chinese letter — 辞职信 / 求职自荐信 / 感谢信 / 推荐信
+  (标题/称谓顶格/此致敬礼/右下落款 五段式) → `cn-letter`.
+- Writing everyday one-page personal paperwork — 借条 / 收条 / 在职证明 /
+  收入证明 / 授权委托书 (要件齐全、填写线＋签署区＋公章钩子) → `cn-everyday`.
 - Typesetting the official published text of Chinese statutes — 法律 / 法规 /
   规章 / 司法解释的正式发布文本 per GB/T 47229.1—2026 (编/章/节/条 statutory
   hierarchy, Chinese-numeral auto-numbering) → `cn-fagui`. Niche: for
@@ -81,6 +85,8 @@ PDF with page previews. Paths below are relative to this skill's directory.
 | `cn-ipo` | A股IPO招股说明书 per 证监会准则第57号 — 封面/声明/概况/十二节/签字页全要素, 对照准则原文与真实申报稿校验, 投行申报版式, 财务数据内部勾稽 (sample: 虚构AI大模型公司科创板申报稿, 67页) | `templates/cn-ipo/main.tex` |
 | `cn-legal-opinion` | 律所法律意见书 per 编报规则第12号 — 版式综合八家头部律所公开文书实测 (文号封面/双行页眉/释义表/签章页/卷册页码), 另含信函式补充法律意见书（问询回复体例）与律师函 | `templates/cn-legal-opinion/main.tex` |
 | `cn-litigation` | 诉讼与仲裁文书（民事/劳动/刑事）— 民事起诉状与答辩状 per 最高法法〔2025〕82号要素式示范文本（表格化勾选式）、劳动仲裁申请书（北京官方表格）、刑事辩护词（刑辩通行体例） | `templates/cn-litigation/complaint.tex` |
+| `cn-letter` | 中文书信 — 标题/称谓/此致敬礼/落款五段式骨架; 样张为辞职信（含劳动合同法第37条法定要素）与求职自荐信, 感谢信/推荐信换正文即可 | `templates/cn-letter/resignation.tex` |
+| `cn-everyday` | 日常一页纸文书 — 借条/收条/在职证明/收入证明/授权委托书, 要件齐全（大写金额、用途限定句、核实电话、无转委托权）; 借条收条与法律模板族同一案件世界 | `templates/cn-everyday/iou.tex` |
 
 Full details, variants, and "when to use each" → [references/templates.md](references/templates.md).
 

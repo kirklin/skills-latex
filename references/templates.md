@@ -276,3 +276,38 @@ template here, then follow the main workflow in [../SKILL.md](../SKILL.md).
   =57,400). The related 律师函 lives in `cn-legal-opinion/demand-letter.tex`
   and references the same fictional case.
 - **Preview:** rendered pages in `examples/cn-litigation/`.
+
+## cn-letter
+
+- **Produces:** formal Chinese letters in the standard five-part skeleton —
+  centered title, salutation flush left（尊敬的××：）, indented body,
+  the closing pair（「此致」indented two chars, 「敬礼！」flush left on the
+  next line — fixed by the `\ltClosing` macro）, and right-aligned signature
+  and date lines.
+- **When to use:** 辞职信（sample includes the Labor Contract Law art. 37
+  thirty-day written-notice elements）, 求职自荐信（pairs with the `resume`
+  template）, and by swapping title/body: 感谢信、推荐信、介绍信、道歉信.
+- **Build:** `templates/cn-letter/resignation.tex` and
+  `templates/cn-letter/cover-letter.tex`, sharing `letter.sty`.
+- **Adapt it:** placeholders throughout (林××, example.com); macros
+  documented in the template README.
+- **Preview:** rendered pages in `examples/cn-letter/`.
+
+## cn-everyday
+
+- **Produces:** the five highest-frequency one-page personal documents —
+  借条 IOU (amount in words + figures, delivery, due date, interest clause,
+  cost-recovery clause, thumbprint signature line), 收条 receipt (payment
+  nature and remaining balance), 在职证明 employment certificate and
+  收入证明 income certificate (purpose-limitation sentence, verification
+  phone, company seal hook), and 授权委托书 power of attorney (itemized
+  scope, term, no-sub-delegation statement).
+- **When to use:** lending money, acknowledging repayment, visa/loan/rental
+  paperwork, delegating errands — the everyday paperwork most people need.
+- **Build:** one file per document under `templates/cn-everyday/`, sharing
+  `everyday.sty` (centered 黑体 title, fill-in underlines, right-aligned
+  signature rows, no headers/footers).
+- **Adapt it:** the IOU and receipt reuse the same fictional lending case as
+  the legal templates (借条 → 收条 → demand letter → complaint chain with
+  consistent dates and amounts).
+- **Preview:** rendered pages in `examples/cn-everyday/`.
