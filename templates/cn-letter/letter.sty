@@ -1,0 +1,44 @@
+% =============================================================================
+% letter.sty · 中文书信版式包（cn-letter 模板族）
+%
+% 中文正式书信的通用骨架：居中标题（黑体二号）→ 称谓顶格（尊敬的××：）→
+% 正文宋体小四 1.5 倍距首行缩进 → 「此致 / 敬礼！」（此致空两格、敬礼另起
+% 行顶格，标准信末礼语版式）→ 右下落款（署名＋日期）。单页无页眉页脚。
+% 适用：辞职信、求职自荐信、感谢信、推荐信、介绍信等一切正式书信；
+% 被 resignation.tex / cover-letter.tex 调用。
+% =============================================================================
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{letter}[2026/07/18 v1.0 Chinese formal letter layout]
+
+\RequirePackage[a4paper, top=32mm, bottom=30mm, left=27mm, right=27mm]{geometry}
+\RequirePackage{etoolbox}
+
+\linespread{1.7}
+\setlength{\parindent}{2\ccwd}
+\setlength{\parskip}{0.3\baselineskip}
+\emergencystretch=2.5em
+\raggedbottom
+\pagestyle{empty}
+\IfFontExistsTF{Times New Roman}{\setmainfont{Times New Roman}}{}
+
+% --- 标题：黑体二号居中 ------------------------------------------------------
+\newcommand{\ltTitle}[1]{%
+  \begin{center}{\heiti\zihao{2}#1}\end{center}\vspace{0.4\baselineskip}}
+
+% --- 称谓：顶格（「尊敬的××：」）-------------------------------------------
+\newcommand{\ltDear}[1]{\par{\noindent #1\par}}
+
+% --- 信末礼语：「此致」空两格、「敬礼！」另起行顶格（标准版式）---------------
+\newcommand{\ltClosing}{\par\vspace{0.2\baselineskip}%
+  {\noindent\hspace{2\ccwd}此致\par}%
+  {\noindent 敬礼！\par}}
+
+% --- 落款：右下署名与日期（可多行连用）---------------------------------------
+\newcommand{\ltSign}[1]{\par\vspace{0.4\baselineskip}%
+  {\noindent\hfill #1\par}}
+
+% --- 强调（中文加粗）---------------------------------------------------------
+\newcommand{\hl}[1]{{\bfseries #1}}
+
+\RequirePackage[hidelinks]{hyperref}
+\endinput
