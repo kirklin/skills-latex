@@ -42,6 +42,11 @@ Requires TeX Live (`pdflatex`/`xelatex`, `latexmk`) and `poppler-utils`
   正式发布文本的条文式排版（2号小标宋标题、楷体题注与目录、编/分编/章/节/条
   自动中文数字编号、款项目层级），页面底座与 GB/T 9704 同源。
   Sample: 《民法典》真实条文节选。
+- **cn-ipo** — A股IPO招股说明书 per 证监会**信息披露准则第57号**（全面注册制）:
+  封面/声明及承诺/致投资者声明/发行概况/十二节正文/签字页全要素，结构与措辞对照准则官方
+  原文及真实科创板申报稿逐项校验；头部券商投行申报版式（黑体节标题、全线框
+  财务表、「1-1-N」卷册页码、TikZ 股权结构图），治理结构按新《公司法》，
+  示例财务数据内部勾稽一致。Sample: 虚构 AI 大模型公司科创板申报稿全套 66 页。
 
 ### Previews
 
@@ -57,6 +62,11 @@ Click any page to open the sample PDF.
     <td align="center"><a href="examples/resume/main.pdf"><img src="examples/resume/main-page-1.png" width="260" alt="resume preview"></a><br><sub><b>resume</b></sub></td>
     <td align="center"><a href="examples/cn-fagui/main.pdf"><img src="examples/cn-fagui/main-page-1.png" width="260" alt="cn-fagui preview"></a><br><sub><b>cn-fagui</b></sub></td>
     <td align="center"><a href="examples/cn-gongwen/xinhan.pdf"><img src="examples/cn-gongwen/xinhan-page-1.png" width="260" alt="cn-gongwen xinhan preview"></a><br><sub><b>cn-gongwen · 信函</b></sub></td>
+  </tr>
+  <tr>
+    <td align="center"><a href="examples/cn-ipo/main.pdf"><img src="examples/cn-ipo/main-page-01.png" width="260" alt="cn-ipo preview"></a><br><sub><b>cn-ipo</b></sub></td>
+    <td></td>
+    <td></td>
   </tr>
 </table>
 

@@ -1,0 +1,233 @@
+% =============================================================================
+% zhaogushu.sty · A股招股说明书版式包（cn-ipo 模板）
+%
+% 版式对标头部券商投行申报文件（信息披露准则第 57 号框架下的招股说明书）：
+%   · A4，正文宋体小四、1.5 倍行距、首行缩进两字，西文/数字 Times New Roman
+%   · 页眉：左「发行人名称」右「招股说明书（申报稿）」，下加细线
+%   · 页脚：居中卷册页码「1-1-N」（申报文件全套第 1-1 册惯例，可改为纯页码）
+%   · 标题层级（字号与缩进按 2026 年真实申报稿实测）：第X节（黑体三号居中）/
+%     一、（黑体四号，顶格）/（一）（黑体小四，缩进两字）/ 1、（1）
+%     （宋体加粗小四，缩进两字）
+%   · 目录：节条目黑体、点线引导页码，显示到「一、」级
+%   · 表格：全线框（Word 风格）、表头加粗居中、金额右对齐、
+%     「单位：万元」右置于表右上角，跨页自动续排表头
+% 被 main.tex 调用；文档元信息（公司名、保荐人等）在 main.tex 中 \renewcommand。
+% =============================================================================
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{zhaogushu}[2026/07/18 v1.0 A-share IPO prospectus layout]
+
+% --- 依赖 --------------------------------------------------------------------
+\RequirePackage[a4paper, top=30mm, bottom=27mm, left=28mm, right=28mm,
+                headheight=16pt, headsep=7mm, footskip=13mm]{geometry}
+\RequirePackage{etoolbox}
+\RequirePackage{fancyhdr}
+\RequirePackage{longtable}
+\RequirePackage{array}
+\RequirePackage{multirow}
+\RequirePackage{titletoc}
+\RequirePackage{amssymb}   % \checkmark（勾选框合成用）
+\RequirePackage[table]{xcolor}   % 表格底色（募投进度甘特条 \cellcolor）
+\RequirePackage{tikz}
+\usetikzlibrary{positioning, arrows.meta}
+\definecolor{gsbar}{RGB}{47,117,181}   % 募投进度表甘特条填色（同申报稿蓝）
+% 甘特条单元格：\gt 填色、留空即空白
+\newcommand{\gt}{\cellcolor{gsbar}}
+
+% --- 行距与段落：小四宋体、Word 1.5 倍行距（基线距 23.3pt，2026 稿实测）、
+%     首行缩进两字、两端对齐 --------------------------------------------------
+\linespread{1.62}
+\setlength{\parindent}{2\ccwd}
+\setlength{\parskip}{0pt}
+\emergencystretch=2.5em   % 财务行文多长数字串（不可断），给足伸缩避免超行
+\clubpenalty=8000 \widowpenalty=8000
+\raggedbottom
+
+% --- 字体：西文/数字用 Times New Roman（申报文件通行），无则回退 -------------
+\IfFontExistsTF{Times New Roman}{\setmainfont{Times New Roman}}{}
+
+% --- 文档元信息（默认值即示例样张；在 main.tex 中 \renewcommand 覆盖）--------
+\providecommand{\gsCompany}{示例科技股份有限公司}
+\providecommand{\gsCompanyEn}{Example Technology Co., Ltd.}
+\providecommand{\gsRegAddr}{示例市高新技术产业开发区示例路88号}
+\providecommand{\gsListingLine}{首次公开发行股票并在科创板上市}
+\providecommand{\gsDocName}{招股说明书}
+\providecommand{\gsStage}{（申报稿）}
+\providecommand{\gsSponsor}{示例证券股份有限公司}
+\providecommand{\gsSponsorAddr}{示例市示例区金融大街1号示例国际中心}
+\providecommand{\gsSignDate}{\gskong 年\gskong 月\gskong 日}
+\providecommand{\gsFascicle}{1-1}   % 卷册号；置空则页脚为纯页码
+
+% --- 页眉页脚 ----------------------------------------------------------------
+\newcommand{\gspagenum}{\ifdefempty{\gsFascicle}{\thepage}{\gsFascicle-\thepage}}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\zihao{5}\songti \gsCompany}
+\fancyhead[R]{\zihao{5}\songti \gsDocName\gsStage}
+\fancyfoot[C]{\zihao{5}\gspagenum}
+\renewcommand{\headrulewidth}{0.5pt}
+
+% --- 标题层级（信息披露文件通行式样，均顶格）--------------------------------
+\setcounter{secnumdepth}{5}
+\setcounter{tocdepth}{2}
+\ctexset{
+  section = {
+    name       = {第,节},
+    number     = \chinese{section},
+    format     = {\centering\heiti\zihao{3}},
+    aftername  = {\hspace{\ccwd}},
+    beforeskip = {0.5\baselineskip},
+    afterskip  = {0.6\baselineskip},
+    fixskip    = true,
+  },
+  subsection = {
+    name       = {,、},
+    number     = \chinese{subsection},
+    format     = {\heiti\zihao{4}},
+    aftername  = {},
+    indent     = 0pt,
+    beforeskip = {0.85\baselineskip plus .2ex},
+    afterskip  = {0.55\baselineskip plus .2ex},
+    fixskip    = true,
+  },
+  subsubsection = {
+    name       = {（,）},
+    number     = \chinese{subsubsection},
+    format     = {\heiti\zihao{-4}},
+    aftername  = {},
+    indent     = 2\ccwd,
+    beforeskip = {0.95\baselineskip plus .2ex},
+    afterskip  = {0.78\baselineskip plus .2ex},
+    fixskip    = true,
+  },
+  paragraph = {
+    name       = {,、},
+    number     = \arabic{paragraph},
+    format     = {\songti\bfseries\zihao{-4}},
+    aftername  = {},
+    indent     = 2\ccwd,
+    runin      = false,
+    beforeskip = {0.85\baselineskip plus .2ex},
+    afterskip  = {0.7\baselineskip plus .2ex},
+    fixskip    = true,
+  },
+  subparagraph = {
+    name       = {（,）},
+    number     = \arabic{subparagraph},
+    format     = {\songti\bfseries\zihao{-4}},
+    aftername  = {},
+    indent     = 2\ccwd,
+    runin      = false,
+    beforeskip = {0.85\baselineskip plus .2ex},
+    afterskip  = {0.7\baselineskip plus .2ex},
+    fixskip    = true,
+  },
+}
+% 每节另起一页
+\newcommand{\gssection}[1]{\clearpage\section{#1}}
+
+% --- 目录：标题「目 录」黑体小二居中；节条目黑体、点线引导页码 ---------------
+\renewcommand{\contentsname}{目\hspace{2\ccwd}录}
+\titlecontents{section}[0pt]
+  {\addvspace{4bp}\heiti\zihao{-4}}
+  {\thecontentslabel\hspace{\ccwd}}
+  {}
+  {\titlerule*[5.5bp]{.}\thecontentspage}
+\titlecontents{subsection}[2\ccwd]
+  {\songti\zihao{-4}}
+  {\thecontentslabel}
+  {}
+  {\titlerule*[5.5bp]{.}\thecontentspage}
+
+% --- 附件（第十二节后的「附件一、××」系列，2025 年申报实践）-----------------
+% 目录中按节级收录（黑体），内部「一、」小节自动编号并进目录
+\newcommand{\gsannex}[2]{\clearpage
+  \phantomsection
+  \addcontentsline{toc}{section}{#1、#2}%
+  \setcounter{subsection}{0}%
+  {\noindent\heiti\zihao{4}#1、#2\par}\vspace{0.3\baselineskip}}
+
+% --- 前置部分（发行人声明 / 重大事项提示等）的整页标题，计入目录不编号 -------
+\newcommand{\gsfrontsection}[1]{%
+  \clearpage
+  \phantomsection
+  \addcontentsline{toc}{section}{#1}%
+  {\centering\heiti\zihao{3}#1\par}%
+  \vspace{0.5\baselineskip}}
+
+% --- 强调与留空 --------------------------------------------------------------
+\newcommand{\zd}[1]{{\bfseries #1}}                 % 加粗（重要提示句）
+\newcommand{\kaibold}[1]{{\kaishu\bfseries #1}}     % 楷体加粗（封面提示等）
+% 申报稿待定要素留空「【　】」：括号间留半字空，避免全角标点挤压成黑块
+\newcommand{\gskong}{【\hspace{0.5\ccwd}】}
+% 勾选框：自绘正方形（0.8em 随字号缩放，与文字同大），勾居中画在框内不出框；
+% \kx 未选、\kxv 选中（不依赖字体是否含 □/☑ 字位）
+\newcommand{\gskxbox}[1]{{\setlength{\fboxsep}{0pt}\setlength{\fboxrule}{0.4pt}%
+  \raisebox{0.06em}{\fbox{\makebox[0.8em]{\rule{0pt}{0.8em}#1}}}}}
+\newcommand{\kx}{\gskxbox{}\hspace{0.25em}}
+\newcommand{\kxv}{\gskxbox{\raisebox{0.14em}{\scriptsize$\checkmark$}}\hspace{0.25em}}
+
+% --- 表格 --------------------------------------------------------------------
+% 列类型：L 左对齐 / C 居中 / R 右对齐（金额列用 R），均垂直居中（Word 表格观感）
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}m{#1}}
+\newcolumntype{C}[1]{>{\centering\arraybackslash}m{#1}}
+\newcolumntype{R}[1]{>{\raggedleft\arraybackslash}m{#1}}
+% 表头单元格（加粗居中）：\thA 首列（左边线）、\thB 后续列；
+% 长表头用带宽度版 \thAw{宽}{文字} / \thBw{宽}{文字}（可自动换行）
+\newcommand{\thA}[1]{\multicolumn{1}{|c|}{\bfseries #1}}
+\newcommand{\thB}[1]{\multicolumn{1}{c|}{\bfseries #1}}
+\newcommand{\thAw}[2]{\multicolumn{1}{|C{#1}|}{\bfseries #2}}
+\newcommand{\thBw}[2]{\multicolumn{1}{C{#1}|}{\bfseries #2}}
+% 表内字号（五号）与跨页设置
+\newenvironment{gstab}{\par\zihao{5}\linespread{1.6}\selectfont
+  \setlength{\LTleft}{0pt plus 1fill}\setlength{\LTright}{0pt plus 1fill}%
+  \setlength{\LTpre}{0.4\baselineskip}\setlength{\LTpost}{0.4\baselineskip}}{\par}
+% 「单位：万元」右置于表右上角
+\newcommand{\biaodw}[1]{\par\nopagebreak
+  {\zihao{5}\hfill 单位：#1\par}\nopagebreak\vspace{-0.2\baselineskip}}
+% 表下注（小五）
+\newcommand{\tabnote}[1]{\par\nopagebreak\vspace{-0.4\baselineskip}%
+  {\zihao{-5}注：#1\par}\vspace{0.3\baselineskip}}
+
+% --- 释义表：三列全线框「术语 | 指 | 释义」，跨页续排 ------------------------
+\newenvironment{shiyi}{%
+  \begin{gstab}\begin{longtable}{|L{31mm}|C{7mm}|L{100mm}|}\hline}%
+  {\end{longtable}\end{gstab}}
+\newcommand{\sy}[2]{#1 & 指 & #2 \\ \hline}
+% 释义分类行（通栏加粗，如「发行人」「发行人股东」，同 2026 年申报稿式样）
+\newcommand{\sygroup}[1]{\multicolumn{3}{|l|}{\bfseries #1} \\ \hline}
+
+% --- 签字页（版式对照 2026 年申报稿：标签居左列，签名线阵列靠右区）----------
+% 签名单元：横线在上、印刷体姓名居中在下
+\newcommand{\sigzcell}[1]{\parbox[t]{0.3\linewidth}{\centering
+  \rule[-2bp]{6.2em}{0.4pt}\\[2bp]#1}}
+% 右区内的一行签名（最多三个，整行右对齐；空参数跳过，单人时签名位靠右）
+\newcommand{\sigzrow}[3]{\par\noindent\hfill
+  \ifblank{#1}{}{\sigzcell{#1}}%
+  \ifblank{#2}{}{\hspace{0.04\linewidth}\sigzcell{#2}}%
+  \ifblank{#3}{}{\hspace{0.04\linewidth}\sigzcell{#3}}\par
+  \vspace{0.9\baselineskip}}
+% 签名区块（多行阵列用）：左列标签（如「全体董事：」）+ 右区签名行（可多行）
+\newcommand{\sigblock}[2]{\par\vspace{0.8\baselineskip}\noindent
+  \begin{minipage}[t]{0.25\textwidth}\raggedright #1\end{minipage}\hfill
+  \begin{minipage}[t]{0.73\textwidth}#2\end{minipage}\par}
+% 单人/双人签名行：标签紧贴签名线左侧，整组靠右（第三参可留空）
+\newcommand{\sigline}[3]{\par\vspace{0.8\baselineskip}\noindent\hfill
+  #1\hspace{0.6em}\sigzcell{#2}%
+  \ifblank{#3}{}{\hspace{0.04\linewidth}\sigzcell{#3}}\par
+  \vspace{0.2\baselineskip}}
+% 落款：单位（盖章）+ 年月日，右对齐（盖章图片钩子见注释）
+\newcommand{\sigseal}[2]{\par\vspace{1.6\baselineskip}
+  % 电子章：将透明底 PNG 印章放到姓名/单位上方，取消注释并替换文件名
+  % \noindent\hfill\includegraphics[width=40mm]{seal.png}\par\vspace{-14mm}
+  {\noindent\hfill #1：#2\par}
+  \vspace{0.8\baselineskip}
+  {\noindent\hfill 年\hspace{2\ccwd}月\hspace{2\ccwd}日\hspace{1\ccwd}\mbox{}\par}}
+
+% --- hyperref：书签导航，链接不着色（申报文件观感）--------------------------
+\RequirePackage[hidelinks, bookmarksnumbered=false, bookmarksopen=true,
+                bookmarksopenlevel=1]{hyperref}
+\AtBeginDocument{\hypersetup{
+  pdftitle={\gsCompany\gsListingLine\gsDocName\gsStage},
+  pdfauthor={\gsCompany}}}
+
+\endinput

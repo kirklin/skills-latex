@@ -1,0 +1,67 @@
+% !TEX program = xelatex
+% =============================================================================
+% cn-ipo · A股首次公开发行招股说明书模板
+%
+% 框架依据：中国证监会《公开发行证券的公司信息披露内容与格式准则第 57 号
+% ——招股说明书》（证监会公告〔2023〕26 号，全面注册制配套规则），并已按
+% 准则原文及 2023–2026 年真实科创板申报稿逐项对照校验（对照记录见 README）。
+% 文件结构：封面 → 发行人声明（第十六条两段法定声明）→ 本次发行概况（第十七
+% 条九项列表）→ 目录 → 第一节 释义 …… 第十二节 附件（重大事项提示按第二十
+% 二条置于第二节概览之首）。治理结构按新《公司法》：不设监事会，审计委员会
+% 行使监事会职权，股东（大）会称「股东会」。
+% 版式对标头部券商投行申报文件，细节见 zhaogushu.sty 头注与 README.md。
+%
+% 示例样张：虚构的「示例科技股份有限公司」科创板申报稿（申报期 2026 年，
+% 报告期 2023–2025 年度，业务为人工智能大模型——大模型解决方案 / 开放平台
+% MaaS / 智能应用）。全部主体均为占位（示例××公司 / 林××），财务数据为
+% 虚构但内部勾稽一致（资产=负债+权益、各比率可复算）。
+%
+% 编译：bash scripts/compile.sh templates/cn-ipo/main.tex --preview
+% =============================================================================
+\documentclass[zihao=-4]{ctexart}   % 正文宋体小四
+\usepackage{zhaogushu}
+
+% --- 文档元信息：改这里即可换成你的项目 --------------------------------------
+\renewcommand{\gsCompany}{示例科技股份有限公司}
+\renewcommand{\gsCompanyEn}{Example Technology Co., Ltd.}
+\renewcommand{\gsRegAddr}{示例市高新技术产业开发区示例路88号}
+\renewcommand{\gsListingLine}{首次公开发行股票并在科创板上市}   % 主板/创业板改此行
+\renewcommand{\gsDocName}{招股说明书}
+\renewcommand{\gsStage}{（申报稿）}      % 注册稿改「（注册稿）」；正式稿置空 {}
+\renewcommand{\gsSponsor}{示例证券股份有限公司}
+\renewcommand{\gsSponsorAddr}{示例市示例区金融大街1号示例国际中心}
+\renewcommand{\gsSignDate}{\gskong 年\gskong 月\gskong 日}   % 申报稿留空；注册稿填实
+\renewcommand{\gsFascicle}{1-1}          % 申报文件卷册页码「1-1-N」；置空为纯页码
+
+\begin{document}
+
+% --- 前置部分（顺序对照 2026 年申报实践：封面→声明及承诺→致投资者声明→
+%     本次发行概况→目录；封面不计入卷册页码，声明页起为 1-1-1）--------------
+\input{sections/cover}            % 封面
+\setcounter{page}{1}              % 卷册页码自「声明及承诺」页起算
+\input{sections/declaration}      % 声明及承诺（第十六条两段法定声明）
+\input{sections/investor-letter}  % 致投资者声明（2025—2026 申报新增件）
+\input{sections/inside-cover}     % 本次发行概况（第十七条九项列表）
+
+% --- 目录（含目录自身条目，同真实申报稿）------------------------------------
+\clearpage
+\phantomsection
+\pdfbookmark[0]{目录}{toc}
+\addcontentsline{toc}{section}{目\hspace{2\ccwd}录}
+\tableofcontents
+
+% --- 正文十二节（准则第 57 号框架）------------------------------------------
+\input{sections/sec01-definitions}   % 第一节 释义
+\input{sections/sec02-overview}      % 第二节 概览
+\input{sections/sec03-risks}         % 第三节 风险因素
+\input{sections/sec04-issuer}        % 第四节 发行人基本情况
+\input{sections/sec05-business}      % 第五节 业务与技术
+\input{sections/sec06-financials}    % 第六节 财务会计信息与管理层分析
+\input{sections/sec07-proceeds}      % 第七节 募集资金运用与未来发展规划
+\input{sections/sec08-governance}    % 第八节 公司治理与独立性
+\input{sections/sec09-protection}    % 第九节 投资者保护
+\input{sections/sec10-others}        % 第十节 其他重要事项
+\input{sections/sec11-statements}    % 第十一节 声明（签字盖章页）
+\input{sections/sec12-annex}         % 第十二节 附件
+
+\end{document}

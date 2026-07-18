@@ -1,0 +1,66 @@
+% ============================== 封面 =========================================
+% 要素顺序与字号按 2026 年真实申报稿实测：科创板风险提示（顶部，小四紧行距）
+% → 发行人名称（黑体二号）/英文名/注册地址 → 「首次公开发行股票并在科创板
+% 上市」「招股说明书」（均黑体二号，同尺寸）→（申报稿）（楷体小二）→
+% 预披露提示（小四）→ 保荐人（主承销商）（四号标签+三号名称+小四住所）。
+% 封面文字块行距紧排（约 1.25 倍），全部内容保持单页；
+% 注册稿：删除预披露提示段，\gsStage 改「（注册稿）」。
+\thispagestyle{empty}
+\pdfbookmark[0]{封面}{cover}
+\begingroup
+\linespread{1.25}\selectfont
+
+% --- 板块风险提示（科创板必备，置于封面顶部；创业板换表述，主板删除）------
+{\setlength{\parindent}{2\ccwd}\kaibold{本次股票发行后拟在科创板市场上市，
+该市场具有较高的投资风险。科创板公司具有研发投入大、经营风险高、业绩不稳定、
+退市风险高等特点，投资者面临较大的市场风险。投资者应当充分了解科创板市场的
+投资风险及本公司所披露的风险因素，审慎作出投资决定。}\par}
+
+\vspace{26mm}
+
+% --- 发行人名称与注册地址 ----------------------------------------------------
+% 公司标志：如需展示，取消注释并替换为你的 logo 文件
+% {\centering\includegraphics[height=14mm]{logo.png}\par}\vspace{6mm}
+{\centering
+{\heiti\zihao{2}\gsCompany\par}
+\vspace{2mm}
+{\zihao{4}\gsCompanyEn\par}
+\vspace{2mm}
+{\zihao{-4}（\gsRegAddr）\par}
+\par}
+
+\vspace{16mm}
+
+% --- 文件名称（两行均二号黑体，同尺寸；稿别小二楷体）------------------------
+{\centering
+{\heiti\zihao{2}\gsListingLine\par}
+\vspace{4mm}
+{\heiti\zihao{2}\gsDocName\par}
+\vspace{5mm}
+{\kaishu\zihao{-2}\gsStage\par}
+\par}
+
+\vspace{8mm}
+
+% --- 预披露提示（申报稿专用；注册稿删除本段）--------------------------------
+{\setlength{\parindent}{2\ccwd}\zihao{-4}\zd{本公司的发行申请尚需经上海证券
+交易所和中国证监会履行相应程序。本招股说明书（申报稿）不具有据以发行股票的
+法律效力，仅供预先披露之用。投资者应当以正式公告的招股说明书作为投资决定的
+依据。}\par}
+
+\vfill
+
+% --- 保荐人（主承销商）------------------------------------------------------
+{\centering
+{\heiti\zihao{4}保荐人（主承销商）\par}
+\vspace{4mm}
+% 保荐人标志：如需展示，取消注释并替换
+% \includegraphics[height=9mm]{sponsor-logo.png}\par\vspace{2mm}
+{\heiti\zihao{3}\gsSponsor\par}
+\vspace{2.5mm}
+{\zihao{-4}（\gsSponsorAddr）\par}
+\par}
+
+\vspace{10mm}
+\endgroup
+\clearpage

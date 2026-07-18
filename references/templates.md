@@ -166,5 +166,55 @@ template here, then follow the main workflow in [../SKILL.md](../SKILL.md).
   documented boundaries (clause 5.3 and annex-A materials not built in).
 - **Preview:** rendered pages in `examples/cn-fagui/`.
 
+---
+
+## cn-ipo
+
+- **Produces:** a complete A-share IPO prospectus（招股说明书·申报稿）in the
+  layout of top-tier investment-bank filings, structured clause-by-clause on
+  中国证监会《公开发行证券的公司信息披露内容与格式准则第 57 号——招股说明书》
+  (2023 全面注册制) and cross-checked against the rule's official text plus
+  real STAR-Market filings (2023 and 2026): cover with 预披露提示/科创板风险
+  提示, 声明及承诺 (第十六条两段法定声明), 致投资者声明 (2025—2026 新增件:
+  上市目的/现代企业制度/融资必要性/持续经营, 实控人签署), 本次发行概况
+  (第十七条九项, 申报稿「【　】」留空), auto TOC, then the twelve mandated sections — 释义,
+  概览 (第二十二条参考格式: 重大事项提示居首、中介机构三表、发行概况详表、
+  重要日期表), 风险因素 (第二十三条三分类: 发行人/行业/其他), 发行人基本情况
+  (发行前后股本结构, TikZ 股权结构图, 新《公司法》治理: 不设监事会、审计委员
+  会履职、职工代表董事), 业务与技术, 财务会计信息与管理层分析, 募集资金运用,
+  公司治理与独立性, 投资者保护, 其他重要事项, 声明 (第八十五至九十条措辞,
+  签字栏含项目协办人、审计委员会成员三分栏), 附件 + 2025 精简改革后的附件系列
+  附件一–六 (投资者保护承诺全文、专利/软著/业务许可备案清单样表、申报前
+  十二个月新增股东; 未选录附件以注释说明理由). 版式: 宋体小四 1.5 倍行距,
+  Times New Roman 数字, 黑体节标题居中自动中文编号, 页眉「公司名｜招股说明书
+  （申报稿）」, 页脚 1-1-N 卷册页码, 全线框垂直居中表格 + 「单位：万元」右上
+  标注 + longtable 跨页续表头.
+- **When to use:** IPO 招股说明书 / 招股书 / 招股意向书, and as the closest
+  base for other CSRC-style disclosure documents (债券募集说明书、非公开发行
+  预案、重组报告书). Board switches (科创板→主板/创业板), 申报稿→注册稿,
+  plain page numbers, and legacy-监事会 governance are documented knobs.
+- **Sample content:** a fictional 示例科技股份有限公司 — an AI large-model
+  company (大模型解决方案 / 开放平台 MaaS / 智能应用) applying to the SSE
+  STAR Market (66 pages, 报告期 2023–2025). All parties are transparent
+  placeholders (示例××公司 / 林××); financials are invented but
+  **internally consistent** — balance sheet ties, equity rolls forward by
+  net profit, every ratio (流动/速动比率、周转率、加权 ROE、EPS per 编报规则
+  第 9 号) recomputes from the statements, and client/product percentage
+  tables cross-foot to revenue.
+- **Build:**
+  ```bash
+  bash scripts/compile.sh templates/cn-ipo/main.tex --preview \
+       --preview-dir examples/cn-ipo
+  ```
+  Chinese fonts via ctex per-OS defaults (SimSun/SimHei on Windows matches
+  real filings); Times New Roman auto-detected for Latin/digits.
+- **Adapt it:** see `templates/cn-ipo/README.md` — metadata `\renewcommand`
+  block in `main.tex`, one file per section under `sections/`, table macros
+  (`\thA`/`\thBw`/`\biaodw`/`\tabnote`), signature macros (`\sigblock`/
+  `\sigzrow`/`\sigseal` with seal-image hooks), the data-consistency contract to keep
+  when replacing numbers, and the verification log of what was checked
+  against the official rule text and real filings.
+- **Preview:** rendered pages in `examples/cn-ipo/`.
+
 <!-- Add new templates below in the same shape: Produces / When to use / Build /
      Variants / Adapt it / Preview. Keep one H2 per template. -->
