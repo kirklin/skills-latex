@@ -1,6 +1,13 @@
 % !TEX program = xelatex
 % =============================================================================
-% cn-gongwen · 党政机关公文模板（GB/T 9704—2012《党政机关公文格式》）
+% cn-gongwen · main.tex — 党政机关公文「文件」式（GB/T 9704—2012）
+%
+% 覆盖式样：图2 公文首页、图6/9 末页署名与附件说明、图10 带附件末页（版记）。
+% 同目录变体（共用 base.tex 导言，见 README）：
+%   lianhe.tex   联合行文（图3/4 首页、图7/8 末页对应的署名排布）
+%   xinhan.tex   信函格式（图11）
+%   mingling.tex 命令（令）格式（图12）
+%   jiyao.tex    纪要格式（10.3）
 %
 % 逐条落实标准的版式参数（引用处标注条号）：
 %   5.2.1  A4；天头 37mm、订口 28mm，版心 156mm×225mm
@@ -22,89 +29,9 @@
 % =============================================================================
 % linespread 推导：版心高 225mm ÷ 22 行 = 10.227mm/行 ≈ 28.98bp；
 % 正文 3 号 = 16bp，28.98/16 ≈ 1.81（ctex 的 linespread 为字号倍数；
-% 3 号非 zihao 类选项的合法值，故在 \AtBeginDocument 里用 \zihao{3} 设置）。
+% 3 号非 zihao 类选项的合法值，故在 base.tex 的 \AtBeginDocument 里设置）。
 \documentclass[linespread=1.81, twoside]{ctexart}
-
-% --- 5.2.1 页边与版心 --------------------------------------------------------
-% twoside 下 left=订口(内侧)28mm、right=切口(外侧)26mm，双页自动镜像。
-% footskip 使页码一字线上缘距版心下缘约 7mm（7.5）。
-\usepackage[a4paper, top=37mm, bottom=35mm, left=28mm, right=26mm,
-            footskip=10.5mm]{geometry}
-\setlength{\parindent}{2\ccwd}   % 正文每自然段左空二字（7.3.3）
-\raggedbottom                    % 禁止竖向胶水拉伸，保持 22 行网格与版头定位稳定
-
-% --- 公文红（6.2：红色油墨达到色谱 Y80%、M80%）------------------------------
-\usepackage{xcolor}
-\definecolor{gwred}{cmyk}{0, 0.8, 0.8, 0}
-
-% --- 字体：正版公文字体自动检测，缺失则回退 ---------------------------------
-% 小标宋（发文机关标志、标题）：无免费授权字体，回退为宋体加粗。
-\IfFontExistsTF{FZXiaoBiaoSong-B05S}{%
-  \setCJKfamilyfont{gwxbs}{FZXiaoBiaoSong-B05S}%
-  \newcommand{\xbsong}{\CJKfamily{gwxbs}}%
-}{%
-  \IfFontExistsTF{方正小标宋简体}{%
-    \setCJKfamilyfont{gwxbs}{方正小标宋简体}%
-    \newcommand{\xbsong}{\CJKfamily{gwxbs}}%
-  }{%
-    \newcommand{\xbsong}{\songti\bfseries}%
-  }%
-}
-% 仿宋_GB2312 / 楷体_GB2312（存在则替换 ctex 默认仿宋/楷体）
-\IfFontExistsTF{FangSong_GB2312}{%
-  \setCJKfamilyfont{gwfs}{FangSong_GB2312}%
-  \renewcommand{\fangsong}{\CJKfamily{gwfs}}%
-}{}
-\IfFontExistsTF{KaiTi_GB2312}{%
-  \setCJKfamilyfont{gwkt}{KaiTi_GB2312}%
-  \renewcommand{\kaishu}{\CJKfamily{gwkt}}%
-}{}
-\renewcommand{\familydefault}{\rmdefault}
-\AtBeginDocument{\zihao{3}\fangsong}   % 5.2.2 全文默认 3 号仿宋（5.2.3 行距随 linespread）
-\xeCJKsetup{CJKecglue={}}              % 公文习惯：汉字与数字/字母间不加空隙（见式样）
-
-% --- 7.3.3 结构层次：一、黑体 /（一）楷体；1. 与（1）仿宋随正文排 -----------
-% 标题行不加额外行距，保持 22 行网格。
-\ctexset{
-  section = {
-    name      = {,、},
-    number    = \chinese{section},
-    format    = \heiti\zihao{3},
-    aftername = {},
-    indent    = 2\ccwd,
-    beforeskip = 0pt,
-    afterskip  = 0pt,
-    afterindent = true,
-  },
-  subsection = {
-    name      = {（,）},
-    number    = \chinese{subsection},
-    format    = \kaishu\zihao{3},
-    aftername = {},
-    indent    = 2\ccwd,
-    beforeskip = 0pt,
-    afterskip  = 0pt,
-    afterindent = true,
-  },
-}
-
-% --- 7.5 页码：4号半角宋体数字、两侧一字线；单页右空一字、双页左空一字 -------
-\usepackage{fancyhdr}
-\pagestyle{fancy}
-\fancyhf{}
-% 一字 = 4号汉字宽 14bp（页脚上下文中 \ccwd 不可靠，用字面量）
-\newcommand{\gwpagenum}{{\zihao{4}\songti —\hspace{4.2bp}\thepage\hspace{4.2bp}—}}
-\fancyfoot[RO]{\gwpagenum\hspace*{14bp}}
-\fancyfoot[LE]{\hspace*{14bp}\gwpagenum}
-\renewcommand{\headrulewidth}{0pt}
-
-% --- 可调参数（标准未规定的量）----------------------------------------------
-\newlength{\gwlogodrop}\setlength{\gwlogodrop}{35mm}  % 机关标志上缘距版心上缘(7.2.4)
-\newlength{\gwredrule}\setlength{\gwredrule}{0.5mm}   % 版头红色分隔线粗细(标准未定)
-\newcommand{\gwlogosize}{\zihao{-0}}                  % 机关标志字号(7.2.4"醒目美观")
-
-\usepackage{graphicx}                % 印章图片可用（见署名处注释）
-\usepackage[hidelinks]{hyperref}
+\input{base}
 \hypersetup{pdftitle={示例市人民政府关于加强政务数据共享管理工作的通知}}
 
 \begin{document}

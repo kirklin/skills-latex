@@ -82,11 +82,21 @@ template here, then follow the main workflow in [../SKILL.md](../SKILL.md).
   ```
   Compiles out of the box: 方正小标宋/仿宋_GB2312/楷体_GB2312 are auto-detected
   and used when installed, with per-OS fallbacks otherwise.
+- **Variants** (share `base.tex`; build any of them the same way):
+  | File | Use | Covers |
+  |---|---|---|
+  | `main.tex` (default) | 下行文「文件」式 with attachments | 式样图1/2/6/9/10, clauses 7.2–7.5 |
+  | `lianhe.tex` | 联合行文 (joint issuance) | 图3 联署标志, 图7/8 联合署名; 图4 上行文多签发人 as comment |
+  | `xinhan.tex` | 信函格式 (letter) | 10.1, 图11 — 170mm double rules, no page number on p1, rule-less 版记 |
+  | `mingling.tex` | 命令（令）格式 (decree) | 10.2, 图12 — 20mm logo drop, 令号, 职务+签名章位 |
+  | `jiyao.tex` | 纪要格式 (minutes) | 10.3 — 出席/请假/列席 hang-aligned name lists |
+  All seals/signature stamps are user-supplied transparent PNGs (commented
+  `\includegraphics` hooks); no sample seal is rendered.
 - **Adapt it:** see `templates/cn-gongwen/README.md` — clause-by-clause
-  compliance table, 密级/紧急程度/签发人 comment switches, seal-image hook,
-  upward-document (上行文) variant, and documented deviations/boundaries
-  (联合行文、信函/命令/纪要格式 not yet built in).
-- **Preview:** rendered pages in `examples/cn-gongwen/`.
+  compliance table, 密级/紧急程度/签发人 comment switches, seal hooks, and
+  documented deviations/boundaries.
+- **Preview:** rendered pages in `examples/cn-gongwen/` (per-variant PDFs and
+  PNGs).
 
 ---
 

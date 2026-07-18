@@ -1,0 +1,87 @@
+% !TEX program = xelatex
+% =============================================================================
+% cn-gongwen · xinhan.tex — 信函格式（GB/T 9704—2012 第 10.1 条，式样图11）
+%
+% 与「文件」式的区别（10.1）：
+%   · 发文机关标志用全称或规范化简称（不加"文件"），红色小标宋居中，
+%     上边缘至上页边 30mm（在天头区域内）；
+%   · 标志下 4mm 印红色双线（上粗下细），距下页边 20mm 印红色双线（上细下粗），
+%     线长均 170mm（超出版心左右各 7mm），居中；
+%   · 份号/密级/紧急程度顶格居版心左边缘、发文字号顶格居版心右边缘，编排在
+%     第一条红色双线下，首个要素与该线距离为 3 号汉字高度的 7/8；
+%   · 标题与其上最后一个要素相距二行；
+%   · 首页不显示页码；
+%   · 版记不加印发机关和印发日期、分隔线，置于最后一面版心内最下方。
+% 署名用 7.3.5.2 不加盖印章式：署名右空二字，成文日期在其下一行、首字比署名
+% 首字右移二字（加盖印章时改用 main.tex 的印章式写法，印章 PNG 自备）。
+% 编译：bash scripts/compile.sh templates/cn-gongwen/xinhan.tex --preview
+% =============================================================================
+\documentclass[linespread=1.81, twoside]{ctexart}
+\input{base}
+\hypersetup{pdftitle={示例市人民政府办公室关于商请协办2026年政务数据管理培训的函}}
+
+% 信函红色双线（10.1）：长 170mm，居中；first=上线粗细，second=下线粗细
+\newcommand{\gwletterrule}[2]{%
+  \makebox[\textwidth][c]{\color{gwred}\vbox{%
+    \hrule width 170mm height #1\vskip 0.8mm\hrule width 170mm height #2}}}
+
+% 首页专用页面样式：不显示页码，页脚位置放「上细下粗」红色双线
+% （距下页边 20mm，经 150dpi 渲染实测校准）
+\fancypagestyle{xinhanfirst}{%
+  \fancyhf{}%
+  \renewcommand{\headrulewidth}{0pt}%
+  \fancyfoot[C]{\raisebox{-4.7mm}[0pt][0pt]{\gwletterrule{0.25mm}{0.5mm}}}%
+}
+
+\begin{document}
+\thispagestyle{xinhanfirst}
+
+% --- 信函版头（10.1）---------------------------------------------------------
+% 发文机关标志：上边缘至上页边 30mm —— 高于版心上边缘（37mm），用零高度盒
+% 从首行基线上提排布（提升量经实测校准）；标志下 4mm 为「上粗下细」红色双线。
+\noindent\raisebox{0pt}[0pt][0pt]{\parbox[t]{\textwidth}{%
+  \makebox[\textwidth][c]{\raisebox{3.5mm}{\zihao{1}\xbsong\color{gwred}示例市人民政府办公室}}\\[-0.6\baselineskip]
+  \raisebox{0.7mm}{\gwletterrule{0.5mm}{0.25mm}}\\
+  \mbox{}}}\par
+% 份号（左顶格）与发文字号（右顶格）编排在第一条双线下，距线 3 号字高的 7/8
+\vspace*{\dimexpr 1.2mm\relax}
+\noindent 000001\hfill 示政办函〔2026〕21号\par
+% 10.1 标题：与其上最后一个要素相距二行
+\vspace{2\baselineskip}
+{\centering\zihao{2}\xbsong 示例市人民政府办公室\\关于商请协办2026年政务数据管理培训的函\par}
+\vspace{\baselineskip}
+\noindent 示例县人民政府办公室：
+
+为提升全市政务数据管理水平，我办拟于2026年9月中旬举办政务数据管理专题
+培训班，面向各县（区）数据管理骨干约120人。鉴于贵县职工培训中心场地与
+食宿条件完备，商请贵办协助承办本次培训，具体事项如下。
+
+\section{时间与规模}
+
+培训拟于2026年9月15日至19日举办，为期5天，参训人员约120人，工作人员
+约10人。
+
+\section{商请事项}
+
+请协调职工培训中心提供可容纳150人的主教室一间、分组研讨室三间及相应
+食宿保障；相关费用由我办按标准据实结算。
+
+如蒙同意，请于2026年8月5日前函复我办秘书科（电话：010-8800 0000）。
+
+专此函达。
+
+% 7.3.5.2 不加盖印章式署名：署名右空二字；成文日期下一行，首字比署名首字
+% 右移二字（此处日期短于署名，按定义精确计算右空量）
+\vspace{\baselineskip}
+\newlength{\gwnamew}\settowidth{\gwnamew}{示例市人民政府办公室}
+\newlength{\gwdatew}\settowidth{\gwdatew}{2026年7月18日}
+\noindent\hfill 示例市人民政府办公室\hspace*{2\ccwd}\par
+\noindent\hfill 2026年7月18日\hspace*{\dimexpr\gwnamew-\gwdatew\relax}\par
+
+% --- 信函版记（10.1）：不加印发机关和印发日期、分隔线，置于版心内最下方 -----
+\vfill
+\begingroup\zihao{4}\setlength{\parindent}{0pt}%
+\hspace{1\ccwd}抄送：市政务服务和数据管理局。\par
+\endgroup
+
+\end{document}

@@ -54,7 +54,7 @@ PDF with page previews. Paths below are relative to this skill's directory.
 |---|---|---|
 | `neurips-paper` | Single-column NeurIPS/arXiv-style research paper (sample: *Attention Is All You Need*) | `templates/neurips-paper/paper.tex` |
 | `cn-doc` | Everyday Chinese document base — 中式公文排版 (通知/报告/总结/请示/函; sample: a complete training notice) | `templates/cn-doc/main.tex` |
-| `cn-gongwen` | GB/T 9704—2012 党政机关公文 — 红头、版头/主体/版记全要素, spec-verified layout (sample: a municipal notice with attachments) | `templates/cn-gongwen/main.tex` |
+| `cn-gongwen` | GB/T 9704—2012 党政机关公文 — 红头、版头/主体/版记全要素, spec-verified; variants for 联合行文/信函/命令/纪要 (see its README) | `templates/cn-gongwen/main.tex` |
 
 Full details, variants, and "when to use each" → [references/templates.md](references/templates.md).
 

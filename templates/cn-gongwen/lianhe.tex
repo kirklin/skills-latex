@@ -1,0 +1,102 @@
+% !TEX program = xelatex
+% =============================================================================
+% cn-gongwen · lianhe.tex — 联合行文（GB/T 9704—2012）
+%
+% 覆盖式样：图3 联合行文公文首页版式1（联署机关标志 +「文件」二字置右居中，
+%          7.2.4）；末页为图7/图8 对应的联合署名排布（7.3.5.1：各发文机关署名
+%          按顺序整齐排列、成文日期右空四字——印章为用户自备 PNG，见署名处注释，
+%          不加盖时即为 7.3.5.2 的排法）。
+% 上行文联合行文（图4：多签发人、发文字号与最后一个签发人同行）见文中注释块。
+% 编译：bash scripts/compile.sh templates/cn-gongwen/lianhe.tex --preview
+% =============================================================================
+\documentclass[linespread=1.81, twoside]{ctexart}
+\input{base}
+\hypersetup{pdftitle={示例市人民政府 示例市总工会关于联合开展职工数字技能提升行动的通知}}
+
+\begin{document}
+
+% --- 版头（7.2）--------------------------------------------------------------
+\noindent\raisebox{0pt}[0pt][0pt]{\parbox[t]{\textwidth}{%
+  000001\\                        % 7.2.1 份号（可删）
+  \mbox{}}}\par
+% 7.2.4 联合行文发文机关标志：主办机关排列在前，"文件"二字置于发文机关名称
+% 右侧、以联署发文机关名称为准上下居中；红色小标宋。上缘距版心上缘 35mm。
+% （残差按一号双行标志实测校准）
+\vspace*{\dimexpr\gwlogodrop-\topskip-\baselineskip+5.9mm\relax}
+{\centering\zihao{1}\xbsong\color{gwred}%
+ \renewcommand{\arraystretch}{0.72}%   紧凑行距，联署机关名成块
+ \begin{tabular}{@{}c@{}}示例市人民政府\\示例市总工会\end{tabular}\hspace{0.4\ccwd}文件\par}
+% 7.2.5 发文字号：标志下空二行居中（联合行文使用主办机关发文字号）
+\vspace{2\baselineskip}
+{\centering 示政联〔2026〕5号\par}
+\nointerlineskip
+% —— 上行文联合行文（图4）改用下面两块：标志不加"文件"二字；发文字号居左空
+%    一字并与最后一个签发人姓名同一行，签发人姓名每行排两个、回行与上一行
+%    第一个姓名对齐（7.2.5、7.2.6）：
+% \noindent\hspace*{1\ccwd}示政联〔2026〕5号\hfill
+% \begin{tabular}[b]{@{}l@{}}
+%   签发人：{\kaishu ×××}\quad{\kaishu ×××}\\
+%   \hphantom{签发人：}{\kaishu ×××}
+% \end{tabular}\hspace*{1\ccwd}\par
+% 7.2.7 版头分隔线：发文字号之下 4mm，与版心等宽，红色
+\vspace{4mm}
+\noindent{\color{gwred}\rule{\textwidth}{\gwredrule}}\par
+\nointerlineskip
+
+% --- 主体（7.3）--------------------------------------------------------------
+\vspace{2\baselineskip}
+{\centering\zihao{2}\xbsong\baselineskip=30bp
+ 示例市人民政府\ 示例市总工会\\关于联合开展职工数字技能提升行动的通知\par}
+\vspace{\baselineskip}
+\noindent 各县（区）人民政府，市政府各部门，市总工会各基层工会：
+
+为提升职工数字技能水平，服务产业数字化转型，市人民政府、市总工会决定于
+2026年8月至12月联合开展职工数字技能提升行动。现将有关事项通知如下。
+
+\section{行动安排}
+
+依托市工人文化宫和各县（区）职工服务中心开设数字技能公益培训班，分初级、
+进阶两档，全年计划培训职工1万人次；举办全市职工数字技能竞赛，设团体奖和
+个人奖。
+
+\section{工作要求}
+
+各县（区）要将本行动纳入年度民生实事项目统筹推进；各基层工会要广泛动员，
+确保一线职工参训比例不低于60\%。培训与竞赛情况请于2026年12月20日前分别报
+市人力资源社会保障局、市总工会。
+
+% 7.3.5.1 联合行文署名：各发文机关署名按发文机关顺序整齐排列（主办在前），
+% 成文日期右空四字。加盖印章时，将各机关印章 PNG（红色透明底）一一对应、
+% 端正居中下压各自署名，互不相交或相切，取消注释并逐枚调整位移：
+% \noindent\raisebox{0pt}[0pt][0pt]{\hspace*{\dimexpr\textwidth-72mm\relax}%
+%   \raisebox{-30mm}{\includegraphics[width=42mm]{seal-1.png}}}\par
+% \noindent\raisebox{0pt}[0pt][0pt]{\hspace*{\dimexpr\textwidth-72mm\relax}%
+%   \raisebox{-42mm}{\includegraphics[width=42mm]{seal-2.png}}}\par
+\vspace{\baselineskip}
+\noindent\hfill
+\begin{tabular}{@{}c@{}}
+  示例市人民政府\\
+  示例市总工会\\
+  2026年7月18日
+\end{tabular}\hspace*{4\ccwd}\par
+% 7.3.6 附注
+\noindent\hspace{2\ccwd}（联系人：市人力资源社会保障局职业能力建设科）\par
+
+% --- 版记（7.4）--------------------------------------------------------------
+\vfill
+\begingroup\zihao{4}\setlength{\parindent}{0pt}%
+\rule{\textwidth}{0.35mm}\par
+\vspace{0.25\baselineskip}
+\hspace{1\ccwd}\begin{minipage}{\dimexpr\textwidth-2\ccwd\relax}
+  \hangindent=3\ccwd\hangafter=1\relax
+  抄送：市委各部门，市人大常委会办公室，市政协办公室。\par
+\end{minipage}\par
+\vspace{0.25\baselineskip}
+\rule{\textwidth}{0.25mm}\par
+\vspace{0.2\baselineskip}
+\hspace{1\ccwd}示例市人民政府办公室\hfill 2026年7月18日印发\hspace*{1\ccwd}\par
+\vspace{0.2\baselineskip}
+\rule{\textwidth}{0.35mm}\par
+\endgroup
+
+\end{document}

@@ -32,7 +32,8 @@ Requires TeX Live (`pdflatex`/`xelatex`, `latexmk`) and `poppler-utils`
   The default for Chinese documents.
 - **cn-gongwen** — 党政机关公文 per **GB/T 9704—2012**: 红色机关标志、发文字号、
   红线、版记、镜像页码, all hard spec dimensions pixel-verified; auto-detects
-  方正小标宋/仿宋_GB2312 with graceful fallbacks.
+  方正小标宋/仿宋_GB2312 with graceful fallbacks. Five build files cover every
+  layout in the standard: 文件式 (`main.tex`), 联合行文, 信函, 命令（令）, 纪要.
 
 Adding your own → [`references/adding-templates.md`](references/adding-templates.md).
 

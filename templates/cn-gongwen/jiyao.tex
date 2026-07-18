@@ -1,0 +1,79 @@
+% !TEX program = xelatex
+% =============================================================================
+% cn-gongwen · jiyao.tex — 纪要格式（GB/T 9704—2012 第 10.3 条）
+%
+% 10.3 的硬性规定：
+%   · 纪要标志由「××××××纪要」组成，红色小标宋居中，上边缘至版心上边缘 35mm；
+%   · 出席人员名单：3 号黑体"出席"二字，在正文（或附件说明）下空一行左空二字
+%     编排，后标全角冒号；冒号后用 3 号仿宋标注出席人单位、姓名，回行时与
+%     冒号后首字对齐；
+%   · 请假、列席人员名单：除依次另起一行并将"出席"改为"请假""列席"外，
+%     编排方法同出席人员名单；
+%   · 其余"纪要格式可以根据实际制定"——本文件参照「文件」式补足期号与红色
+%     分隔线（机关纪要常见做法），版记保留印发机关和印发日期。
+% 编译：bash scripts/compile.sh templates/cn-gongwen/jiyao.tex --preview
+% =============================================================================
+\documentclass[linespread=1.81, twoside]{ctexart}
+\input{base}
+\hypersetup{pdftitle={示例市人民政府专题会议纪要（2026年第3期）}}
+
+\begin{document}
+
+% --- 版头 --------------------------------------------------------------------
+\noindent\raisebox{0pt}[0pt][0pt]{\parbox[t]{\textwidth}{\mbox{}}}\par
+% 10.3 纪要标志：红色小标宋居中，上缘距版心上缘 35mm（长标志用一号）
+\vspace*{\dimexpr\gwlogodrop-\topskip-\baselineskip-0.5mm\relax}
+{\centering\zihao{1}\xbsong\color{gwred}示例市人民政府专题会议纪要\par}
+% 期号（根据实际制定，参照发文字号位置：标志下空二行居中）
+\vspace{2\baselineskip}
+{\centering 〔2026〕第3期\par}
+\nointerlineskip
+% 红色分隔线（参照 7.2.7）
+\vspace{4mm}
+\noindent{\color{gwred}\rule{\textwidth}{\gwredrule}}\par
+\nointerlineskip
+
+% --- 正文 --------------------------------------------------------------------
+\vspace{2\baselineskip}
+
+2026年7月10日，市人民政府召开专题会议，研究加快政务数据共享平台建设有关
+事项。现将议定事项纪要如下。
+
+\section{关于平台建设进度}
+
+原则同意市政务服务和数据管理局提出的平台二期建设方案。二期工程于2026年
+8月底前完成招标，2027年3月底前上线试运行；所需经费列入市级信息化专项
+预算统筹安排。
+
+\section{关于数据责任清单}
+
+各部门政务数据目录与责任清单于2026年9月底前完成编制。对无正当理由逾期
+未完成的部门，由市政府办公室予以通报。
+
+\section{关于安全保障}
+
+平台建设须同步落实数据分类分级保护和等级保护测评要求，测评未通过不得
+上线运行。
+
+% --- 10.3 出席、请假、列席人员名单 -------------------------------------------
+% "出席"3号黑体左空二字加全角冒号，冒号后3号仿宋名单，回行与冒号后首字对齐
+% （回行悬挂 = 左空二字 + "出席："三字 = 5\ccwd）
+\vspace{\baselineskip}
+{\hangindent=5\ccwd\hangafter=1
+\noindent\hspace{2\ccwd}{\heiti 出席}：×××、×××、×××、×××、×××、×××、×××、×××、×××、×××\par}
+{\hangindent=5\ccwd\hangafter=1
+\noindent\hspace{2\ccwd}{\heiti 请假}：×××、×××\par}
+{\hangindent=5\ccwd\hangafter=1
+\noindent\hspace{2\ccwd}{\heiti 列席}：市发展改革委、市财政局、市审计局负责同志\par}
+
+% --- 版记（参照 7.4）---------------------------------------------------------
+\vfill
+\begingroup\zihao{4}\setlength{\parindent}{0pt}%
+\rule{\textwidth}{0.35mm}\par
+\vspace{0.2\baselineskip}
+\hspace{1\ccwd}示例市人民政府办公室\hfill 2026年7月18日印发\hspace*{1\ccwd}\par
+\vspace{0.2\baselineskip}
+\rule{\textwidth}{0.35mm}\par
+\endgroup
+
+\end{document}

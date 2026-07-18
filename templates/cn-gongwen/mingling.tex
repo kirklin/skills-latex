@@ -1,0 +1,48 @@
+% !TEX program = xelatex
+% =============================================================================
+% cn-gongwen · mingling.tex — 命令（令）格式（GB/T 9704—2012 第 10.2 条，式样图12）
+%
+% 与「文件」式的区别（10.2）：
+%   · 发文机关标志由发文机关全称加"命令"或"令"字组成，红色小标宋居中，
+%     上边缘至版心上边缘 20mm；
+%   · 标志下空二行居中编排令号；令号下空二行编排正文（无红线、无标题、
+%     无主送机关）；
+%   · 签发人职务、签名章和成文日期按 7.3.5.3：正文（或附件说明）下空二行
+%     右空四字加盖签发人签名章（红色，用户自备 PNG），签名章左空二字标注
+%     签发人职务、以签名章为准上下居中；签名章下空一行右空四字编排成文日期；
+%   · 按式样图12，命令末页不编排版记。
+% 编译：bash scripts/compile.sh templates/cn-gongwen/mingling.tex --preview
+% =============================================================================
+\documentclass[linespread=1.81, twoside]{ctexart}
+\input{base}
+\hypersetup{pdftitle={示例市人民政府令（第8号）}}
+\setlength{\gwlogodrop}{20mm}   % 10.2：标志上缘至版心上缘 20mm（覆盖默认 35mm）
+
+\begin{document}
+
+% --- 版头 --------------------------------------------------------------------
+% 命令格式无份号/密级行，仍以零高度盒起排以固定标志位置
+\noindent\raisebox{0pt}[0pt][0pt]{\parbox[t]{\textwidth}{\mbox{}}}\par
+\vspace*{\dimexpr\gwlogodrop-\topskip-\baselineskip-5.5mm\relax}
+{\centering\gwlogosize\xbsong\color{gwred}示例市人民政府令\par}
+% 令号：标志下空二行居中
+\vspace{2\baselineskip}
+{\centering 第8号\par}
+% 正文：令号下空二行编排
+\vspace{2\baselineskip}
+
+《示例市政务数据管理办法》已经2026年6月30日市人民政府第12次常务会议审议
+通过，现予公布，自2026年9月1日起施行。
+
+% --- 7.3.5.3 签发人职务、签名章和成文日期 ------------------------------------
+% 签名章（红色透明底 PNG，用户自备）加盖于职务右侧空白处，左空二字标注职务、
+% 以签名章为准上下居中。取消注释并微调尺寸与位移：
+% \noindent\raisebox{0pt}[0pt][0pt]{\hspace*{\dimexpr\textwidth-52mm\relax}%
+%   \raisebox{-6mm}{\includegraphics[width=28mm]{signature.png}}}\par
+\vspace{2\baselineskip}
+\noindent\hfill 市\hspace{1\ccwd}长\hspace{2\ccwd}\hspace*{\dimexpr 24mm+4\ccwd\relax}\par
+% 成文日期：签名章下空一行右空四字
+\vspace{\baselineskip}
+\noindent\hfill 2026年7月18日\hspace*{4\ccwd}\par
+
+\end{document}
