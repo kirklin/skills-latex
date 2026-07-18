@@ -1,0 +1,274 @@
+% !TEX program = xelatex
+% =============================================================================
+% cn-gongwen · 党政机关公文模板（GB/T 9704—2012《党政机关公文格式》）
+%
+% 逐条落实标准的版式参数（引用处标注条号）：
+%   5.2.1  A4；天头 37mm、订口 28mm，版心 156mm×225mm
+%   5.2.2  各要素一般用 3 号仿宋体
+%   5.2.3  每面 22 行、每行 28 字，撑满版心（行距由 linespread 推出，见下）
+%   7.2    版头：份号/密级/紧急程度、发文机关标志(红色小标宋、上缘距版心上缘
+%          35mm)、发文字号(标志下空二行、六角括号)、红色分隔线(字号下 4mm)
+%   7.3    主体：标题(2号小标宋、红线下空二行)、主送机关(顶格全角冒号)、
+%          正文(段首空二字；层次 一、黑体/（一）楷体/1.（1）仿宋)、附件说明、
+%          发文机关署名与成文日期(加盖印章式：日期右空四字、署名居中其上)、
+%          附注、附件(另面，"附件1"3号黑体顶格)
+%   7.4    版记：粗线0.35mm—抄送(4号仿宋)—细线0.25mm—印发机关和日期—末条粗线
+%   7.5    页码：4号半角宋体数字两侧一字线，距版心下缘 7mm，单页右空一字、
+%          双页左空一字（twoside）
+%
+% 编译：bash scripts/compile.sh templates/cn-gongwen/main.tex --preview
+% 字体：方正小标宋/仿宋_GB2312/楷体_GB2312 已安装则自动启用，否则回退到
+%       ctex 按操作系统选择的黑体/仿宋/楷体近似替代（见 README「字体合规」）。
+% =============================================================================
+% linespread 推导：版心高 225mm ÷ 22 行 = 10.227mm/行 ≈ 28.98bp；
+% 正文 3 号 = 16bp，28.98/16 ≈ 1.81（ctex 的 linespread 为字号倍数；
+% 3 号非 zihao 类选项的合法值，故在 \AtBeginDocument 里用 \zihao{3} 设置）。
+\documentclass[linespread=1.81, twoside]{ctexart}
+
+% --- 5.2.1 页边与版心 --------------------------------------------------------
+% twoside 下 left=订口(内侧)28mm、right=切口(外侧)26mm，双页自动镜像。
+% footskip 使页码一字线上缘距版心下缘约 7mm（7.5）。
+\usepackage[a4paper, top=37mm, bottom=35mm, left=28mm, right=26mm,
+            footskip=10.5mm]{geometry}
+\setlength{\parindent}{2\ccwd}   % 正文每自然段左空二字（7.3.3）
+\raggedbottom                    % 禁止竖向胶水拉伸，保持 22 行网格与版头定位稳定
+
+% --- 公文红（6.2：红色油墨达到色谱 Y80%、M80%）------------------------------
+\usepackage{xcolor}
+\definecolor{gwred}{cmyk}{0, 0.8, 0.8, 0}
+
+% --- 字体：正版公文字体自动检测，缺失则回退 ---------------------------------
+% 小标宋（发文机关标志、标题）：无免费授权字体，回退为宋体加粗。
+\IfFontExistsTF{FZXiaoBiaoSong-B05S}{%
+  \setCJKfamilyfont{gwxbs}{FZXiaoBiaoSong-B05S}%
+  \newcommand{\xbsong}{\CJKfamily{gwxbs}}%
+}{%
+  \IfFontExistsTF{方正小标宋简体}{%
+    \setCJKfamilyfont{gwxbs}{方正小标宋简体}%
+    \newcommand{\xbsong}{\CJKfamily{gwxbs}}%
+  }{%
+    \newcommand{\xbsong}{\songti\bfseries}%
+  }%
+}
+% 仿宋_GB2312 / 楷体_GB2312（存在则替换 ctex 默认仿宋/楷体）
+\IfFontExistsTF{FangSong_GB2312}{%
+  \setCJKfamilyfont{gwfs}{FangSong_GB2312}%
+  \renewcommand{\fangsong}{\CJKfamily{gwfs}}%
+}{}
+\IfFontExistsTF{KaiTi_GB2312}{%
+  \setCJKfamilyfont{gwkt}{KaiTi_GB2312}%
+  \renewcommand{\kaishu}{\CJKfamily{gwkt}}%
+}{}
+\renewcommand{\familydefault}{\rmdefault}
+\AtBeginDocument{\zihao{3}\fangsong}   % 5.2.2 全文默认 3 号仿宋（5.2.3 行距随 linespread）
+\xeCJKsetup{CJKecglue={}}              % 公文习惯：汉字与数字/字母间不加空隙（见式样）
+
+% --- 7.3.3 结构层次：一、黑体 /（一）楷体；1. 与（1）仿宋随正文排 -----------
+% 标题行不加额外行距，保持 22 行网格。
+\ctexset{
+  section = {
+    name      = {,、},
+    number    = \chinese{section},
+    format    = \heiti\zihao{3},
+    aftername = {},
+    indent    = 2\ccwd,
+    beforeskip = 0pt,
+    afterskip  = 0pt,
+    afterindent = true,
+  },
+  subsection = {
+    name      = {（,）},
+    number    = \chinese{subsection},
+    format    = \kaishu\zihao{3},
+    aftername = {},
+    indent    = 2\ccwd,
+    beforeskip = 0pt,
+    afterskip  = 0pt,
+    afterindent = true,
+  },
+}
+
+% --- 7.5 页码：4号半角宋体数字、两侧一字线；单页右空一字、双页左空一字 -------
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+% 一字 = 4号汉字宽 14bp（页脚上下文中 \ccwd 不可靠，用字面量）
+\newcommand{\gwpagenum}{{\zihao{4}\songti —\hspace{4.2bp}\thepage\hspace{4.2bp}—}}
+\fancyfoot[RO]{\gwpagenum\hspace*{14bp}}
+\fancyfoot[LE]{\hspace*{14bp}\gwpagenum}
+\renewcommand{\headrulewidth}{0pt}
+
+% --- 可调参数（标准未规定的量）----------------------------------------------
+\newlength{\gwlogodrop}\setlength{\gwlogodrop}{35mm}  % 机关标志上缘距版心上缘(7.2.4)
+\newlength{\gwredrule}\setlength{\gwredrule}{0.5mm}   % 版头红色分隔线粗细(标准未定)
+\newcommand{\gwlogosize}{\zihao{-0}}                  % 机关标志字号(7.2.4"醒目美观")
+
+\usepackage{graphicx}                % 印章图片可用（见署名处注释）
+\usepackage[hidelinks]{hyperref}
+\hypersetup{pdftitle={示例市人民政府关于加强政务数据共享管理工作的通知}}
+
+\begin{document}
+
+% =============================================================================
+% 版头（7.2）
+% =============================================================================
+% 份号/密级/紧急程度做成零高度叠排，不占版面高度，保证机关标志定位不受
+% 增删行数影响。按需保留或注释掉整块。
+\noindent\raisebox{0pt}[0pt][0pt]{\parbox[t]{\textwidth}{%
+  000001\\                        % 7.2.1 份号：6位3号数字，顶格第一行
+  % {\heiti 机密★1年}\\          % 7.2.2 密级和保密期限：3号黑体，第二行
+  % {\heiti 特急}\\               % 7.2.3 紧急程度：3号黑体，第三行
+  \mbox{}}}\par
+% 7.2.4 发文机关标志：上边缘至版心上边缘 35mm，红色小标宋居中
+% （\vspace 扣除首行 \topskip、标志行行高贡献与实测残差 5.9mm，
+%   按 150dpi 渲染实测校准：标志上缘落在纸面 72mm = 天头 37 + 35）
+\vspace*{\dimexpr\gwlogodrop-\topskip-\baselineskip-5.5mm\relax}
+{\centering\gwlogosize\xbsong\color{gwred}示例市人民政府文件\par}
+% 7.2.5 发文字号：标志下空二行居中；年份全称、六角括号、顺序号不虚位不加"第"
+\vspace{2\baselineskip}
+{\centering 示政发〔2026〕8号\par}
+\nointerlineskip
+% 上行文（请示/报告）改用下面一行：发文字号居左空一字、签发人居右空一字，
+% "签发人"用3号仿宋、姓名用3号楷体（7.2.5、7.2.6）：
+% \noindent\hspace*{1\ccwd}示政发〔2026〕8号\hfill 签发人：{\kaishu 张示例}\hspace*{1\ccwd}
+% 7.2.7 版头分隔线：发文字号之下 4mm，与版心等宽，红色
+\vspace{4mm}
+\noindent{\color{gwred}\rule{\textwidth}{\gwredrule}}\par
+\nointerlineskip
+
+% =============================================================================
+% 主体（7.3）
+% =============================================================================
+% 7.3.1 标题：2号小标宋，红线下空二行居中；回行词意完整、梯形或菱形
+% （多行标题行距标准未规定，按公文惯例取约 30bp 紧凑排布）
+\vspace{2\baselineskip}
+{\centering\zihao{2}\xbsong\baselineskip=30bp
+ 示例市人民政府\\关于加强政务数据共享管理工作的通知\par}
+% 7.3.2 主送机关：标题下空一行，居左顶格，全角冒号
+\vspace{\baselineskip}
+\noindent 各县（区）人民政府，市政府各部门，市直各单位：
+
+为提升政务服务效能，推进政务数据依法有序共享，根据《中华人民共和国数据安全法》
+及省有关规定，结合我市实际，现将有关事项通知如下。
+
+\section{总体要求}
+
+坚持统筹协调、按需共享、安全可控的原则，以政务数据目录为基础，以共享平台为
+枢纽，推动跨部门、跨层级业务协同，实现群众和企业办事材料明显精简、办理时限
+明显压缩。
+
+\section{主要任务}
+
+\subsection{编制政务数据目录}
+
+各部门应当于2026年9月底前编制本部门政务数据目录，明确数据项、更新频率与
+共享属性，报市政务服务和数据管理局汇总审核。
+
+\subsection{规范数据共享流程}
+
+数据共享按以下方式办理：1.无条件共享类，通过市共享平台直接获取；2.有条件
+共享类，由需求部门提出申请，提供部门应当在5个工作日内答复；不予共享的，
+应当说明理由并提供依据。具体情形包括：（1）涉及国家秘密的；（2）法律法规
+另有规定的。
+
+\subsection{强化安全管理}
+
+各部门应当落实数据分类分级保护要求，健全访问控制与日志审计机制，签订数据
+使用承诺书，确保共享数据不用于约定范围之外的用途。
+
+\section{保障措施}
+
+各县（区）、各部门要将政务数据共享工作纳入年度绩效考核，明确分管负责同志和
+联络员。市政务服务和数据管理局要加强督促指导，每季度通报工作进展。执行中的
+重大问题，请径向市政府报告。
+
+% 7.3.4 附件说明：正文下空一行、左空二字；名称后不加标点；回行与名称首字对齐
+\vspace{\baselineskip}
+\noindent\hspace{2\ccwd}附件：1.政务数据共享责任清单\par
+\noindent\hspace{2\ccwd}\hphantom{附件：}2.政务数据共享工作联络表\par
+
+% 7.3.5.1 发文机关署名、成文日期（加盖印章式）：
+% 成文日期右空四字，发文机关署名在日期之上、以日期为准居中。
+% 如需加盖印章（红色、透明底 PNG，端正居中下压署名和日期，7.3.5.1），
+% 取消注释并微调宽度与位移：
+% \noindent\raisebox{0pt}[0pt][0pt]{\hspace*{\dimexpr\textwidth-70mm\relax}%
+%   \raisebox{-32mm}{\includegraphics[width=42mm]{seal.png}}}\par
+\vspace{\baselineskip}
+\noindent\hfill
+\begin{tabular}{@{}c@{}}
+  示例市人民政府\\
+  2026年7月18日
+\end{tabular}\hspace*{4\ccwd}\par
+% 7.3.6 附注：成文日期下一行，居左空二字，加圆括号
+\noindent\hspace{2\ccwd}（此件公开发布）\par
+
+% =============================================================================
+% 附件（7.3.7）：另面编排；"附件+序号"3号黑体顶格第一行，标题居中在第三行
+% =============================================================================
+\clearpage
+\noindent{\heiti 附件1}\par
+\vspace{\baselineskip}
+{\centering\zihao{2}\xbsong 政务数据共享责任清单\par}
+\vspace{\baselineskip}
+
+\begin{center}
+  \renewcommand{\arraystretch}{1.6}
+  {\zihao{4}
+  \begin{tabular}{|c|p{38mm}|p{34mm}|p{28mm}|}
+    \hline
+    序号 & 数据类别 & 提供部门 & 共享属性 \\
+    \hline
+    1 & 企业登记基础信息 & 市市场监管局 & 无条件共享 \\
+    \hline
+    2 & 不动产登记信息 & 市自然资源局 & 有条件共享 \\
+    \hline
+    3 & 社会保险参保信息 & 市人力资源社会保障局 & 有条件共享 \\
+    \hline
+    4 & 纳税信用评价信息 & 市税务局 & 有条件共享 \\
+    \hline
+  \end{tabular}}
+\end{center}
+
+各提供部门应当在数据变更之日起3个工作日内完成目录与数据更新，并对数据的
+真实性、完整性负责。
+
+% =============================================================================
+\clearpage
+\noindent{\heiti 附件2}\par
+\vspace{\baselineskip}
+{\centering\zihao{2}\xbsong 政务数据共享工作联络表\par}
+\vspace{\baselineskip}
+
+各县（区）、各部门确定1名分管负责同志和1名联络员，于2026年8月10日前将下列
+信息报市政务服务和数据管理局：
+
+——单位名称、分管负责同志姓名及职务；
+
+——联络员姓名、办公电话与政务邮箱；
+
+——本单位政务数据目录编制工作进度安排。
+
+联系人：市政务服务和数据管理局数据共享科；电话：010-8800 0000。
+
+% =============================================================================
+% 版记（7.4）：置于公文最后一面版心最下方，末条分隔线与版心下边缘重合
+% =============================================================================
+\vfill
+\begingroup\zihao{4}\setlength{\parindent}{0pt}%
+\rule{\textwidth}{0.35mm}\par                    % 首条分隔线（粗，0.35mm）
+\vspace{0.25\baselineskip}
+% 7.4.2 抄送机关：4号仿宋，左右各空一字，回行与冒号后首字对齐，末尾句号
+\hspace{1\ccwd}\begin{minipage}{\dimexpr\textwidth-2\ccwd\relax}
+  \hangindent=3\ccwd\hangafter=1\relax
+  抄送：市委各部门，市人大常委会办公室，市政协办公室，市监委，市法院，市检察院。\par
+\end{minipage}\par
+\vspace{0.25\baselineskip}
+\rule{\textwidth}{0.25mm}\par                    % 中间分隔线（细，0.25mm）
+\vspace{0.2\baselineskip}
+% 7.4.3 印发机关左空一字、印发日期右空一字加"印发"
+\hspace{1\ccwd}示例市人民政府办公室\hfill 2026年7月18日印发\hspace*{1\ccwd}\par
+\vspace{0.2\baselineskip}
+\rule{\textwidth}{0.35mm}\par                    % 末条分隔线（粗，与版心下缘重合）
+\endgroup
+
+\end{document}

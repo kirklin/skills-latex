@@ -57,5 +57,38 @@ template here, then follow the main workflow in [../SKILL.md](../SKILL.md).
 
 ---
 
+## cn-gongwen
+
+- **Produces:** a formal Party/government official document (公文) per
+  **GB/T 9704—2012《党政机关公文格式》** — 份号, red 发文机关标志 (top edge at
+  版心+35mm, measured 72.14mm vs 72.0 target), 发文字号 with 六角括号, red
+  separator rule 4mm below it, 2号 title, 主送机关, 3号仿宋 body on a 22-line
+  grid, 层次序数 一、黑体/（一）楷体/1.（1）仿宋, 附件说明, seal-style 署名+成文
+  日期, 附注, separately-paged attachments, and a 版记 (0.35/0.25mm rules, 抄送,
+  印发机关和日期) whose last rule sits on the 版心 bottom edge; mirrored
+  「— n —」page numbers 7mm below the text block (twoside).
+- **When to use:** 党政机关公文 / 红头文件 — 通知、意见、请示、报告、函 etc. that
+  must follow the national standard exactly. For everyday non-government
+  documents use `cn-doc` instead. Every layout block in `main.tex` cites its
+  clause number; hard dimensions are pixel-verified against a 150dpi render
+  (table in the template README).
+- **Sample content:** a complete fictional municipal notice —
+  示例市人民政府关于加强政务数据共享管理工作的通知, 示政发〔2026〕8号 — with two
+  attachment pages (one with a ruled table) and a full 版记.
+- **Build:**
+  ```bash
+  bash scripts/compile.sh templates/cn-gongwen/main.tex --preview \
+       --preview-dir examples/cn-gongwen
+  ```
+  Compiles out of the box: 方正小标宋/仿宋_GB2312/楷体_GB2312 are auto-detected
+  and used when installed, with per-OS fallbacks otherwise.
+- **Adapt it:** see `templates/cn-gongwen/README.md` — clause-by-clause
+  compliance table, 密级/紧急程度/签发人 comment switches, seal-image hook,
+  upward-document (上行文) variant, and documented deviations/boundaries
+  (联合行文、信函/命令/纪要格式 not yet built in).
+- **Preview:** rendered pages in `examples/cn-gongwen/`.
+
+---
+
 <!-- Add new templates below in the same shape: Produces / When to use / Build /
      Variants / Adapt it / Preview. Keep one H2 per template. -->

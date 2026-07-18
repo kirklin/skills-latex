@@ -30,6 +30,9 @@ Requires TeX Live (`pdflatex`/`xelatex`, `latexmk`) and `poppler-utils`
 - **cn-doc** — everyday Chinese document base（中式公文排版：黑体标题、
   「一、（一）1.」层级、首行缩进、落款）for 通知 / 报告 / 总结 / 请示 / 函 / 制度.
   The default for Chinese documents.
+- **cn-gongwen** — 党政机关公文 per **GB/T 9704—2012**: 红色机关标志、发文字号、
+  红线、版记、镜像页码, all hard spec dimensions pixel-verified; auto-detects
+  方正小标宋/仿宋_GB2312 with graceful fallbacks.
 
 Adding your own → [`references/adding-templates.md`](references/adding-templates.md).
 

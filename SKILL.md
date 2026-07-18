@@ -24,6 +24,8 @@ PDF with page previews. Paths below are relative to this skill's directory.
 - Writing an everyday Chinese document — 通知 / 报告 / 总结 / 请示 / 函 / 制度 —
   in the layout Chinese readers expect (黑体标题、「一、（一）1.」层级、首行缩进、
   落款) → `cn-doc`. **Default for Chinese documents.**
+- Writing a formal Party/government official document — 公文 / 红头文件 per
+  GB/T 9704—2012 (红色机关标志、发文字号、红线、版记、页码一字线) → `cn-gongwen`.
 - Compiling any `.tex` to PDF and showing previews.
 - More document types will arrive as templates — always check `references/templates.md`
   before assuming a type isn't covered.
@@ -52,6 +54,7 @@ PDF with page previews. Paths below are relative to this skill's directory.
 |---|---|---|
 | `neurips-paper` | Single-column NeurIPS/arXiv-style research paper (sample: *Attention Is All You Need*) | `templates/neurips-paper/paper.tex` |
 | `cn-doc` | Everyday Chinese document base — 中式公文排版 (通知/报告/总结/请示/函; sample: a complete training notice) | `templates/cn-doc/main.tex` |
+| `cn-gongwen` | GB/T 9704—2012 党政机关公文 — 红头、版头/主体/版记全要素, spec-verified layout (sample: a municipal notice with attachments) | `templates/cn-gongwen/main.tex` |
 
 Full details, variants, and "when to use each" → [references/templates.md](references/templates.md).
 
