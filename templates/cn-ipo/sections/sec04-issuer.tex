@@ -45,6 +45,36 @@
 报告期内，公司股本总额未发生变化，未发生增资扩股或股份回购事项；股东之间的
 少量股份转让不影响公司控制权结构。
 
+\subsubsection{公司设立以来的主要发展历程}
+
+% 发展历程时间轴（式样对照 2026 年申报稿的产品/发展演进图：横向箭头时间轴，
+% 里程碑上下交错标注）
+\begin{center}
+\begin{tikzpicture}[x=1mm, y=1mm,
+  ms/.style={font=\zihao{-5}, align=center},
+  yr/.style={font=\heiti\zihao{5}, text=gsbar}]
+\draw[gsbar, line width=1.2pt, -{Stealth[length=3mm]}] (0,0) -- (146,0);
+% 轴上里程碑（奇数位在上）
+\foreach \x/\yy/\txt in {
+  16/2021.3/{示例有限设立，启动\\基础模型自主研发},
+  74/2023.6/{开放平台（MaaS）上线，\\完成生成式AI服务备案},
+  132/2025.12/{智能体平台发布，全年\\营业收入超13亿元}}{
+  \fill[gsbar] (\x,0) circle (1.6);
+  \node[yr, anchor=south] at (\x,3) {\yy};
+  \node[ms, anchor=south] at (\x,9) {\txt};
+}
+% 轴下里程碑（偶数位在下）
+\foreach \x/\yy/\txt in {
+  45/2022.9/{整体变更设立股份公司，\\首代基础模型发布},
+  103/2024.8/{多模态模型发布，金融、\\政务标杆项目规模化落地}}{
+  \fill[gsbar] (\x,0) circle (1.6);
+  \node[yr, anchor=north] at (\x,-3) {\yy};
+  \node[ms, anchor=north] at (\x,-9) {\txt};
+}
+\end{tikzpicture}
+\end{center}
+\gsfigcap{公司发展历程}
+
 \subsection{本次发行前后的股本结构}
 
 本次发行前，公司总股本为36,000.00万股；本次拟公开发行新股12,000.00万股，发
