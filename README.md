@@ -25,52 +25,48 @@ Requires TeX Live (`pdflatex`/`xelatex`, `latexmk`) and `poppler-utils`
 
 ## Templates
 
+每个模板的详细说明、变体和改法见其目录下的 `README.md`，选型对照见
+[`references/templates.md`](references/templates.md)。
+
 ### Academic & research
 
-- **neurips-paper** — single-column NeurIPS/arXiv-style research paper. Two
-  variants: pixel-faithful (real `nips_2017.sty`) and portable standalone.
+- **[neurips-paper](templates/neurips-paper/)** — 英文学术论文（NeurIPS /
+  arXiv 风格，单栏）。写论文、预印本、课程报告用。样例完整复刻了
+  《Attention Is All You Need》，有官方样式和免依赖两个版本。
 
 ### Everyday & personal（通用文档 / 简历）
 
-- **cn-doc** — everyday Chinese document base（中式公文排版：黑体标题、
-  「一、（一）1.」层级、首行缩进、落款）for 通知 / 报告 / 总结 / 请示 / 函 / 制度.
-  The default for Chinese documents.
-- **resume** — one-page Chinese professional resume in the classic
-  structure（姓名区+证件照位、公司/职位/时间一行三列、「1、2、」编号要点、
-  黑体强调、年.月 等宽数字对齐）; 宋黑搭配, all-black, single file, no
-  external class. Sample recreates Elon Musk's public career.
+- **[cn-doc](templates/cn-doc/)** — 中文日常文件的默认模板。写通知、报告、
+  总结、请示、函、制度就用它，排版是中国读者最熟悉的公文式：黑体标题、
+  「一、（一）1.」层级、正文首行缩进、右下落款。
+- **[resume](templates/resume/)** — 中文一页式求职简历。经典版式：右上角
+  证件照位、公司／职位／时间一行三列、编号要点、全黑无彩。样例用马斯克的
+  公开履历填充，换成自己的经历即可。
 
 ### Government & statutory（公文 / 法规）
 
-- **cn-gongwen** — 党政机关公文 per **GB/T 9704—2012**: 红色机关标志、发文字号、
-  红线、版记、镜像页码, all hard spec dimensions pixel-verified; auto-detects
-  方正小标宋/仿宋_GB2312 with graceful fallbacks. Five build files cover every
-  layout in the standard: 文件式 (`main.tex`), 联合行文, 信函, 命令（令）, 纪要.
-- **cn-fagui** — 法律法规电子文件 per **GB/T 47229.1—2026**: 法规/司法解释
-  正式发布文本的条文式排版（2号小标宋标题、楷体题注与目录、编/分编/章/节/条
-  自动中文数字编号、款项目层级），页面底座与 GB/T 9704 同源。
-  Sample: 《民法典》真实条文节选。
+- **[cn-gongwen](templates/cn-gongwen/)** — 党政机关正式公文（红头文件），
+  严格按国标 GB/T 9704—2012 排版，红头、发文字号、红线、版记一应俱全。
+  需要发正式红头文件时用；附联合行文、信函、命令、纪要四个变体。
+- **[cn-fagui](templates/cn-fagui/)** — 法律法规的正式发布文本（条文式），
+  按 GB/T 47229.1—2026 排版，编／章／节／条自动编号。做法规汇编、司法解释
+  发布文本用；写普通法律文书不用它。样例节选自《民法典》。
 
 ### Legal & capital markets（法律 / 资本市场）
 
-Three templates sharing one internally consistent fictional case world.
+三个模板共用同一个虚构公司与案件世界，数据互相勾稽，可成套使用。
 
-- **cn-ipo** — A股IPO招股说明书 per 证监会**信息披露准则第57号**（全面注册制）:
-  封面/声明及承诺/致投资者声明/发行概况/十二节正文/签字页全要素，结构与措辞对照准则官方
-  原文及真实科创板申报稿逐项校验；头部券商投行申报版式（黑体节标题、全线框
-  财务表、「1-1-N」卷册页码、TikZ 股权结构图），治理结构按新《公司法》，
-  示例财务数据内部勾稽一致。Sample: 虚构 AI 大模型公司科创板申报稿全套 67 页。
-- **cn-legal-opinion** — 律所法律意见书 per **编报规则第 12 号**：版式综合
-  八家头部律所公开披露文书逐页实测、各取所长（文号封面、双行页眉、三列全线框
-  释义表、「一、（一）1、」层级、签章页公章钩子、「3-3-1-N」卷册页码），
-  另含信函式补充法律意见书（信头＋问询回复体例）；差异点（之/的、经办/承办、
-  卷册号/案号）做成开关。Sample: 与 cn-ipo 同一虚构示例公司的科创板 IPO
-  法律意见书 10 页＋补充意见书 3 页＋律师函 2 页。
-- **cn-litigation** — 诉讼与仲裁文书，覆盖民事/劳动/刑事：民事起诉状与
-  答辩状按最高法、司法部、全国律协**法〔2025〕82 号**要素式示范文本
-  （表格化、勾选式，含 2025 版新增的先行调解意愿栏）；劳动仲裁申请书按
-  北京仲裁委官方表格；刑事辩护词按刑辩通行体例（受托段/分点意见/综上/
-  落款）。四份文书同一虚构案件世界、金额自洽，勾选框自绘不依赖字体字位。
+- **[cn-ipo](templates/cn-ipo/)** — A股 IPO 招股说明书全套（申报稿）。按
+  证监会信息披露准则第 57 号搭骨架，并对照真实科创板申报稿逐项校验。
+  封面、声明、十二节正文、签字页齐全，示例财务数据内部自洽（67 页）。
+- **[cn-legal-opinion](templates/cn-legal-opinion/)** — 律师事务所的三种
+  执业文书：法律意见书（信头式封面）、补充法律意见书（信函式，问询逐条
+  作答）、律师函（催告函）。版式取自头部律所公开披露文书的逐页实测，
+  常见差异（之／的、经办／承办、页码制式）都做成了开关。
+- **[cn-litigation](templates/cn-litigation/)** — 打官司和仲裁用的文书，
+  覆盖民事、劳动、刑事：民事起诉状与答辩状（按最高法 2025 年要素式示范
+  文本，表格勾选式）、劳动仲裁申请书（官方表格式）、刑事辩护词（通行
+  体例）。
 
 ### Previews
 
