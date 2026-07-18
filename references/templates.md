@@ -180,8 +180,10 @@ template here, then follow the main workflow in [../SKILL.md](../SKILL.md).
   (第十七条九项, 申报稿「【　】」留空), auto TOC, then the twelve mandated sections — 释义,
   概览 (第二十二条参考格式: 重大事项提示居首、中介机构三表、发行概况详表、
   重要日期表), 风险因素 (第二十三条三分类: 发行人/行业/其他), 发行人基本情况
-  (发行前后股本结构, TikZ 股权结构图, 新《公司法》治理: 不设监事会、审计委员
-  会履职、职工代表董事), 业务与技术, 财务会计信息与管理层分析, 募集资金运用,
+  (发行前后股本结构, TikZ 股权结构图与发展历程时间轴, 新《公司法》治理: 不设监事会、审计委员
+  会履职、职工代表董事), 业务与技术 (市场规模双色柱状图+CAGR 徽标、产业链
+  三层图、交付流程图、研发组织架构表——全套自包含 TikZ 图形, 无外部图片),
+  财务会计信息与管理层分析, 募集资金运用 (含实施进度甘特表),
   公司治理与独立性, 投资者保护, 其他重要事项, 声明 (第八十五至九十条措辞,
   签字栏含项目协办人、审计委员会成员三分栏), 附件 + 2025 精简改革后的附件系列
   附件一–六 (投资者保护承诺全文、专利/软著/业务许可备案清单样表、申报前
@@ -195,7 +197,7 @@ template here, then follow the main workflow in [../SKILL.md](../SKILL.md).
   plain page numbers, and legacy-监事会 governance are documented knobs.
 - **Sample content:** a fictional 示例科技股份有限公司 — an AI large-model
   company (大模型解决方案 / 开放平台 MaaS / 智能应用) applying to the SSE
-  STAR Market (66 pages, 报告期 2023–2025). All parties are transparent
+  STAR Market (67 pages, 报告期 2023–2025). All parties are transparent
   placeholders (示例××公司 / 林××); financials are invented but
   **internally consistent** — balance sheet ties, equity rolls forward by
   net profit, every ratio (流动/速动比率、周转率、加权 ROE、EPS per 编报规则
