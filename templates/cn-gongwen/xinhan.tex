@@ -46,9 +46,13 @@
 % 份号（左顶格）与发文字号（右顶格）编排在第一条双线下，距线 3 号字高的 7/8
 \vspace*{\dimexpr 1.2mm\relax}
 \noindent 000001\hfill 示政办函〔2026〕21号\par
+\nointerlineskip
 % 10.1 标题：与其上最后一个要素相距二行
-\vspace{2\baselineskip}
-{\centering\zihao{2}\xbsong 示例市人民政府办公室\\关于商请协办2026年政务数据管理培训的函\par}
+\vspace{\dimexpr 2\baselineskip-4mm\relax}
+{\centering\zihao{2}\xbsong\baselineskip=30bp
+ 示例市人民政府办公室\\关于商请协办2026年政务数据管理培训的函\par}
+\nointerlineskip
+\par\nointerlineskip
 \vspace{\baselineskip}
 \noindent 示例县人民政府办公室：
 
@@ -72,6 +76,7 @@
 
 % 7.3.5.2 不加盖印章式署名：署名右空二字；成文日期下一行，首字比署名首字
 % 右移二字（此处日期短于署名，按定义精确计算右空量）
+\par\nointerlineskip
 \vspace{\baselineskip}
 \newlength{\gwnamew}\settowidth{\gwnamew}{示例市人民政府办公室}
 \newlength{\gwdatew}\settowidth{\gwdatew}{2026年7月18日}

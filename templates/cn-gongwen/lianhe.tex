@@ -26,8 +26,10 @@
 {\centering\zihao{1}\xbsong\color{gwred}%
  \renewcommand{\arraystretch}{0.72}%   紧凑行距，联署机关名成块
  \begin{tabular}{@{}c@{}}示例市人民政府\\示例市总工会\end{tabular}\hspace{0.4\ccwd}文件\par}
+\nointerlineskip
 % 7.2.5 发文字号：标志下空二行居中（联合行文使用主办机关发文字号）
-\vspace{2\baselineskip}
+% （双行标志盒深较大，额外收 2.5mm 使间距与其他变体一致）
+\vspace{\dimexpr 2\baselineskip-6.5mm\relax}
 {\centering 示政联〔2026〕5号\par}
 \nointerlineskip
 % —— 上行文联合行文（图4）改用下面两块：标志不加"文件"二字；发文字号居左空
@@ -44,9 +46,11 @@
 \nointerlineskip
 
 % --- 主体（7.3）--------------------------------------------------------------
-\vspace{2\baselineskip}
+\vspace{\dimexpr 2\baselineskip-4mm\relax}
 {\centering\zihao{2}\xbsong\baselineskip=30bp
  示例市人民政府\ 示例市总工会\\关于联合开展职工数字技能提升行动的通知\par}
+\nointerlineskip
+\par\nointerlineskip
 \vspace{\baselineskip}
 \noindent 各县（区）人民政府，市政府各部门，市总工会各基层工会：
 
@@ -73,6 +77,7 @@
 %   \raisebox{-32mm}{\includegraphics[width=42mm]{seal-1.png}}\hspace{10mm}%
 %   \raisebox{-32mm}{\includegraphics[width=42mm]{seal-2.png}}}\par
 % （三个及以上机关需分排时，参照式样图8 改为每排若干枚、依次向下的排布）
+\par\nointerlineskip
 \vspace{\baselineskip}
 \noindent\hfill
 \begin{tabular}[t]{@{}c@{}}

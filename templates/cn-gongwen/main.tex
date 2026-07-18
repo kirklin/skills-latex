@@ -51,8 +51,9 @@
 %   按 150dpi 渲染实测校准：标志上缘落在纸面 72mm = 天头 37 + 35）
 \vspace*{\dimexpr\gwlogodrop-\topskip-\baselineskip-5.5mm\relax}
 {\centering\gwlogosize\xbsong\color{gwred}示例市人民政府文件\par}
+\nointerlineskip
 % 7.2.5 发文字号：标志下空二行居中；年份全称、六角括号、顺序号不虚位不加"第"
-\vspace{2\baselineskip}
+\vspace{\dimexpr 2\baselineskip-4mm\relax}
 {\centering 示政发〔2026〕8号\par}
 \nointerlineskip
 % 上行文（请示/报告）改用下面一行：发文字号居左空一字、签发人居右空一字，
@@ -68,10 +69,12 @@
 % =============================================================================
 % 7.3.1 标题：2号小标宋，红线下空二行居中；回行词意完整、梯形或菱形
 % （多行标题行距标准未规定，按公文惯例取约 30bp 紧凑排布）
-\vspace{2\baselineskip}
+\vspace{\dimexpr 2\baselineskip-4mm\relax}
 {\centering\zihao{2}\xbsong\baselineskip=30bp
  示例市人民政府\\关于加强政务数据共享管理工作的通知\par}
+\nointerlineskip
 % 7.3.2 主送机关：标题下空一行，居左顶格，全角冒号
+\par\nointerlineskip
 \vspace{\baselineskip}
 \noindent 各县（区）人民政府，市政府各部门，市直各单位：
 
@@ -110,6 +113,7 @@
 重大问题，请径向市政府报告。
 
 % 7.3.4 附件说明：正文下空一行、左空二字；名称后不加标点；回行与名称首字对齐
+\par\nointerlineskip
 \vspace{\baselineskip}
 \noindent\hspace{2\ccwd}附件：1.政务数据共享责任清单\par
 \noindent\hspace{2\ccwd}\hphantom{附件：}2.政务数据共享工作联络表\par
@@ -120,6 +124,7 @@
 % 取消注释并微调宽度与位移：
 % \noindent\raisebox{0pt}[0pt][0pt]{\hspace*{\dimexpr\textwidth-70mm\relax}%
 %   \raisebox{-32mm}{\includegraphics[width=42mm]{seal.png}}}\par
+\par\nointerlineskip
 \vspace{\baselineskip}
 \noindent\hfill
 \begin{tabular}{@{}c@{}}
@@ -134,8 +139,10 @@
 % =============================================================================
 \clearpage
 \noindent{\heiti 附件1}\par
+\par\nointerlineskip
 \vspace{\baselineskip}
 {\centering\zihao{2}\xbsong 政务数据共享责任清单\par}
+\par\nointerlineskip
 \vspace{\baselineskip}
 
 \begin{center}
@@ -162,8 +169,10 @@
 % =============================================================================
 \clearpage
 \noindent{\heiti 附件2}\par
+\par\nointerlineskip
 \vspace{\baselineskip}
 {\centering\zihao{2}\xbsong 政务数据共享工作联络表\par}
+\par\nointerlineskip
 \vspace{\baselineskip}
 
 各县（区）、各部门确定1名分管负责同志和1名联络员，于2026年8月10日前将下列
