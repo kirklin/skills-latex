@@ -27,6 +27,9 @@ Requires TeX Live (`pdflatex`/`xelatex`, `latexmk`) and `poppler-utils`
 
 - **neurips-paper** — single-column NeurIPS/arXiv-style research paper. Two
   variants: pixel-faithful (real `nips_2017.sty`) and portable standalone.
+- **cn-doc** — everyday Chinese document base（中式公文排版：黑体标题、
+  「一、（一）1.」层级、首行缩进、落款）for 通知 / 报告 / 总结 / 请示 / 函 / 制度.
+  The default for Chinese documents.
 
 Adding your own → [`references/adding-templates.md`](references/adding-templates.md).
 

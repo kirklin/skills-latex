@@ -21,9 +21,17 @@ templates/<name>/
    produce **zero** LaTeX errors (warnings tolerated, but check overfull boxes).
 3. **Real sample content.** Fill it with realistic content so the output looks
    like a finished document — not `\lipsum` placeholders or empty sections.
-4. **Documented.** `README.md` gives the file map and names exactly what a user
+4. **Placeholder identities.** Invented sample content must use transparently
+   generic stand-ins, never anything that looks (or is) real: 「示例公司」/
+   「示例企业」/ "Example Corp" for organizations, generic units like 「××部」/
+   「人力资源部」/「架构组」 for authors, `example.com` for e-mail domains, and
+   obviously fake phone numbers. No real people or companies, no personal data,
+   and no made-up brand names that read as real. (Faithful recreations of
+   published documents — see "Prefer authentic sources" below — keep their
+   original real content.)
+5. **Documented.** `README.md` gives the file map and names exactly what a user
    swaps to make it their own.
-5. **Previewed.** Commit rendered PNGs (and the sample PDF) under
+6. **Previewed.** Commit rendered PNGs (and the sample PDF) under
    `examples/<name>/` so the look is visible without compiling.
 
 ## Register it
@@ -42,6 +50,8 @@ hand-rolling an approximation. Keep a self-contained, dependency-free variant
 ## Checklist
 
 - [ ] `templates/<name>/` compiles via `scripts/compile.sh --preview`
+- [ ] Sample identities are generic placeholders (示例公司 / Example Corp,
+      `example.com`, fake numbers) — no real or realistic-looking names
 - [ ] `README.md` explains the structure and what to replace
 - [ ] `examples/<name>/` has PNG previews (and a sample PDF)
 - [ ] Registered in `SKILL.md` and `references/templates.md`

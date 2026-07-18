@@ -1,0 +1,167 @@
+% !TEX program = xelatex
+% =============================================================================
+% cn-doc · 中文通用文件 base 模板
+%
+% 中国用户日常「文件」的通用排版模板：黑体居中大标题、中式标题层级
+% 「一、 / （一） / 1.」、正文宋体小四首行缩进两字、1.5 倍行距、结尾落款。
+% 通知、报告、总结、请示、函、制度、方案说明等场景都从这一份改出（见 README.md）。
+%
+% 编译：bash scripts/compile.sh templates/cn-doc/main.tex --preview
+%       （compile.sh 检测到 ctex 会自动选用 xelatex）
+%
+% 字体：ctex 按操作系统自动选择（macOS / Windows / Linux 开箱即用）；
+%       需要跨平台一致输出时改为 \documentclass[zihao=-4, fontset=fandol]{ctexart}
+% =============================================================================
+\documentclass[zihao=-4]{ctexart}   % 正文宋体小四
+
+% --- 版面：A4，Word 默认页边距，1.5 倍行距 ----------------------------------
+\usepackage[a4paper, top=2.54cm, bottom=2.54cm, left=3.17cm, right=3.17cm]{geometry}
+\linespread{1.5}
+
+% --- 页码：居中「— 1 —」（公文式）------------------------------------------
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot[C]{\zihao{-4}—\hspace{0.5\ccwd}\thepage\hspace{0.5\ccwd}—}
+\renewcommand{\headrulewidth}{0pt}
+
+% --- 图表标题：中式「表 1　××」（全角空格分隔，五号）------------------------
+\usepackage{caption}
+\captionsetup{labelsep=quad, font=small, skip=0.8ex}
+
+% --- 中式标题层级：一、 / （一） / 1. ---------------------------------------
+% 一级黑体、二级楷体、三级宋体加粗，标题与正文一样首行缩进两字；
+% 第四层「（1）」在中文行文里通常直接写在句中，无需单独设置标题层级。
+\ctexset{
+  section = {
+    name      = {,、},
+    number    = \chinese{section},
+    format    = \heiti\zihao{4},
+    aftername = {},
+    indent    = 2\ccwd,
+    beforeskip = 1.2ex plus .2ex,
+    afterskip  = 1ex plus .2ex,
+  },
+  subsection = {
+    name      = {（,）},
+    number    = \chinese{subsection},
+    format    = \kaishu\zihao{-4},
+    aftername = {},
+    indent    = 2\ccwd,
+    beforeskip = 1ex plus .2ex,
+    afterskip  = .8ex plus .2ex,
+  },
+  subsubsection = {
+    name      = {,.},
+    number    = \arabic{subsubsection},
+    format    = \zihao{-4}\bfseries,
+    aftername = {},
+    indent    = 2\ccwd,
+    beforeskip = .8ex plus .2ex,
+    afterskip  = .6ex plus .2ex,
+  },
+}
+
+% --- 常用宏包（按需增删）----------------------------------------------------
+\usepackage{graphicx}               % 插图：\includegraphics[width=...]{文件}
+\usepackage[hidelinks]{hyperref}    % PDF 书签与链接（不改变打印外观）
+\hypersetup{pdftitle={关于举办 2026 年新员工入职培训的通知}}
+
+\begin{document}
+
+% =============================================================================
+% 标题区：大标题黑体二号居中（正式公文标准为二号小标宋，无免费授权字体，
+% 以黑体替代；装有方正小标宋的可改为对应字体命令）。文号一行可整行删除。
+% =============================================================================
+\begin{center}
+  {\zihao{2}\heiti 关于举办 2026 年新员工入职培训的通知}\\[0.8ex]
+  {\zihao{4}\fangsong 示例公司字〔2026〕12 号}
+\end{center}
+
+% 长文档（报告 / 制度汇编）需要目录时，取消下面两行注释：
+% \tableofcontents
+% \clearpage
+
+% --- 主送单位（顶格，冒号结尾）----------------------------------------------
+\noindent 各部门、各分公司：
+
+为帮助新入职员工尽快熟悉公司文化、规章制度与业务流程，经公司研究决定，
+于 2026 年 7 月 28 日至 30 日举办 2026 年新员工入职培训。现将有关事项通知如下：
+
+\section{培训安排}
+
+\subsection{培训对象}
+
+2026 年 3 月以来入职的正式员工及实习转正人员，共计 58 人。
+
+\subsection{时间与地点}
+
+\subsubsection{时间}
+
+7 月 28 日至 30 日，每日 9:00–17:00。其中：（1）7 月 28 日、29 日为集中授课；
+（2）7 月 30 日为工作坊与结业考核。
+
+\subsubsection{地点}
+
+总部大楼三层多功能厅。
+
+\subsection{日程概要}
+
+培训日程概要见表~1，详细课程安排见附件 1。
+
+\begin{table}[htbp]
+  \centering
+  \caption{培训日程概要}
+  \zihao{5}
+  \renewcommand{\arraystretch}{1.5}
+  \begin{tabular}{|c|c|c|c|}
+    \hline
+    \textbf{日期} & \textbf{时段} & \textbf{内容} & \textbf{组织方} \\
+    \hline
+    7 月 28 日 & 上午 & 公司文化与组织架构 & 人力资源部 \\
+    \hline
+    7 月 28 日 & 下午 & 规章制度与信息安全 & 综合管理部 \\
+    \hline
+    7 月 29 日 & 全天 & 业务流程与产品实训 & 各业务部门 \\
+    \hline
+    7 月 30 日 & 上午 & 团队协作工作坊 & 外聘讲师 \\
+    \hline
+    7 月 30 日 & 下午 & 结业考核与座谈 & 人力资源部 \\
+    \hline
+  \end{tabular}
+\end{table}
+
+\section{参训要求}
+
+\subsection{纪律要求}
+
+参训人员应提前 10 分钟入场签到，培训期间原则上不得请假；确需请假的，
+须经部门负责人批准并报人力资源部备案。
+
+\subsection{报名反馈}
+
+各部门负责人请于 7 月 24 日前将附件 2《培训报名回执》反馈至人力资源部。
+
+\subsection{考核安排}
+
+培训设结业考核，考核结果纳入试用期评估。
+
+\section{其他事项}
+
+本次培训不收取任何费用；外地参训人员差旅费用按《公司差旅管理办法》执行。
+联系人：人力资源部培训与发展组；电话：010-8800~0000；
+邮箱：peixun@example.com。
+
+特此通知。
+
+% --- 附件说明（正文之后、落款之前，左空两字）--------------------------------
+\vspace{1ex}
+\noindent\hspace{2\ccwd}附件：1. 新员工入职培训日程表\par
+\noindent\hspace{2\ccwd}\hphantom{附件：}2. 培训报名回执
+
+% --- 落款：署名单位与成文日期，右对齐、右空两字 ------------------------------
+\vspace{2ex}
+\noindent\hfill 示例公司人力资源部\hspace*{2\ccwd}\\
+\mbox{}\hfill 2026 年 7 月 18 日\hspace*{2\ccwd}
+
+\end{document}

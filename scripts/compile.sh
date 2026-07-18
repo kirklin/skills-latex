@@ -14,9 +14,10 @@
 #   --clean           Remove aux files for FILE and exit
 #   -h, --help        Show this help
 #
-# Engine auto-detection: xelatex if the source loads fontspec/xeCJK/polyglossia,
-# lualatex for luacode/luatextra, otherwise pdflatex. latexmk handles the number
-# of passes, bibliography (bibtex/biber) and cross-references automatically.
+# Engine auto-detection: xelatex if the source loads fontspec/xeCJK/polyglossia
+# or uses a ctex document class/package (Chinese), lualatex for luacode/luatextra,
+# otherwise pdflatex. latexmk handles the number of passes, bibliography
+# (bibtex/biber) and cross-references automatically.
 #
 set -uo pipefail
 
@@ -51,7 +52,7 @@ fi
 
 # --- resolve engine ---------------------------------------------------------
 if [ "$ENGINE" = "auto" ]; then
-  if grep -qE '\\usepackage(\[[^]]*\])?\{(fontspec|xeCJK|polyglossia)\}' "$DIR/$BASE"; then
+  if grep -qE '\\usepackage(\[[^]]*\])?\{(fontspec|xeCJK|polyglossia|ctex)\}|\\documentclass(\[[^]]*\])?\{ctex(art|rep|book|beamer)\}' "$DIR/$BASE"; then
     ENGINE="xelatex"
   elif grep -qE '\\usepackage(\[[^]]*\])?\{(luacode|luatextra)\}' "$DIR/$BASE"; then
     ENGINE="lualatex"

@@ -21,6 +21,9 @@ PDF with page previews. Paths below are relative to this skill's directory.
 ## When to use
 
 - Writing a research / academic paper (NeurIPS / arXiv style) → `neurips-paper`.
+- Writing an everyday Chinese document — 通知 / 报告 / 总结 / 请示 / 函 / 制度 —
+  in the layout Chinese readers expect (黑体标题、「一、（一）1.」层级、首行缩进、
+  落款) → `cn-doc`. **Default for Chinese documents.**
 - Compiling any `.tex` to PDF and showing previews.
 - More document types will arrive as templates — always check `references/templates.md`
   before assuming a type isn't covered.
@@ -48,6 +51,7 @@ PDF with page previews. Paths below are relative to this skill's directory.
 | Template | Produces | Build file |
 |---|---|---|
 | `neurips-paper` | Single-column NeurIPS/arXiv-style research paper (sample: *Attention Is All You Need*) | `templates/neurips-paper/paper.tex` |
+| `cn-doc` | Everyday Chinese document base — 中式公文排版 (通知/报告/总结/请示/函; sample: a complete training notice) | `templates/cn-doc/main.tex` |
 
 Full details, variants, and "when to use each" → [references/templates.md](references/templates.md).
 
@@ -59,8 +63,8 @@ bash scripts/compile.sh FILE.tex [--engine pdflatex|xelatex|lualatex] \
 ```
 
 Engine defaults to auto (xelatex when the source loads `fontspec`/`xeCJK`/
-`polyglossia`, otherwise pdflatex). Run `scripts/compile.sh --help` for the full
-list. Requires TeX Live (`latexmk`) and `poppler-utils` (`pdftoppm`) for previews.
+`polyglossia` or a `ctex` class/package, otherwise pdflatex). Run
+`scripts/compile.sh --help` for the full list. Requires TeX Live (`latexmk`) and `poppler-utils` (`pdftoppm`) for previews.
 
 ## Adding a template
 
