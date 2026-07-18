@@ -1,0 +1,54 @@
+% !TEX program = xelatex
+% =============================================================================
+% cn-litigation · 民事答辩状（要素式示范文本）
+%
+% 对标法〔2025〕82 号示范文本中的答辩状：与起诉状同一要素式表格语言，
+% 「答辩事项」逐项对应原告诉讼请求表态（认可/部分认可/不认可＋理由）。
+% 样张与 complaint.tex 为同一虚构案件（王××答辩）。
+%
+% 编译：bash scripts/compile.sh templates/cn-litigation/answer.tex --preview
+% =============================================================================
+\documentclass[zihao=-4]{ctexart}
+\usepackage{litigation}
+
+\begin{document}
+
+\liTitle{民事答辩状}{（民间借贷纠纷）}
+
+\begin{linote}
+说明：\newline
+\hspace*{2\ccwd}1.本表供答辩人针对起诉状所列诉讼请求及事实理由逐项答辩使用，请如实填写；与您的案件无关的项目可以填“无”或不填，勾选项在对应项打“$\checkmark$”。\newline
+\hspace*{2\ccwd}2.答辩时需向人民法院提交证明您身份的材料。\newline
+\hspace*{2\ccwd}{\bfseries ★特别提示★}《中华人民共和国民事诉讼法》第十三条第一款规定：“民事诉讼应当遵循诚信原则。”
+\end{linote}
+
+\begin{liform}
+\lisec{当事人信息}
+\lirow{答辩人\newline（本案被告）}{%
+  \likv{姓名}{王××}\likv{性别}{男\ckboxv 女\ckbox}\likv{民族}{汉族}\newline
+  \likv{出生日期}{1986年3月8日}\likv{联系电话}{137\,0000\,0000}\newline
+  \likv{住所地（户籍所在地）}{示例市示例区示例街56号}\newline
+  \likv{证件类型}{居民身份证}\likv{证件号码}{110×××××××××××××××}}
+\lirow{委托诉讼\newline 代理人}{有\ckbox\quad 无\ckboxv}
+\lisec{答辩事项（对应原告诉讼请求逐项发表意见）}
+\lirow{1.对本金请求}{认可\ckbox\quad 部分认可\ckboxv\quad 不认可\ckbox\newline
+  意见：借款200,000元属实，但答辩人已于2024年12月10日归还20,000元、2025年8月15日以现金归还30,000元（原告出具收条），尚欠本金应为150,000元}
+\lirow{2.对利息请求}{认可\ckbox\quad 部分认可\ckbox\quad 不认可\ckboxv\newline
+  意见：双方未约定借期内利息及逾期利息，原告主张自2025年3月1日起算缺乏依据；如须支付，也应自其主张权利之日起算}
+\lirow{3.对律师费请求}{认可\ckbox\quad 不认可\ckboxv\newline
+  意见：借条未约定实现债权费用的负担，该项请求无合同依据}
+\lispan{其他补充：无}
+\lisec{事实与理由}
+\lispan{2025年8月15日，答辩人在原告住所以现金方式归还借款30,000元，原告当场出具收条。原告起诉时未扣减该笔还款，其主张的尚欠本金金额有误。答辩人对欠款事实无异议，因经营困难暂时无力一次性清偿，愿意分期履行。}
+\lisec{证据清单}
+\lirow{1.收条}{原件\ckboxv 复印件\ckbox\quad 证明：答辩人已于2025年8月15日归还30,000元}
+\lisec{对纠纷解决方式的意愿}
+\lispan{是否同意先行调解：愿意\ckboxv\quad 不愿意\ckbox\quad 说明：答辩人愿意在调解中协商分期还款方案。}
+\end{liform}
+
+\liSubmitTo{示例市示例区人民法院}
+
+\liSignLine{答辩人（签名或盖章）：}{}
+\liSign{2026年\hspace{1\ccwd}8月\hspace{1\ccwd}5日}
+
+\end{document}

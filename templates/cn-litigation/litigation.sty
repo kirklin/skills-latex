@@ -1,0 +1,129 @@
+% =============================================================================
+% litigation.sty · 诉讼与仲裁文书版式包（cn-litigation 模板族）
+%
+% 两套版式底座，覆盖律师实务中法院/仲裁委面向的常用文书：
+%   一、要素式表格文书（起诉状/答辩状/仲裁申请书）——对标最高法、司法部、
+%       全国律协《部分案件起诉状答辩状示范文本》（法〔2025〕82 号，2025-07-14
+%       起全面推行；表格化、要素式、勾选式）与北京市劳动人事争议仲裁申请书
+%       官方表格：标题宋体加粗居中、说明框、左项目右内容全线框要素表、
+%       自绘勾选框、「— n —」一字线页码
+%   二、行文式文书（辩护词/代理词等）——标题居中、受托段、「一、」加粗
+%       顶格分点、此致/落款右区，正文宋体小四 1.5 倍距
+% 被 complaint.tex / answer.tex / labor-arbitration.tex / defense-statement.tex 调用。
+% =============================================================================
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{litigation}[2026/07/18 v1.0 PRC litigation document layouts]
+
+% --- 依赖 --------------------------------------------------------------------
+\RequirePackage[a4paper, top=25mm, bottom=24mm, left=24mm, right=24mm,
+                headheight=14pt, headsep=5mm, footskip=11mm]{geometry}
+\RequirePackage{etoolbox}
+\RequirePackage{fancyhdr}
+\RequirePackage{longtable}
+\RequirePackage{array}
+\RequirePackage{amssymb}   % \checkmark（勾选框）
+
+% --- 行距与段落：正文宋体小四、1.5 倍距、首行缩进两字 ------------------------
+\linespread{1.56}
+\setlength{\parindent}{2\ccwd}
+\setlength{\parskip}{0pt}
+\emergencystretch=2.5em
+\clubpenalty=8000 \widowpenalty=8000
+\raggedbottom
+\IfFontExistsTF{Times New Roman}{\setmainfont{Times New Roman}}{}
+% ★（U+2605，示范文本「★特别提示★」用）走中文字体，防止西文主字体缺字成空框
+\xeCJKDeclareCharClass{CJK}{"2605}
+
+% --- 页脚：法院文书「— n —」一字线页码 ---------------------------------------
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot[C]{\zihao{5}—\;\thepage\;—}
+\renewcommand{\headrulewidth}{0pt}
+
+% --- 标题：主标题宋体加粗二号居中，副题（案由）三号居中 ----------------------
+\newcommand{\liTitle}[2]{%
+  \begin{center}
+    {\songti\bfseries\zihao{2}#1\par}
+    \ifblank{#2}{}{\vspace{2bp}{\songti\bfseries\zihao{3}#2\par}}
+  \end{center}\vspace{0.2\baselineskip}}
+
+% --- 勾选框（自绘，不依赖字体 □/☑ 字位；同仓库 cn-ipo 实现）-----------------
+\newcommand{\licheckbox}[1]{{\setlength{\fboxsep}{0pt}\setlength{\fboxrule}{0.4pt}%
+  \raisebox{0.06em}{\fbox{\makebox[0.8em]{\rule{0pt}{0.8em}#1}}}}}
+\newcommand{\ckbox}{\licheckbox{}\hspace{0.25em}}                       % 未选
+\newcommand{\ckboxv}{\licheckbox{\raisebox{0.14em}{\scriptsize$\checkmark$}}\hspace{0.25em}}  % 选中
+
+% --- 填写线：横线上放内容（样张已填；留空即空白线）---------------------------
+\newcommand{\liblank}[2][6em]{\underline{\makebox[#1][c]{#2}}}
+
+% --- 说明框（示范文本首部「说明」栏：通栏细线框）------------------------------
+\newenvironment{linote}{%
+  \par\zihao{5}\linespread{1.42}\selectfont
+  \setlength{\LTleft}{0pt}\setlength{\LTright}{0pt}%
+  \setlength{\LTpre}{0.3\baselineskip}\setlength{\LTpost}{0.3\baselineskip}%
+  \begin{longtable}{|p{\dimexpr\textwidth-2\tabcolsep-2\arrayrulewidth\relax}|}\hline}%
+  {\\ \hline\end{longtable}\par}
+
+% --- 要素表：左「项目」右「内容」两列全线框，跨页续排 ------------------------
+% 行内多要素用 \likv{标签}{值} 拼接；整行写法：\lirow{左栏}{右栏内容}
+\newenvironment{liform}{%
+  \par\zihao{5}\linespread{1.42}\selectfont
+  \setlength{\LTleft}{0pt}\setlength{\LTright}{0pt}%
+  \setlength{\LTpre}{0.3\baselineskip}\setlength{\LTpost}{0.3\baselineskip}%
+  \begin{longtable}{|>{\centering\arraybackslash}p{25mm}|p{\dimexpr\textwidth-25mm-4\tabcolsep-3\arrayrulewidth\relax}|}\hline}%
+  {\end{longtable}\par}
+\newcommand{\lirow}[2]{#1 & #2 \\ \hline}
+% 通栏行（节头，如「当事人信息」「诉讼请求和依据」）
+\newcommand{\lisec}[1]{\multicolumn{2}{|l|}{\bfseries #1} \\ \hline}
+% 通栏内容行（空白补充栏等）
+\newcommand{\lispan}[1]{\multicolumn{2}{|p{\dimexpr\textwidth-2\tabcolsep-2\arrayrulewidth\relax}|}{#1} \\ \hline}
+% 行内「标签：值」组；\likv* 组尾不加间距
+\newcommand{\likv}[2]{#1：#2\hspace{1.2em}}
+
+% --- 行文式文书的分点标题：「一、」宋体加粗小四顶格（辩护词/代理词通行）------
+\setcounter{secnumdepth}{2}
+\ctexset{
+  section = {
+    name       = {,、},
+    number     = \chinese{section},
+    format     = {\songti\bfseries\zihao{-4}},
+    aftername  = {},
+    indent     = 0pt,
+    beforeskip = {0.7\baselineskip plus .2ex},
+    afterskip  = {0.35\baselineskip plus .2ex},
+    fixskip    = true,
+  },
+  subsection = {
+    name       = {（,）},
+    number     = \chinese{subsection},
+    format     = {\songti\bfseries\zihao{-4}},
+    aftername  = {},
+    indent     = 2\ccwd,
+    beforeskip = {0.6\baselineskip plus .2ex},
+    afterskip  = {0.3\baselineskip plus .2ex},
+    fixskip    = true,
+  },
+}
+
+% --- 称呼语（辩护词「尊敬的审判长、审判员：」顶格）---------------------------
+\newcommand{\liVocative}[1]{\par\noindent #1\par}
+
+% --- 此致 ／ 受文机关（此致缩进两字，机关名另行顶格，法院文书通行式）---------
+\newcommand{\liSubmitTo}[1]{\par\vspace{0.5\baselineskip}%
+  \noindent\hspace{2\ccwd}此致\par
+  \noindent #1\par}
+
+% --- 落款：右区署名与日期（可多行，如「辩护人：××律师事务所 ×××律师」）---
+\newcommand{\liSign}[1]{\par\vspace{0.8\baselineskip}%
+  {\noindent\hfill #1\par}}
+% 签名线版（表格文书末「签名或盖章」）：线上留手签位、线下不印名
+\newcommand{\liSignLine}[2]{\par\vspace{0.8\baselineskip}%
+  {\noindent\hfill #1\underline{\makebox[9em]{#2}}\par}}
+
+% --- 强调 --------------------------------------------------------------------
+\newcommand{\hl}[1]{{\bfseries #1}}
+
+% --- hyperref ----------------------------------------------------------------
+\RequirePackage[hidelinks]{hyperref}
+
+\endinput

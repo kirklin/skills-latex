@@ -1,0 +1,97 @@
+% !TEX program = xelatex
+% =============================================================================
+% cn-litigation · 民事起诉状（要素式示范文本）
+%
+% 对标最高法、司法部、全国律协《部分案件起诉状答辩状示范文本》
+% （法〔2025〕82 号，自 2025-07-14 起全面推行，共 67 类）中的
+% 民间借贷纠纷起诉状：表格化、要素式、勾选式。
+% 相对 2024 试行版（法〔2024〕46 号，已废止）的主要变化已体现：
+%   · 删除「送达地址」「电子送达」栏目
+%   · 「诉讼请求」「事实与理由」项下增加空白补充栏
+%   · 新增「对纠纷解决方式的意愿」（先行调解）栏目
+% 换其他案由：改副题与「诉讼请求和依据」「事实与理由」的要素行即可，
+% 框架（说明框/当事人信息/证据清单/调解意愿/落款）各案由通用。
+%
+% 样张：虚构民间借贷纠纷，林××诉王××，数据自洽（借款 200,000 元，
+% 已还 20,000 元，尚欠 180,000 元）。全部人名地名为占位。
+%
+% 编译：bash scripts/compile.sh templates/cn-litigation/complaint.tex --preview
+% =============================================================================
+\documentclass[zihao=-4]{ctexart}
+\usepackage{litigation}
+
+\begin{document}
+
+\liTitle{民事起诉状}{（民间借贷纠纷）}
+
+\begin{linote}
+说明：\newline
+\hspace*{2\ccwd}为了方便您参加诉讼，保护您的合法权利，请填写本表。\newline
+\hspace*{2\ccwd}1.起诉时需向人民法院提交证明您身份的材料，如身份证复印件、营业执照复印件等。\newline
+\hspace*{2\ccwd}2.本表所列内容是您提起诉讼以及人民法院查明案件事实所需，请务必如实填写。\newline
+\hspace*{2\ccwd}3.本表所涉内容针对民间借贷纠纷案件，有些内容可能与您的案件无关，您认为与案件无关的项目可以填“无”或不填；对于本表中勾选项可以在对应项打“$\checkmark$”；您认为另有重要内容需要列明的，可以在本表尾部或者另附页填写。\newline
+\hspace*{2\ccwd}{\bfseries ★特别提示★}\newline
+\hspace*{2\ccwd}《中华人民共和国民事诉讼法》第十三条第一款规定：“民事诉讼应当遵循诚信原则。”\newline
+\hspace*{2\ccwd}如果诉讼参加人违反上述规定，进行虚假诉讼、恶意诉讼，人民法院将视违法情形依法追究责任。
+\end{linote}
+
+\begin{liform}
+\lisec{当事人信息}
+\lirow{原告\newline（自然人）}{%
+  \likv{姓名}{林××}\likv{性别}{男\ckboxv 女\ckbox}\likv{民族}{汉族}\newline
+  \likv{出生日期}{1988年6月12日}\likv{工作单位}{示例科技股份有限公司}\likv{职务}{职员}\newline
+  \likv{联系电话}{138\,0000\,0000}\newline
+  \likv{住所地（户籍所在地）}{示例市示例区示例路12号}\newline
+  \likv{经常居住地}{示例市示例区示例路12号}\newline
+  \likv{证件类型}{居民身份证}\likv{证件号码}{110×××××××××××××××}}
+\lirow{原告\newline（法人、非法人组织）}{%
+  \likv{名称}{无}\newline
+  \likv{住所地（主要办事机构所在地）}{}\newline
+  \likv{注册地/登记地}{}\quad\likv{统一社会信用代码}{}\newline
+  \likv{法定代表人/主要负责人}{}\likv{职务}{}\likv{联系电话}{}\newline
+  类型：有限责任公司\ckbox 股份有限公司\ckbox 上市公司\ckbox 其他企业法人\ckbox\newline
+  事业单位\ckbox 社会团体\ckbox 基金会\ckbox 社会服务机构\ckbox 机关法人\ckbox\newline
+  农村集体经济组织法人\ckbox 城镇农村的合作经济组织法人\ckbox\newline
+  基层群众性自治组织法人\ckbox 个人独资企业\ckbox 合伙企业\ckbox\newline
+  不具有法人资格的专业服务机构\ckbox\quad 国有\ckbox（控股\ckbox 参股\ckbox）民营\ckbox}
+\lirow{委托诉讼\newline 代理人}{%
+  有\ckboxv\newline
+  \likv{姓名}{张××}\likv{单位}{北京市示例律师事务所}\likv{职务}{律师}\newline
+  \likv{联系电话}{139\,0000\,0000}\quad 代理权限：一般授权\ckbox 特别授权\ckboxv\newline
+  无\ckbox}
+\lirow{被告\newline（自然人）}{%
+  \likv{姓名}{王××}\likv{性别}{男\ckboxv 女\ckbox}\likv{民族}{汉族}\newline
+  \likv{出生日期}{1986年3月8日}\likv{工作单位}{个体经营}\likv{职务}{无}\newline
+  \likv{联系电话}{137\,0000\,0000}\newline
+  \likv{住所地（户籍所在地）}{示例市示例区示例街56号}\newline
+  \likv{经常居住地}{示例市示例区示例街56号}}
+% 被告为法人／第三人时，按「原告（法人、非法人组织）」行同式增补即可
+\lisec{诉讼请求和依据}
+\lirow{1.本金}{请求判令被告偿还借款本金人民币{\bfseries 180,000}元（截至2026年6月30日止，尚欠本金；元（人民币，下同））}
+\lirow{2.利息}{借期内利率：有约定\ckbox 无约定\ckboxv\newline
+  请求判令被告支付逾期利息：以尚欠本金180,000元为基数，自2025年3月1日起至实际清偿之日止，按起诉时一年期贷款市场报价利率（LPR）计算}
+\lirow{3.实现债权的费用}{请求判令被告承担原告为实现债权支出的律师费8,000元：有\ckboxv 无\ckbox（依据：双方借条约定由借款人承担实现债权的费用）}
+\lirow{4.诉讼费用}{请求判令本案诉讼费用由被告承担}
+\lispan{其他补充：无}
+\lisec{事实与理由}
+\lirow{借款合意}{借条\ckboxv\quad 借款合同\ckbox\quad 口头约定\ckbox\newline
+  2024年3月1日，被告因经营周转向原告借款200,000元，出具借条一张，约定2025年2月28日前归还，未约定借期内利息}
+\lirow{款项交付}{银行转账\ckboxv\quad 现金\ckbox\quad 微信/支付宝\ckbox\newline
+  2024年3月1日，原告通过银行转账向被告支付200,000元}
+\lirow{还款情况}{2024年12月10日，被告归还20,000元；此后经原告多次催讨，被告以各种理由拖延，至今尚欠本金180,000元未还}
+\lispan{其他补充：原告于2026年5月20日向被告发出催告函，被告签收后仍未履行还款义务。}
+\lisec{证据清单}
+\lirow{1.借条}{原件\ckboxv 复印件\ckbox\quad 证明：双方借贷合意及借款金额、还款期限}
+\lirow{2.银行转账凭证}{原件\ckboxv 复印件\ckbox\quad 证明：借款已实际交付}
+\lirow{3.催告函及签收记录}{原件\ckboxv 复印件\ckbox\quad 证明：原告已催告，被告拒不履行}
+\lisec{对纠纷解决方式的意愿}
+\lispan{是否同意在登记立案前由人民法院委派调解组织或者调解员先行调解：愿意\ckboxv\quad 不愿意\ckbox\newline
+  说明：先行调解不收取费用，调解协议经司法确认后具有强制执行力；调解不成的，依法登记立案。}
+\end{liform}
+
+\liSubmitTo{示例市示例区人民法院}
+
+\liSignLine{具状人（签名或盖章）：}{}
+\liSign{2026年\hspace{1\ccwd}7月\hspace{1\ccwd}18日}
+
+\end{document}
