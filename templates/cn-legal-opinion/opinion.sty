@@ -1,0 +1,312 @@
+% =============================================================================
+% opinion.sty · 律所法律意见书版式包（cn-legal-opinion 模板）
+%
+% 版式综合对标八家头部律所公开披露的证券法律意见书实测（对照记录见 README）：
+%   · A4，版心左右 25mm、上 25.5mm（金杜 2026 稿逐页实测 70.9pt=25.0mm）
+%   · 正文宋体小四、基线距 23pt（Word 1.5 倍行距）、首行缩进两字，
+%     西文/数字 Times New Roman
+%   · 封面：居中题名栈「律所名/关于/公司名/事项/之/法律意见书」＋文号行＋
+%     底部双语地址块（对称式，吸收竞天公诚/汉坤；「法律意见书」加宽字距）
+%   · 页眉：左「律所名」右两行「关于××公司/事项＋文书名」（汉坤式），
+%     签章页右侧自动换成「法律意见书签章页」（竞天式）
+%   · 页脚：居中卷册页码「3-3-1-N」（申报卷册惯例，可置空为纯页码）；
+%     可选左下斜体 matter number（通力/国际所式）
+%   · 标题层级：一、（黑体四号顶格）/（一）（黑体小四缩进两字）/
+%     1、（1）（宋体加粗小四缩进两字）——与头部所正文层级一致
+%   · 释义：三列全线框「术语 | 指 | 含义」跨页续排（金杜/方达通行式）
+%   · 签署页：「（本页无正文……）」括注＋左所名（公章）＋右签名线阵列＋
+%     右下年月日（金杜/方达式；出具日期句为竞天式可选项）
+%   · 信函式首页（无封面、信头＋直接行文）供补充法律意见书用（通力/君合式）
+% 被 main.tex / supplemental.tex 调用；元信息在文档内 \renewcommand 覆盖。
+% =============================================================================
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{opinion}[2026/07/18 v1.0 PRC law-firm legal opinion layout]
+
+% --- 依赖 --------------------------------------------------------------------
+\RequirePackage[a4paper, top=26mm, bottom=25mm, left=25mm, right=25mm,
+                headheight=26pt, headsep=5mm, footskip=12mm]{geometry}
+\RequirePackage{etoolbox}
+\RequirePackage{fancyhdr}
+\RequirePackage{longtable}
+\RequirePackage{array}
+\RequirePackage{titletoc}
+
+% --- 行距与段落：小四宋体、基线距 23pt（金杜 2026 稿实测）、首行缩进两字 -----
+% 23.04pt = 12pt × 1.2 × 1.60（Word「1.5 倍行距」在小四下的实际基线距）
+\linespread{1.60}
+\setlength{\parindent}{2\ccwd}
+\setlength{\parskip}{0pt}
+\emergencystretch=2.5em
+\clubpenalty=8000 \widowpenalty=8000
+\raggedbottom
+
+% --- 字体：西文/数字用 Times New Roman（律所文书与申报文件通行），无则回退 ---
+\IfFontExistsTF{Times New Roman}{\setmainfont{Times New Roman}}{}
+
+% --- 文档元信息（默认值即示例样张；在 .tex 中 \renewcommand 覆盖）------------
+\providecommand{\opFirm}{北京市示例律师事务所}          % 律所全称（落款用）
+\providecommand{\opFirmEn}{EXAMPLE \& PARTNERS}         % 律所英文名（封面品牌行）
+\providecommand{\opClient}{示例科技股份有限公司}        % 委托人/发行人
+\providecommand{\opMatter}{首次公开发行股票并在科创板上市}  % 事项
+\providecommand{\opConn}{之}                            % 题名连接字：之（竞天）/的（金杜）
+\providecommand{\opDocType}{法律意见书}                 % 文书名（补充法律意见书（一）等）
+% 「法律意见书」封面大字的加宽字距版（半字距，汉坤式；换文书名时同步改）
+\providecommand{\opDocTypeSpread}{法\hspace{0.5\ccwd}律\hspace{0.5\ccwd}意%
+  \hspace{0.5\ccwd}见\hspace{0.5\ccwd}书}
+\providecommand{\opRefNo}{示例（证）字〔2026〕第0001号}  % 文号（汉坤式；置空则不印）
+\providecommand{\opAddrCn}{北京市朝阳区示例路1号示例中心20层（邮编：100000）}
+\providecommand{\opAddrEn}{20/F, Example Center, 1 Example Road, Chaoyang District, Beijing 100000, China}
+\providecommand{\opTel}{+86 10 8800 0000}
+\providecommand{\opFax}{+86 10 8800 0001}
+\newcommand{\opTelFax}{电话/Tel：\opTel\quad 传真/Fax：\opFax}
+\providecommand{\opWeb}{www.example.com}
+\providecommand{\opCities}{北京\,·\,上海\,·\,深圳\,·\,香港}   % 办公室城市行（置空则不印）
+\providecommand{\opDate}{二〇二六年七月}                 % 封面日期（汉字数字，各所通行）
+\providecommand{\opFascicle}{3-3-1}   % 申报卷册号（法律意见书卷惯例 3-3-1）；置空为纯页码
+\providecommand{\opMatterNo}{}        % 左下斜体案号（通力式，如 2026001/IPO/D1）；置空不印
+% 题名全称（签章页括注等处引用）
+\newcommand{\opFullTitle}{《\opFirm 关于\opClient\opMatter\opConn\opDocType》}
+
+% --- 页眉页脚 ----------------------------------------------------------------
+% 页脚：居中卷册页码 + 可选左下斜体案号（通力式）
+\newcommand{\oppagenum}{\ifdefempty{\opFascicle}{\thepage}{\opFascicle-\thepage}}
+\newcommand{\opfootline}{%
+  \fancyfoot[C]{\zihao{5}\oppagenum}%
+  \ifdefempty{\opMatterNo}{}{\fancyfoot[L]{\zihao{-5}\itshape\opMatterNo}}}
+% 正文页：左所名，右两行「关于××公司 / 事项＋文书名」（汉坤式双行页眉）
+\fancypagestyle{opmain}{%
+  \fancyhf{}\opfootline
+  \fancyhead[L]{\zihao{5}\songti\opFirm}
+  \fancyhead[R]{\zihao{5}\songti\begin{tabular}[b]{@{}r@{}}
+    关于\opClient\\\opMatter\opConn\opDocType\end{tabular}}
+  \renewcommand{\headrulewidth}{0.5pt}}
+% 签章页：右侧改「文书名签章页」（竞天式章节感知页眉）
+\fancypagestyle{opsig}{%
+  \fancyhf{}\opfootline
+  \fancyhead[L]{\zihao{5}\songti\opFirm}
+  \fancyhead[R]{\zihao{5}\songti\opDocType 签章页}
+  \renewcommand{\headrulewidth}{0.5pt}}
+% 素面页（封面/信头首页；金杜正文即通篇素面，整篇素面用 \pagestyle{opplain}）
+\fancypagestyle{opplain}{%
+  \fancyhf{}\opfootline
+  \renewcommand{\headrulewidth}{0pt}}
+\pagestyle{opmain}
+
+% --- 标题层级（八所正文通行式样）--------------------------------------------
+\setcounter{secnumdepth}{4}
+\setcounter{tocdepth}{1}   % 目录只收「一、」级（汉坤目录式）
+\ctexset{
+  section = {
+    name       = {,、},
+    number     = \chinese{section},
+    format     = {\heiti\zihao{4}},
+    aftername  = {},
+    indent     = 0pt,
+    beforeskip = {0.85\baselineskip plus .2ex},
+    afterskip  = {0.55\baselineskip plus .2ex},
+    fixskip    = true,
+  },
+  subsection = {
+    name       = {（,）},
+    number     = \chinese{subsection},
+    format     = {\heiti\zihao{-4}},
+    aftername  = {},
+    indent     = 2\ccwd,
+    beforeskip = {0.9\baselineskip plus .2ex},
+    afterskip  = {0.6\baselineskip plus .2ex},
+    fixskip    = true,
+  },
+  subsubsection = {
+    name       = {,、},
+    number     = \arabic{subsubsection},
+    format     = {\songti\bfseries\zihao{-4}},
+    aftername  = {},
+    indent     = 2\ccwd,
+    runin      = false,
+    beforeskip = {0.85\baselineskip plus .2ex},
+    afterskip  = {0.55\baselineskip plus .2ex},
+    fixskip    = true,
+  },
+  paragraph = {
+    name       = {（,）},
+    number     = \arabic{paragraph},
+    format     = {\songti\bfseries\zihao{-4}},
+    aftername  = {},
+    indent     = 2\ccwd,
+    runin      = false,
+    beforeskip = {0.85\baselineskip plus .2ex},
+    afterskip  = {0.55\baselineskip plus .2ex},
+    fixskip    = true,
+  },
+}
+
+% --- 目录（汉坤式：标题黑体三号居中、黑体条目、点线引导页码，仅「一、」级）---
+\renewcommand{\contentsname}{目\hspace{2\ccwd}录}
+% \tableofcontents 的标题会走一级标题样式（顶格），故另设居中版目录命令
+\makeatletter
+\newcommand{\optoc}{%
+  {\centering\heiti\zihao{3}\contentsname\par}\vspace{0.5\baselineskip}%
+  \@starttoc{toc}\clearpage}
+\makeatother
+\titlecontents{section}[0pt]
+  {\addvspace{6bp}\heiti\zihao{-4}}
+  {\thecontentslabel\hspace{\ccwd}}
+  {}
+  {\titlerule*[5.5bp]{.}\thecontentspage}
+% 不编号条目（释义等）计入目录
+\newcommand{\optocline}[1]{\phantomsection\addcontentsline{toc}{section}{#1}}
+
+% --- 封面（默认：金杜信头式）-------------------------------------------------
+% 对照金杜 2026 思朗稿封面：左上品牌行（中文＋英文）＋右上地址块（无下划线）、
+% 居中题名栈五行「律所全称／关于××公司／事项／的（之）／文书名」（黑体三号
+% 等大，金杜式不放大文书名）、汉字数字日期居中，页底办公室城市行。
+% 文号行为可选（汉坤惯例；置空即纯金杜式）。所徽 PNG 可自备后在品牌行前
+% \includegraphics 接入。
+\providecommand{\opFirmBrand}{示例律师事务所}   % 信头品牌短名（区别于落款全称）
+\newcommand{\opMakeCover}{%
+  \clearpage\thispagestyle{opplain}%
+  \noindent
+  \begin{minipage}[t]{0.5\textwidth}
+    {\heiti\zihao{3}\opFirmBrand\par}\vspace{1bp}
+    {\zihao{5}\opFirmEn\par}
+  \end{minipage}\hfill
+  \begin{minipage}[t]{0.46\textwidth}\raggedleft
+    {\zihao{-5}\opAddrCn\par\opAddrEn\par
+     电话/Tel：\opTel\par 传真/Fax：\opFax\par 网址/Web：\opWeb\par}
+  \end{minipage}\par
+  \vspace{5\baselineskip}
+  \begin{center}
+    {\heiti\zihao{3}\opFirm\par}\vspace{1.1\baselineskip}
+    {\heiti\zihao{3}关于\opClient\par}\vspace{1.1\baselineskip}
+    {\heiti\zihao{3}\opMatter\par}\vspace{1.1\baselineskip}
+    {\heiti\zihao{3}\opConn\par}\vspace{1.1\baselineskip}
+    {\heiti\zihao{3}\opDocType\par}
+    \ifdefempty{\opRefNo}{}{\vspace{1.3\baselineskip}
+      {\kaishu\zihao{5}\opRefNo\par}}
+    \vspace{4\baselineskip}
+    {\songti\zihao{4}\opDate\par}
+  \end{center}
+  \vfill
+  \ifdefempty{\opCities}{}{{\centering\zihao{-5}\opCities\par}}
+  \clearpage}
+
+% --- 封面（备选：对称居中式）-------------------------------------------------
+% 竞天骨架＋汉坤文号与「法 律 意 见 书」加宽字距＋底部双语地址块。
+% 用法：正文里以 \opMakeCoverCentered 替换 \opMakeCover。
+\newcommand{\opMakeCoverCentered}{%
+  \clearpage\thispagestyle{opplain}%
+  \begin{center}
+    {\heiti\zihao{2}\opFirm\par}\vspace{2bp}
+    {\zihao{-4}\opFirmEn\par}
+    \vspace{3.2\baselineskip}
+    {\heiti\zihao{3}\opFirm\par}\vspace{0.9\baselineskip}
+    {\heiti\zihao{3}关于\par}\vspace{0.9\baselineskip}
+    {\heiti\zihao{3}\opClient\par}\vspace{0.9\baselineskip}
+    {\heiti\zihao{3}\opMatter\par}\vspace{0.9\baselineskip}
+    {\heiti\zihao{3}\opConn\par}\vspace{1.1\baselineskip}
+    % 骑缝红章（汉坤封面惯例）：自备透明底 PNG，取消注释叠印于题名区
+    % \vspace{-32mm}\includegraphics[width=40mm]{seal.png}\vspace{16mm}
+    {\heiti\zihao{1}\opDocTypeSpread\par}
+    \ifdefempty{\opRefNo}{}{\vspace{1.2\baselineskip}
+      {\kaishu\zihao{5}\opRefNo\par}}
+    \vfill
+    {\zihao{5}\heiti\opFirm\quad\rmfamily\opFirmEn\par}
+    \vspace{2bp}
+    {\zihao{-5}\opAddrCn\par}
+    {\zihao{-5}\opAddrEn\par}
+    {\zihao{-5}\opTelFax\quad 网址/Web：\opWeb\par}
+    \ifdefempty{\opCities}{}{\vspace{2bp}{\zihao{-5}\opCities\par}}
+    \vspace{1.4\baselineskip}
+    {\zihao{4}\songti\opDate\par}
+  \end{center}
+  \clearpage}
+
+% --- 信函式信头（补充法律意见书首页；通力/君合式：无封面、信头后直接行文，
+%     不加横线）---------------------------------------------------------------
+% 左：律所中英文名；右：地址/电话块
+\newcommand{\opLetterhead}{%
+  \thispagestyle{opplain}%
+  \noindent
+  \begin{minipage}[b]{0.52\textwidth}
+    {\heiti\zihao{3}\opFirm\par}\vspace{1bp}
+    {\zihao{5}\opFirmEn\par}
+  \end{minipage}\hfill
+  \begin{minipage}[b]{0.44\textwidth}\raggedleft
+    {\zihao{-5}\opAddrCn\par
+     电话/Tel：\opTel\par 传真/Fax：\opFax\par 网址/Web：\opWeb\par}
+  \end{minipage}\par
+  \vspace{1.4\baselineskip}}
+
+% --- 信函式题名（信头下两行居中标题）----------------------------------------
+\newcommand{\opLetterTitle}{%
+  \begin{center}
+    {\heiti\zihao{3}\opFirm 关于\opClient\par}\vspace{2bp}
+    {\heiti\zihao{3}\opMatter\opConn\opDocType\par}
+  \end{center}\vspace{0.2\baselineskip}}
+
+% --- 致语（各所通行：顶格加粗「致：××」）-----------------------------------
+\newcommand{\opTo}[1]{\par\noindent{\bfseries 致：#1}\par\vspace{0.3\baselineskip}}
+
+% --- 释义表：三列全线框「术语 | 指 | 含义」，跨页续排（金杜/方达式）----------
+\newenvironment{definitions}{%
+  \par\zihao{5}\linespread{1.6}\selectfont
+  \setlength{\LTleft}{0pt plus 1fill}\setlength{\LTright}{0pt plus 1fill}%
+  \setlength{\LTpre}{0.5\baselineskip}\setlength{\LTpost}{0.5\baselineskip}%
+  \begin{longtable}{|>{\raggedright\arraybackslash}p{34mm}|>{\centering\arraybackslash}p{7mm}|>{\raggedright\arraybackslash}p{99mm}|}\hline}%
+  {\end{longtable}\par}
+\newcommand{\term}[2]{#1 & 指 & #2 \\ \hline}
+
+% --- 问询回复（补充法律意见书体例，通力/中伦式）------------------------------
+% 反馈意见原文整段加粗；「回复：」加粗引出作答
+\newcommand{\opFeedback}[2]{\par\vspace{0.4\baselineskip}%
+  {\noindent\bfseries 反馈意见#1：#2\par}\vspace{0.2\baselineskip}}
+\newcommand{\opReply}{\par{\noindent\bfseries 回复：}\par}
+
+% --- 结论与出具 --------------------------------------------------------------
+% 正本份数声明（通力/方达惯例，常置于结论意见末）
+\newcommand{\opOriginals}[1]{本\opDocType 正本#1份，无副本，经本所盖章并经办律师签字后生效。}
+% 出具日期句（竞天式，置于签章页括注之后；日期留空手写）
+\newcommand{\opIssueLine}{\par\vspace{0.8\baselineskip}\noindent
+  本\opDocType 于\hspace{4\ccwd}年\hspace{2.5\ccwd}月\hspace{2.5\ccwd}日出具。\par}
+
+% --- 签署页 ------------------------------------------------------------------
+% 签名单元：横线在上（手签位）、印刷体姓名居中在下（方达/金杜式）
+\newcommand{\opsigcell}[1]{\parbox[t]{0.44\linewidth}{\centering
+  \rule[-2bp]{6.2em}{0.4pt}\\[2bp]#1}}
+% 一行签名（最多两个并排；空参跳过）
+\newcommand{\opsigrow}[2]{\par\noindent
+  \ifblank{#1}{}{\opsigcell{#1}}%
+  \ifblank{#2}{}{\hspace{0.08\linewidth}\opsigcell{#2}}\par
+  \vspace{1.1\baselineskip}}
+% 签名区块：左标签（如「经办律师：」）＋右签名行阵列
+\newcommand{\opsigblock}[2]{\par\vspace{0.6\baselineskip}\noindent
+  \begin{minipage}[t]{0.24\textwidth}\raggedright #1\end{minipage}\hfill
+  \begin{minipage}[t]{0.72\textwidth}#2\end{minipage}\par}
+% 签章页骨架：括注（金杜「签章页」措辞）＋左所名（公章）＋右签名阵列＋右下日期
+%   #1 = 签名阵列（若干 \opsigblock）
+% 电子章：自备透明底 PNG，见注释钩子
+\newcommand{\opSigPage}[1]{%
+  \clearpage\thispagestyle{opsig}%
+  {\noindent（本页无正文，为\opFullTitle 之签章页）\par}
+  \vspace{2.2\baselineskip}
+  \noindent
+  \begin{minipage}[t]{0.34\textwidth}
+    \opFirm\par\vspace{0.4\baselineskip}（公章）
+    % 红章 PNG 叠印钩子（替换文件名并取消注释）：
+    % \par\vspace{-16mm}\includegraphics[width=38mm]{seal.png}
+  \end{minipage}\hfill
+  \begin{minipage}[t]{0.62\textwidth}#1\end{minipage}\par
+  \vspace{3\baselineskip}
+  {\noindent\hfill\hspace{4\ccwd}年\hspace{2.5\ccwd}月\hspace{2.5\ccwd}日\hspace{2\ccwd}\mbox{}\par}}
+
+% --- 强调 --------------------------------------------------------------------
+\newcommand{\hl}[1]{{\bfseries #1}}   % 加粗（结论句/重要提示）
+
+% --- hyperref：书签导航，链接不着色 ------------------------------------------
+\RequirePackage[hidelinks, bookmarksnumbered=false, bookmarksopen=true,
+                bookmarksopenlevel=1]{hyperref}
+\AtBeginDocument{\hypersetup{
+  pdftitle={\opFirm 关于\opClient\opMatter\opConn\opDocType},
+  pdfauthor={\opFirm}}}
+
+\endinput

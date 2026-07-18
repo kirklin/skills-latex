@@ -1,0 +1,80 @@
+% !TEX program = xelatex
+% =============================================================================
+% cn-legal-opinion · 律师函（催告函样张）
+%
+% 律所信纸类文书：信函式信头（同 supplemental.tex，通力/君合式）＋居中大字
+% 「律师函」＋文号＋致送对象＋受托声明→事实→法律评价→函告事项→期限与
+% 后果→落款（律所盖章＋经办律师＋汉字日期）。适用催告、警告、通知、
+% 澄清等各类律师函，改函告事项即可。
+%
+% 样张与 cn-litigation 模板族为同一虚构民间借贷案件：本函（2026-05-20
+% 催告）即 complaint.tex 证据清单中的《催告函》，两处日期金额一致。
+%
+% 编译：bash scripts/compile.sh templates/cn-legal-opinion/demand-letter.tex --preview
+% =============================================================================
+\documentclass[zihao=-4]{ctexart}
+\usepackage{opinion}
+
+\renewcommand{\opFirm}{北京市示例律师事务所}
+\renewcommand{\opFirmEn}{EXAMPLE \& PARTNERS}
+\renewcommand{\opDocType}{律师函}
+\renewcommand{\opRefNo}{示例律函字〔2026〕第0066号}
+\renewcommand{\opFascicle}{}    % 纯页码
+\renewcommand{\opMatterNo}{}
+
+\begin{document}
+\pagestyle{opplain}
+
+% --- 信头＋题名＋文号 --------------------------------------------------------
+\opLetterhead
+\begin{center}
+  {\heiti\zihao{2}律\hspace{1\ccwd}师\hspace{1\ccwd}函\par}
+  \vspace{2bp}
+  {\kaishu\zihao{5}\opRefNo\par}
+\end{center}
+\vspace{0.2\baselineskip}
+
+\opTo{王××先生（住所地：示例市示例区示例街56号）}
+
+北京市示例律师事务所（以下简称"本所"）接受林××先生（以下简称"委托
+人"）的委托，指派张××律师就您与委托人之间的民间借贷纠纷事宜，向您发出
+本律师函。
+
+\hl{一、相关事实}
+
+经委托人陈述并经本所律师审查借条、银行转账凭证等材料：2024年3月1日，您因
+经营周转向委托人借款人民币200,000元，并出具借条，约定于2025年2月28日前归
+还。委托人已于当日通过银行转账向您全额交付借款。2024年12月10日，您归还
+20,000元；此后经委托人多次催讨，您至今尚欠借款本金180,000元未予归还。
+
+\hl{二、法律评价}
+
+依据《中华人民共和国民法典》第六百七十五条，借款人应当按照约定的期限返还
+借款；依据第六百七十六条，借款人未按照约定的期限返还借款的，应当按照约定
+或者国家有关规定支付逾期利息。您逾期不还款的行为已构成违约，依法应承担返
+还借款本金并支付逾期利息的民事责任。
+
+\hl{三、函告事项}
+
+1.请您于收到本函之日起七日内，向委托人一次性支付尚欠借款本金180,000元；
+
+2.如您未在上述期限内履行，本所将受委托人之托依法向人民法院提起诉讼，届时
+除本金外，还将一并主张自2025年3月1日起按一年期贷款市场报价利率（LPR）计算
+的逾期利息，以及为实现债权支出的律师费等费用，并申请对您名下财产采取保全
+措施，由此产生的一切法律后果由您自行承担；
+
+3.如您对本函所述事项有任何异议，或愿意协商还款安排，请于上述期限内与本所
+张××律师联系（电话：010-8800\,0000）。
+
+本函旨在敦促您依法履行义务、妥善解决纠纷，望您认真对待，善意回应。
+
+特此函告。
+
+\vspace{1.2\baselineskip}
+{\noindent\hfill 北京市示例律师事务所（盖章）\par}
+% 红章 PNG 叠印钩子：\par\vspace{-16mm}\noindent\hfill\includegraphics[width=38mm]{seal.png}\par
+{\noindent\hfill 经办律师：张××\hspace{1\ccwd}律师\par}
+\vspace{0.4\baselineskip}
+{\noindent\hfill 二〇二六年五月二十日\par}
+
+\end{document}
