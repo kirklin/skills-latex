@@ -95,7 +95,7 @@ Click any page to open the sample PDF.
   <tr>
     <td align="center"><a href="examples/cn-doc/main.pdf"><img src="examples/cn-doc/main-page-1.png" width="260" alt="cn-doc preview"></a><br><sub><b>cn-doc</b></sub></td>
     <td align="center"><a href="examples/resume/main.pdf"><img src="examples/resume/main-page-1.png" width="260" alt="resume preview"></a><br><sub><b>resume</b></sub></td>
-    <td align="center"><a href="examples/cn-letter/resignation.pdf"><img src="examples/cn-letter/resignation-page-1.png" width="260" alt="cn-letter resignation preview"></a><br><sub><b>cn-letter · 辞职信</b></sub></td>
+    <td align="center"><a href="examples/cn-everyday/income-certificate.pdf"><img src="examples/cn-everyday/income-certificate-page-1.png" width="260" alt="cn-everyday income certificate preview"></a><br><sub><b>cn-everyday · 收入证明</b></sub></td>
   </tr>
   <tr>
     <td align="center"><a href="examples/cn-everyday/iou.pdf"><img src="examples/cn-everyday/iou-page-1.png" width="260" alt="cn-everyday iou preview"></a><br><sub><b>cn-everyday · 借条</b></sub></td>
